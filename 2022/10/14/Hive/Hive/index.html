@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hive | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前置条件安装MySQL （参考Linux文档）配置MySQL123456789mysql&gt; CREATE DATABASE hive; mysql&gt; USE hive; -- 创建名为hive、主机为lhost、密码123456的用户；mysql&gt; CREATE USER &#x27;hive&#x27;@&#x27;localhost&#x27; IDENTIFIED BY">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive">
+<meta property="og:url" content="http://www.studybigdata.com/2022/10/14/Hive/Hive/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="前置条件安装MySQL （参考Linux文档）配置MySQL123456789mysql&gt; CREATE DATABASE hive; mysql&gt; USE hive; -- 创建名为hive、主机为lhost、密码123456的用户；mysql&gt; CREATE USER &#x27;hive&#x27;@&#x27;localhost&#x27; IDENTIFIED BY">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/42689.jpg">
+<meta property="article:published_time" content="2022-10-14T01:55:26.000Z">
+<meta property="article:modified_time" content="2025-11-17T03:07:52.316Z">
+<meta property="article:author" content="QuZheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/42689.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Hive/Hive" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/14/Hive/Hive/" class="article-date">
+  <time class="dt-published" datetime="2022-10-14T01:55:26.000Z" itemprop="datePublished">2022-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hive/">Hive</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Hive
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="/img/42689.jpg" alt="img"></p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><h3 id="安装MySQL-（参考Linux文档）"><a href="#安装MySQL-（参考Linux文档）" class="headerlink" title="安装MySQL （参考Linux文档）"></a>安装MySQL （参考Linux文档）</h3><h3 id="配置MySQL"><a href="#配置MySQL" class="headerlink" title="配置MySQL"></a>配置MySQL</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">CREATE</span> DATABASE hive; </span><br><span class="line">mysql<span class="operator">&gt;</span> USE hive; </span><br><span class="line"><span class="comment">-- 创建名为hive、主机为lhost、密码123456的用户；</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;hive&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line"><span class="comment">-- 第二段授权该hive用户对hive数据库所有表拥有全部权限，且允许从任意主机（%）访问，密码同样为123456。</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> hive.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;hive&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;123456&#x27;</span>; </span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> hive.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;hive&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;123456&#x27;</span>; </span><br><span class="line">mysql<span class="operator">&gt;</span> FLUSH PRIVILEGES; </span><br><span class="line">mysql<span class="operator">&gt;</span> quit;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动HDFS"><a href="#启动HDFS" class="headerlink" title="启动HDFS"></a>启动HDFS</h3><p>略。</p>
+<h2 id="安装Hive"><a href="#安装Hive" class="headerlink" title="安装Hive"></a>安装Hive</h2><h3 id="hive-env-sh"><a href="#hive-env-sh" class="headerlink" title="hive-env.sh"></a>hive-env.sh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HADOOP_HOME=/opt/bigdata/hadoop/default</span><br><span class="line">export HIVE_CONF_DIR=/opt/bigdata/hive/default/conf</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="hive-site-xml"><a href="#hive-site-xml" class="headerlink" title="hive-site.xml"></a>hive-site.xml</h3><p>修改 <code>hive-default.xml</code> 为<code>hive-site.xml</code></p>
+<p>查找以下相关配置项，并修改。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> standalone=<span class="string">&quot;no&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml-stylesheet type=<span class="string">&quot;text/xsl&quot;</span> href=<span class="string">&quot;configuration.xsl&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--新增配置属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>system:java.io.tmpdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/tmp/hive/java<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--新增配置属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>system:user.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;user.name&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.exec.scratchdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/user/hive/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Hive会把一些临时输出文件和作业计划存储在scratch目录<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--连接数据库地址，名称 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>jdbc:mysql://node0:3306/hive?createDatabaseIfNotExist=true<span class="symbol">&amp;amp;</span>useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=UTF-8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!--连接数据库驱动 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionDriverName<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">value</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--连接数据库用户名称 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionUserName<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hive<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--连接数据库用户密码 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionPassword<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--客户端显示当前查询表的头信息 --&gt;</span> </span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.cli.print.header<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--客户端显示当前数据库名称信息 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.cli.print.current.db<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.metastore.schema.verification<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="mysql-connector"><a href="#mysql-connector" class="headerlink" title="mysql-connector"></a>mysql-connector</h3><p>将<code>MySQL</code>数据库连接驱动<code>mysql-connector-java-8.0.29.jar</code>上传到<code>HIVE_HOME/lib</code>目录内。</p>
+<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 default]$ bin/schematool -dbType mysql -initSchema</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p><code>~/.bashrc</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HIVE_HOME=/opt/bigdata/hive/apache-hive-2.3.9-bin</span><br><span class="line">export PATH=$HADOOP_HOME/bin/:$HADOOP_HOME/sbin/:$PATH:$SPARK_HOME/bin:$HBASE_HOME/sbin:$HBASE_HOME/bin:</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HIVE_HOME/bin</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="启动Hive"><a href="#启动Hive" class="headerlink" title="启动Hive"></a>启动Hive</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive --hiveconf hive.root.logger=DEBUG,console  #启动时输出日志到控制台</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">latin -&gt; utf8</span></span><br><span class="line">mysql -u root -p hive &lt; $HIVE_HOME/scripts/metastore/upgrade/mysql/hive-schema-2.3.0.mysql.sql</span><br><span class="line">mysql -u root -p hive &lt; $HIVE_HOME/scripts/metastore/upgrade/mysql/hive-txn-schema-2.3.0.mysql.sql</span><br></pre></td></tr></table></figure>
+
+<p>或者手动变更<a target="_blank" rel="noopener" href="https://blog.csdn.net/LXWalaz1s1s/article/details/106550672">https://blog.csdn.net/LXWalaz1s1s/article/details/106550672</a></p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h3><ul>
+<li><p>编号 ：(Bigint) <code>1</code></p>
+</li>
+<li><p>姓名 ：(CHAR10) <code>张三</code></p>
+</li>
+<li><p>年龄：(Tinyint) <code>18</code></p>
+</li>
+<li><p>爱好：(Array)</p>
+<ul>
+<li>[<code>篮球</code>、<code>羽毛球</code>、<code>足球</code> ] CHAR(4)</li>
+</ul>
+</li>
+<li><p>成绩：(Map)</p>
+<ul>
+<li><code>&lt;语文, 70&gt;</code> Char(2)</li>
+<li><code>&lt;数学, 80&gt;</code></li>
+<li><code>&lt;英语, 90&gt;</code></li>
+</ul>
+</li>
+<li><p>联系地址：(Struct)</p>
+<ul>
+<li><code>province：山东省</code> VARCHAR(20)</li>
+<li><code>city：泰安市</code></li>
+<li><code>district：高新区</code></li>
+<li><code>street：正阳门大街66号</code></li>
+</ul>
+</li>
+<li><p>入学日期：(Date)：<code>2020-09-01</code></p>
+</li>
+<li><p>余额：(decimal)<code>100.19</code></p>
+</li>
+<li><p>个人介绍：(String) </p>
+</li>
+<li><p>是否在校：(boolean)<code>true</code></p>
+</li>
+</ul>
+<h3 id="表创建"><a href="#表创建" class="headerlink" title="表创建"></a>表创建</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> student(</span><br><span class="line">id <span class="type">BIGINT</span> comment <span class="string">&#x27;编号&#x27;</span>,</span><br><span class="line">name <span class="type">char</span>(<span class="number">6</span>) comment <span class="string">&#x27;姓名&#x27;</span>, <span class="comment">--定长字符串，超长就被截断，在MySQL中超长报错。</span></span><br><span class="line">age tinyint comment <span class="string">&#x27;年龄&#x27;</span>, <span class="comment">-- 1 byte</span></span><br><span class="line">hobby <span class="keyword">Array</span><span class="operator">&lt;</span><span class="type">char</span>(<span class="number">4</span>)<span class="operator">&gt;</span> comment <span class="string">&#x27;兴趣&#x27;</span>, </span><br><span class="line">score Map<span class="operator">&lt;</span><span class="type">Char</span>(<span class="number">2</span>),TINYINT<span class="operator">&gt;</span> comment <span class="string">&#x27;成绩&#x27;</span>,</span><br><span class="line">address Struct<span class="operator">&lt;</span>province:<span class="type">varchar</span>(<span class="number">10</span>),city:<span class="type">varchar</span>(<span class="number">10</span>),district:<span class="type">varchar</span>(<span class="number">10</span>),street:<span class="type">varchar</span>(<span class="number">10</span>)<span class="operator">&gt;</span>  comment <span class="string">&#x27;地址&#x27;</span>,</span><br><span class="line">enterdate <span class="type">Date</span> comment <span class="string">&#x27;入学年龄&#x27;</span>, <span class="comment">--不符合规则，null</span></span><br><span class="line">balance <span class="type">DECIMAL</span> comment <span class="string">&#x27;校园卡余额&#x27;</span>,</span><br><span class="line">intro string comment <span class="string">&#x27;个人介绍&#x27;</span>,</span><br><span class="line">status <span class="type">boolean</span> comment <span class="string">&#x27;是否在校&#x27;</span>) <span class="comment">--不符合规则，null</span></span><br><span class="line"><span class="type">row</span> format delimited fields TERMINATED <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span></span><br><span class="line">collection items TERMINATED <span class="keyword">by</span> <span class="string">&#x27;-&#x27;</span></span><br><span class="line">map keys TERMINATED <span class="keyword">by</span> <span class="string">&#x27;:&#x27;</span></span><br><span class="line">lines TERMINATED <span class="keyword">by</span> <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">stored <span class="keyword">as</span> textfile;</span><br></pre></td></tr></table></figure>
+
+<h3 id="stu-txt"><a href="#stu-txt" class="headerlink" title="stu.txt"></a>stu.txt</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>,张三,<span class="number">22</span>,游泳<span class="operator">-</span>乒乓球,语文:<span class="number">90</span><span class="operator">-</span>数学:<span class="number">80</span><span class="operator">-</span>英语:<span class="number">70</span>,山东省<span class="operator">-</span>泰安市<span class="operator">-</span>高新区<span class="operator">-</span>正阳门大街,<span class="number">2018</span><span class="number">-09</span><span class="number">-01</span>,<span class="number">100.19</span>,好好学习天天向上,<span class="literal">True</span></span><br><span class="line"><span class="number">2</span>,李四,<span class="number">21</span>,足球<span class="operator">-</span>太极拳<span class="operator">-</span>篮球,语文:<span class="number">80</span><span class="operator">-</span>数学:<span class="number">80</span>,山东省<span class="operator">-</span>济南市<span class="operator">-</span>长清区<span class="operator">-</span>舜耕路,<span class="number">2019</span><span class="number">-09</span><span class="number">-01</span>,<span class="number">2000.00</span>,学而时习之，不亦说乎,<span class="literal">True</span></span><br><span class="line"><span class="number">3</span>,王五,<span class="number">20</span>,足球<span class="operator">-</span>乒乓球<span class="operator">-</span>网球,语文:<span class="number">99</span><span class="operator">-</span>数学:<span class="number">98</span><span class="operator">-</span>英语:<span class="number">97</span>,山东省<span class="operator">-</span>北京市<span class="operator">-</span>海淀区,<span class="number">2020</span><span class="number">-09</span><span class="number">-01</span>,<span class="number">1000.00</span>,士不可以不弘毅，任重而道远,<span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="load-data"><a href="#load-data" class="headerlink" title="load data"></a>load data</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> load data <span class="keyword">local</span> inpath <span class="string">&#x27;/home/zhangsan/stu.txt&#x27;</span> overwrite <span class="keyword">into</span> <span class="keyword">table</span> student;</span><br></pre></td></tr></table></figure>
+
+<p>exit; 退出。</p>
+<h3 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ hdfs dfs -ls -R /user/hive</span><br><span class="line">drwxr-xr-x   - zhangsan supergroup          0 2025-10-13 00:36 /user/hive/warehouse</span><br><span class="line">drwxr-xr-x   - zhangsan supergroup          0 2025-10-13 00:37 /user/hive/warehouse/student</span><br><span class="line">-rwxr-xr-x   1 zhangsan supergroup        465 2025-10-13 00:37 /user/hive/warehouse/student/stu.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="使用指定的用户浏览HDFS网页"><a href="#使用指定的用户浏览HDFS网页" class="headerlink" title="使用指定的用户浏览HDFS网页"></a>使用指定的用户浏览HDFS网页</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.http.staticuser.user<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>zhangsan<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 数组</span></span><br><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> <span class="keyword">select</span> hobby,hobby[<span class="number">0</span>],hobby[<span class="number">1</span>],hobby[<span class="number">2</span>] <span class="keyword">from</span> student;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Map</span></span><br><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> <span class="keyword">select</span> score[<span class="string">&#x27;语文&#x27;</span>], score[<span class="string">&#x27;数学&#x27;</span>], score[<span class="string">&#x27;英语&#x27;</span>] <span class="keyword">from</span> student;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- struct</span></span><br><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> <span class="keyword">select</span> address, address.province, address.city, address.district, address.street <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="Hive表"><a href="#Hive表" class="headerlink" title="Hive表"></a>Hive表</h2><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ hdfs dfs -mkdir /input1</span><br><span class="line">[zhangsan@node0 ~]$ hdfs dfs -mkdir /input2</span><br><span class="line">[zhangsan@node0 ~]$ hdfs dfs -mkdir /input3</span><br><span class="line">[zhangsan@node0 ~]$ hdfs dfs -put emp.csv dept.csv /input1</span><br><span class="line">[zhangsan@node0 ~]$ hdfs dfs -put emp.csv dept.csv /input2</span><br><span class="line">[zhangsan@node0 ~]$ hdfs dfs -put emp.csv dept.csv /input3</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动Hive-Shell"><a href="#启动Hive-Shell" class="headerlink" title="启动Hive Shell"></a>启动Hive Shell</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> <span class="keyword">create table</span> emp (empno <span class="type">int</span>,ename string,job string,mgr <span class="type">int</span>,hiredate string,sal <span class="type">int</span>,comm <span class="type">int</span>,deptno <span class="type">int</span>) <span class="type">row</span> format delimited fields terminated <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span>;</span><br><span class="line"></span><br><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> load data inpath <span class="string">&#x27;/input1/emp.csv&#x27;</span> <span class="keyword">into</span> <span class="keyword">table</span> emp;</span><br><span class="line"></span><br><span class="line">hive (<span class="keyword">default</span>)<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> emp; </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="内部表"><a href="#内部表" class="headerlink" title="内部表"></a>内部表</h3><ul>
+<li><p>源文件和目标文件夹在同一个文件系统中时，加载数据后，原文件会移动到目标文件夹中。</p>
+</li>
+<li><p>如果是采用了LOCAL关键字，源文件只会拷贝本地Linux文件系统中的文件到目标文件夹中。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; create table emp1(empno int,ename string,job string,mgr int,hiredate string,sal int,comm int,deptno int) row format delimited fields terminated by &#x27;,&#x27;;</span><br><span class="line"></span><br><span class="line">-- linux file system</span><br><span class="line">hive (default)&gt; load data local inpath &#x27;/home/zhangsan/emp.csv&#x27; into table emp1;   </span><br><span class="line"></span><br><span class="line">hive (default)&gt; select * from emp1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hive (default)&gt; create table dept(deptno int,dname string,loc string) row format delimited fields terminated by &#x27;,&#x27;;</span><br><span class="line"></span><br><span class="line">-- hdfs</span><br><span class="line">hive (default)&gt; load data inpath &#x27;/input1/dept.csv&#x27; into table dept;</span><br><span class="line"></span><br><span class="line"># 将Linux本地文件放入数据仓库</span><br><span class="line">hive (default)&gt; load data local inpath &#x27;/home/zhangsan/dept.csv&#x27; into table dept;</span><br><span class="line"></span><br><span class="line">hive (default)&gt;  select * from dept;</span><br><span class="line">OK</span><br><span class="line">dept.deptno	dept.dname	dept.loc</span><br><span class="line">10	ACCOUNTING	NEW YARK</span><br><span class="line">20	RESEARCH	DALLAS</span><br><span class="line">30	SALES	CHICAGO</span><br><span class="line">40	OPERATIONS	BOSTON</span><br><span class="line">10	ACCOUNTING	NEW YARK</span><br><span class="line">20	RESEARCH	DALLAS</span><br><span class="line">30	SALES	CHICAGO</span><br><span class="line">40	OPERATIONS	BOSTON</span><br><span class="line">Time taken: 0.206 seconds, Fetched: 8 row(s)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="外部表"><a href="#外部表" class="headerlink" title="外部表"></a>外部表</h3><p>指向在 HDFS 中已存在的数据；</p>
+<p>它和内部表在元数据的组织上是相同的，而实际数据的存储则有较大的差异；</p>
+<p>外部表只有一个过程，加载数据和创建表同时完成，并不会移动到数据仓库目录中，只是<strong>与外部数据建立一个链接</strong>。当删除一个外部表时，仅删除该链接；</p>
+<p><strong>HIVE表</strong>与<strong>实际数据</strong>的对应关系，在 <code>MySQL - hive DB - TBLS, SDS</code> 表中。 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; create EXTERNAL table emp_ext(empno int,ename string,job string,mgr int,hiredate string,sal int,comm int,deptno int) row format delimited fields terminated by &#x27;,&#x27; location &#x27;/input3/&#x27;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  需要注意：location需要是目录。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt;  select * from emp_ext;</span><br><span class="line">OK</span><br><span class="line">emp_ext.empno	emp_ext.ename	emp_ext.job	emp_ext.mgr	emp_ext.hiredate       emp_ext.sal	emp_ext.comm	emp_ext.deptno</span><br><span class="line">10	ACCOUNTING	NEW YARK	NULL	NULL	NULL	NULL	NULL</span><br><span class="line">20	RESEARCH	DALLAS	NULL	NULL	NULL	NULL	NULL</span><br><span class="line">30	SALES	CHICAGO	NULL	NULL	NULL	NULL	NULL</span><br><span class="line">40	OPERATIONS	BOSTON	NULL	NULL	NULL	NULL	NULL</span><br><span class="line"></span><br><span class="line">7369	SMITH	CLERK	7902	1980/12/17	800	NULL	20</span><br><span class="line">7499	ALLEN	SALESMAN	7698	1981/2/20	1600	300	30</span><br><span class="line">7521	WARD	SALESMAN	7698	1981/2/22	1250	500	30</span><br><span class="line">7566	JONES	MANAGER	7839	1981/4/2	2975	NULL	20</span><br><span class="line">7654	MARTIN	SALESMAN	7698	1981/9/28	1250	1400	30</span><br><span class="line">7698	BLAKE	MANAGER	7839	1981/5/1	2850	NULL	30</span><br><span class="line">7782	CLARK	MANAGER	7839	1981/6/9	2450	NULL	10</span><br><span class="line">7788	SCOTT	ANALYST	7566	1987/4/19	3000	NULL	20</span><br><span class="line">7839	KING	PRESIDENT	NULL	1981/11/17	5000	NULL	10</span><br><span class="line">7844	TURNER	SALESMAN	7698	1981/9/8	1500	0	30</span><br><span class="line">7876	ADAMS	CLERK	7788	1987/5/23	1100	NULL	20</span><br><span class="line">7900	JAMES	CLERK	7698	1981/12/3	950	NULL	30</span><br><span class="line">7902	FORD	ANALYST	7566	1981/12/3	3000	NULL	20</span><br><span class="line">7934	MILLER	CLERK	7782	1982/1/23	1300	NULL	10</span><br><span class="line">Time taken: 0.225 seconds, Fetched: 18 row(s)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h3><p>在 Hive 中，表中的一个 Partition 对应于表下的<strong>一个目录</strong>，所有的 Partition 的数据都存储在对应的目录中</p>
+<p>Linux本地文件 emp10.csv</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">7782</span>,CLARK,MANAGER,<span class="number">7839</span>,<span class="number">1981</span><span class="operator">/</span><span class="number">6</span><span class="operator">/</span><span class="number">9</span>,<span class="number">2450</span>,,<span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>根据员工的部门号创建分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> emp_part(empno <span class="type">int</span>,ename string,job string,mgr <span class="type">int</span>,hiredate string,sal <span class="type">int</span>,comm <span class="type">int</span>) partitioned <span class="keyword">by</span> (deptno <span class="type">int</span>) <span class="type">row</span> format delimited fields terminated <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span>; </span><br></pre></td></tr></table></figure>
+
+<p>往分区表中插入数据：指明导入的数据的分区（通过子查询导入数据） —-&gt; MapReduce程序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; load data local inpath &#x27;/home/zhangsan/emp10.csv&#x27; into table emp_part partition(deptno=10); </span><br><span class="line"></span><br><span class="line">hive (default)&gt; select * from emp_part;</span><br></pre></td></tr></table></figure>
+
+<p>通过子查询加载到分区表</p>
+<p>此操作会运行三次MapReduce，需要启动YARN</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert into</span> <span class="keyword">table</span> emp_part <span class="keyword">partition</span>(deptno<span class="operator">=</span><span class="number">10</span>) <span class="keyword">select</span> empno,ename,job,mgr,hiredate,sal,comm <span class="keyword">from</span> emp1 <span class="keyword">where</span> deptno<span class="operator">=</span><span class="number">10</span>;</span><br><span class="line"><span class="keyword">insert into</span> <span class="keyword">table</span> emp_part <span class="keyword">partition</span>(deptno<span class="operator">=</span><span class="number">20</span>) <span class="keyword">select</span> empno,ename,job,mgr,hiredate,sal,comm <span class="keyword">from</span> emp1 <span class="keyword">where</span> deptno<span class="operator">=</span><span class="number">20</span>;</span><br><span class="line"><span class="keyword">insert into</span> <span class="keyword">table</span> emp_part <span class="keyword">partition</span>(deptno<span class="operator">=</span><span class="number">30</span>) <span class="keyword">select</span> empno,ename,job,mgr,hiredate,sal,comm <span class="keyword">from</span> emp1 <span class="keyword">where</span> deptno<span class="operator">=</span><span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ hdfs dfs -ls /user/hive/warehouse/emp_part</span><br><span class="line">Found 3 items</span><br><span class="line">drwx-wx-wx   - zhangsan supergroup          0 2022-05-16 08:26 /user/hive/warehouse/emp_part/deptno=10</span><br><span class="line">drwx-wx-wx   - zhangsan supergroup          0 2022-05-16 08:26 /user/hive/warehouse/emp_part/deptno=20</span><br><span class="line">drwx-wx-wx   - zhangsan supergroup          0 2022-05-16 08:27 /user/hive/warehouse/emp_part/deptno=30</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="桶表"><a href="#桶表" class="headerlink" title="桶表"></a>桶表</h3><p>桶表是对数据进行哈希取值，然后放到不同文件中存储。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; set hive.enforce.bucketing = true;</span><br><span class="line"></span><br><span class="line"># 创建一个桶表，根据员工的部门编号（deptno）进行分桶</span><br><span class="line">hive (default)&gt; create table emp_deptno_bucket(empno int,ename string,job string,mgr int,hiredate string,sal int,comm int,deptno int) clustered by (deptno) into 3 buckets row format delimited fields terminated by &#x27;,&#x27;;</span><br><span class="line"></span><br><span class="line"># 通过子查询插入数据</span><br><span class="line">hive (default)&gt; insert into emp_deptno_bucket select * from emp1;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  insert 语句会触发MapReduce，可在YARN中观察到YARN Application状态。</p>
+</blockquote>
+<h4 id="相关日志"><a href="#相关日志" class="headerlink" title="相关日志"></a>相关日志</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Starting Job = job_1716805761992_0005, Tracking URL = http://node1:8088/proxy/application_1716805761992_0005/</span><br><span class="line">Kill Command = /opt/bigdata/hadoop/default/bin/hadoop job  -kill job_1716805761992_0005</span><br><span class="line">Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 3</span><br><span class="line">2024-05-28 06:06:06,094 Stage-1 map = 0%,  reduce = 0%</span><br><span class="line">2024-05-28 06:06:17,166 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.54 sec</span><br><span class="line">2024-05-28 06:06:39,948 Stage-1 map = 100%,  reduce = 22%, Cumulative CPU 7.09 sec</span><br><span class="line">2024-05-28 06:06:41,206 Stage-1 map = 100%,  reduce = 44%, Cumulative CPU 10.68 sec</span><br><span class="line">2024-05-28 06:06:42,481 Stage-1 map = 100%,  reduce = 56%, Cumulative CPU 12.48 sec</span><br><span class="line">2024-05-28 06:06:44,720 Stage-1 map = 100%,  reduce = 89%, Cumulative CPU 17.84 sec</span><br><span class="line">2024-05-28 06:06:45,859 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 19.6 sec</span><br><span class="line">MapReduce Total cumulative CPU time: 19 seconds 600 msec</span><br><span class="line">Ended Job = job_1716805761992_0005</span><br><span class="line">Loading data to table default.emp_deptno_bucket</span><br><span class="line">MapReduce Jobs Launched:</span><br><span class="line">Stage-Stage-1: Map: 1  Reduce: 3   Cumulative CPU: 19.6 sec   HDFS Read: 20864 HDFS Write: 871 SUCCESS</span><br><span class="line">Total MapReduce CPU Time Spent: 19 seconds 600 msec</span><br><span class="line">OK</span><br><span class="line">emp1.empno      emp1.ename      emp1.job        emp1.mgr        emp1.hiredate   emp1.sal   emp1.comm        emp1.deptno</span><br><span class="line">Time taken: 63.952 seconds</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="分区表与分桶表的区别"><a href="#分区表与分桶表的区别" class="headerlink" title="分区表与分桶表的区别"></a>分区表与分桶表的区别</h4><blockquote>
+<ul>
+<li>分区是指基于表的某些列将数据分割成不同的存储单元；如根据日期分成多个分区目录(year&#x3D;xxxx,month&#x3D;xx,day&#x3D;xx)</li>
+<li>而分桶是指将数据根据哈希函数分成一组固定的桶。</li>
+<li>分区不依赖MapReduce的Partitioner， 分桶依赖Partitioner。</li>
+</ul>
+</blockquote>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><ul>
+<li><p>视图是一种<strong>虚表</strong>，是一个<strong>逻辑概念</strong>；可以跨越多张表</p>
+</li>
+<li><p>视图建立在已有表的基础上, 视图赖以建立的这些表称为基表</p>
+</li>
+<li><p>视图可以简化复杂的查询，但不能提高查询的效率</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; create view myview as select dept.dname,emp.ename from emp,dept where emp.deptno=dept.deptno;</span><br><span class="line">OK</span><br><span class="line">dname	ename</span><br><span class="line">Time taken: 0.186 seconds</span><br><span class="line">hive (default)&gt; select * from myview;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h3><h4 id="内连接：查询部门名称、员工名字"><a href="#内连接：查询部门名称、员工名字" class="headerlink" title="内连接：查询部门名称、员工名字"></a>内连接：查询部门名称、员工名字</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select dept.dname,emp.ename from emp,dept where emp.deptno=dept.deptno;</span><br><span class="line">dept.dname	emp.ename</span><br><span class="line">RESEARCH	SMITH</span><br><span class="line">SALES	ALLEN</span><br><span class="line">SALES	WARD</span><br><span class="line">RESEARCH	JONES</span><br><span class="line">SALES	MARTIN</span><br><span class="line">SALES	BLAKE</span><br><span class="line">ACCOUNTING	CLARK</span><br><span class="line">RESEARCH	SCOTT</span><br><span class="line">ACCOUNTING	KING</span><br><span class="line">SALES	TURNER</span><br><span class="line">RESEARCH	ADAMS</span><br><span class="line">SALES	JAMES</span><br><span class="line">RESEARCH	FORD</span><br><span class="line">ACCOUNTING	MILLER</span><br></pre></td></tr></table></figure>
+
+<h4 id="做报表，根据职位给员工涨工资："><a href="#做报表，根据职位给员工涨工资：" class="headerlink" title="做报表，根据职位给员工涨工资："></a>做报表，根据职位给员工涨工资：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PRESIDENT  <span class="number">1000</span></span><br><span class="line">MANAGER    <span class="number">800</span></span><br><span class="line">其他       <span class="number">400</span></span><br></pre></td></tr></table></figure>
+
+<p>把涨前、涨后的薪水显示出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hive (default)&gt; select empno,ename,job,sal,</span><br><span class="line">                case job </span><br><span class="line">                when &#x27;PRESIDENT&#x27; then sal+1000</span><br><span class="line">                when &#x27;MANAGER&#x27; then sal+800</span><br><span class="line">                else sal+400</span><br><span class="line">                end </span><br><span class="line">                from emp;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查询结果"><a href="#查询结果" class="headerlink" title="查询结果"></a>查询结果</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">empno   ename   job     sal     _c4</span><br><span class="line"><span class="number">7369</span>    SMITH   CLERK   <span class="number">800</span>     <span class="number">1200</span></span><br><span class="line"><span class="number">7499</span>    ALLEN   SALESMAN        <span class="number">1600</span>    <span class="number">2000</span></span><br><span class="line"><span class="number">7521</span>    WARD    SALESMAN        <span class="number">1250</span>    <span class="number">1650</span></span><br><span class="line"><span class="number">7566</span>    JONES   MANAGER <span class="number">2975</span>    <span class="number">3775</span></span><br><span class="line"><span class="number">7654</span>    MARTIN  SALESMAN        <span class="number">1250</span>    <span class="number">1650</span></span><br><span class="line"><span class="number">7698</span>    BLAKE   MANAGER <span class="number">2850</span>    <span class="number">3650</span></span><br><span class="line"><span class="number">7782</span>    CLARK   MANAGER <span class="number">2450</span>    <span class="number">3250</span></span><br><span class="line"><span class="number">7788</span>    SCOTT   ANALYST <span class="number">3000</span>    <span class="number">3400</span></span><br><span class="line"><span class="number">7839</span>    KING    PRESIDENT       <span class="number">5000</span>    <span class="number">6000</span></span><br><span class="line"><span class="number">7844</span>    TURNER  SALESMAN        <span class="number">1500</span>    <span class="number">1900</span></span><br><span class="line"><span class="number">7876</span>    ADAMS   CLERK   <span class="number">1100</span>    <span class="number">1500</span></span><br><span class="line"><span class="number">7900</span>    JAMES   CLERK   <span class="number">950</span>     <span class="number">1350</span></span><br><span class="line"><span class="number">7902</span>    FORD    ANALYST <span class="number">3000</span>    <span class="number">3400</span></span><br><span class="line"><span class="number">7934</span>    MILLER  CLERK   <span class="number">1300</span>    <span class="number">1700</span></span><br><span class="line"><span class="type">Time</span> taken: <span class="number">16.229</span> seconds, Fetched: <span class="number">14</span> <span class="type">row</span>(s)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="HiveServer2"><a href="#HiveServer2" class="headerlink" title="HiveServer2"></a>HiveServer2</h2><p>HiveServer2</p>
+<p>1.为hive提供了一种允许客户端远程访问的服务。</p>
+<p>2.基于thrift协议，支持跨平台，跨编程语言对hive访问；</p>
+<p>3.允许远程访问hive；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node2 bin]$ hive --service hiveserver2 &amp;</span><br><span class="line">[1] 59336</span><br><span class="line">2022-12-03 23:57:52: Starting HiveServer2</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Beeline"><a href="#Beeline" class="headerlink" title="Beeline"></a>Beeline</h2><p>beeline 英[ˈbiːlaɪn]（两地之间的）直线;最短距离，最短航程；最短路径；空中距离；直线，直路；蜜蜂飞行线;</p>
+<p>HiveServer2 支持一个新的命令行Shell，称为Beeline，它是基于SQLLine CLI的JDBC客户端。</p>
+<p>使用<code>Beeline</code>前，需要先启动<code>HiveSever2</code></p>
+<h5 id="配置core-site-xml"><a href="#配置core-site-xml" class="headerlink" title="配置core-site.xml"></a>配置core-site.xml</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.zhangsan.hosts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.proxyuser.zhangsan.groups<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="启动Beeline客户端"><a href="#启动Beeline客户端" class="headerlink" title="启动Beeline客户端"></a>启动Beeline客户端</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 bin]$ beeline -u jdbc:hive2://node0:10000 -n zhangsan</span><br><span class="line">Connecting to jdbc:hive2://node1:10000</span><br><span class="line">Connected to: Apache Hive (version 2.3.9)</span><br><span class="line">Driver: Hive JDBC (version 2.3.9)</span><br><span class="line">Transaction isolation: TRANSACTION_REPEATABLE_READ</span><br><span class="line">Beeline version 2.3.9 by Apache Hive</span><br><span class="line">0: jdbc:hive2://node1:10000&gt; show tables;</span><br><span class="line">+-----------+</span><br><span class="line">| tab_name  |</span><br><span class="line">+-----------+</span><br><span class="line">| student   |</span><br><span class="line">+-----------+</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>  <a target="_blank" rel="noopener" href="http://121.250.170.70:9022/courses/127/assignments/1264?module_item_id=6804">http://121.250.170.70:9022/courses/127/assignments/1264?module_item_id=6804</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/10/14/Hive/Hive/" data-id="cuidA3X0AHUJPbmdZLyMm1uBc" data-title="Hive" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/14/HBase/HBase_Theory/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HBase架构、数据读写、Region管理、集群管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/14/Kettle/Kettle_CDC_Trigger/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Kettle - 基于触发器的CDC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

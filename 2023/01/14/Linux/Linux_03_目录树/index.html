@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux文件管理 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="文件管理 &#x2F;bin目录&#x2F;bin目录包含了引导启动所需的命令或普通用户可能用的命令(可能在引导启动后)。这些命令都是二进制文件的可执行程序( bin是binary –二进制的简称)，多是系统中重要的系统文件。 &#x2F;sbin目录&#x2F;sbin目录类似&#x2F;bin ，也用于存储二进制文件。因为其中的大部分文件多是系统管理员使用的基本的系统程序，所以虽然普通用户必要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux文件管理">
+<meta property="og:url" content="http://www.studybigdata.com/2023/01/14/Linux/Linux_03_%E7%9B%AE%E5%BD%95%E6%A0%91/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="文件管理 &#x2F;bin目录&#x2F;bin目录包含了引导启动所需的命令或普通用户可能用的命令(可能在引导启动后)。这些命令都是二进制文件的可执行程序( bin是binary –二进制的简称)，多是系统中重要的系统文件。 &#x2F;sbin目录&#x2F;sbin目录类似&#x2F;bin ，也用于存储二进制文件。因为其中的大部分文件多是系统管理员使用的基本的系统程序，所以虽然普通用户必要">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/Linux_03_%E7%9B%AE%E5%BD%95%E6%A0%91/2428209-20210924222115597-326838274.jpg">
+<meta property="article:published_time" content="2023-01-14T07:55:26.000Z">
+<meta property="article:modified_time" content="2026-03-08T13:16:23.706Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="Linux文件管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/Linux_03_%E7%9B%AE%E5%BD%95%E6%A0%91/2428209-20210924222115597-326838274.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/Linux_03_目录树" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/14/Linux/Linux_03_%E7%9B%AE%E5%BD%95%E6%A0%91/" class="article-date">
+  <time class="dt-published" datetime="2023-01-14T07:55:26.000Z" itemprop="datePublished">2023-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux文件管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><p><img src="/./img/Linux_03_%E7%9B%AE%E5%BD%95%E6%A0%91/2428209-20210924222115597-326838274.jpg" alt="img"></p>
+<h5 id="bin目录"><a href="#bin目录" class="headerlink" title="&#x2F;bin目录"></a>&#x2F;bin目录</h5><p>&#x2F;bin目录包含了<code>引导启动</code>所需的命令或<code>普通用户</code>可能用的命令(可能在引导启动后)。这些命令都是二进制文件的可执行程序( bin是binary –二进制的简称)，多是系统中重要的系统文件。</p>
+<h5 id="sbin目录"><a href="#sbin目录" class="headerlink" title="&#x2F;sbin目录"></a>&#x2F;sbin目录</h5><p>&#x2F;sbin目录类似&#x2F;bin ，也用于存储二进制文件。因为其中的大部分文件多是<code>系统管理员</code>使用的基本的系统程序，所以虽然普通用户必要且允许时可以使用，但一般不给普通用户使用。</p>
+<h5 id="etc目录"><a href="#etc目录" class="headerlink" title="&#x2F;etc目录"></a>&#x2F;etc目录</h5><p>&#x2F;etc目录存放着各种<code>系统配置文件</code>，其中包括了用户信息文件&#x2F;etc&#x2F;passwd，系统初始化文件&#x2F;etc&#x2F;rc等。linux正是这些文件才得以正常地运行。</p>
+<h5 id="root目录"><a href="#root目录" class="headerlink" title="&#x2F;root目录"></a>&#x2F;root目录</h5><p>&#x2F;root 目录是<code>超级用户的目录</code>。</p>
+<h5 id="lib目录"><a href="#lib目录" class="headerlink" title="&#x2F;lib目录"></a>&#x2F;lib目录</h5><p>&#x2F;lib目录是根文件系统上的程序所需的<code>共享库</code>，存放了<code>根文件系统程序</code>运行所需的共享文件。这些文件包含了可被许多程序共享的代码，以避免每个程序都包含有相同的子程序的副本，故可以使得可执行文件变得更小，节省空间。</p>
+<h5 id="dev目录"><a href="#dev目录" class="headerlink" title="&#x2F;dev目录"></a>&#x2F;dev目录</h5><p>&#x2F;dev目录存放了<code>设备文件</code>，即<code>设备驱动程序</code>，用户通过这些文件访问外部设备。比如，用户可以通过访问&#x2F;dev&#x2F;mouse来访问鼠标的输入，就像访问其他文件一样。</p>
+<h5 id="tmp目录"><a href="#tmp目录" class="headerlink" title="&#x2F;tmp目录"></a>&#x2F;tmp目录</h5><p>&#x2F;tmp 目录存放程序<code>在运行时产生的信息和数据</code>。但在引导启动后，运行的程序最好使用&#x2F; var&#x2F;tmp来代替&#x2F;tmp ，因为前者可能拥有一个更大的磁盘空间。</p>
+<h5 id="boot目录"><a href="#boot目录" class="headerlink" title="&#x2F;boot目录"></a>&#x2F;boot目录</h5><p>&#x2F; boot目录存放<code>引导加载器(bootstrap loader)</code>使用的文件。</p>
+<h5 id="mnt目录"><a href="#mnt目录" class="headerlink" title="&#x2F;mnt目录"></a>&#x2F;mnt目录</h5><p>&#x2F;mnt目录在Linux系统中通常用于临时<code>挂载</code>其他文件系统或设备。</p>
+<h5 id="var目录"><a href="#var目录" class="headerlink" title="&#x2F;var目录"></a>&#x2F;var目录</h5><p>var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
+<h5 id="home目录"><a href="#home目录" class="headerlink" title="&#x2F;home目录"></a>&#x2F;home目录</h5><p>用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的 alice、bob 和 eve。</p>
+<h5 id="media目录"><a href="#media目录" class="headerlink" title="&#x2F;media目录"></a>&#x2F;media目录</h5><p>linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。</p>
+<h5 id="opt目录"><a href="#opt目录" class="headerlink" title="&#x2F;opt目录"></a>&#x2F;opt目录</h5><p>opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+<h5 id="usr目录"><a href="#usr目录" class="headerlink" title="&#x2F;usr目录"></a>&#x2F;usr目录</h5><p>usr 是 unix shared resources(共享资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于Windows 下的 program files 目录。</p>
+<blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/mik-hello/p/15203716.html">https://www.cnblogs.com/mik-hello/p/15203716.html</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2023/01/14/Linux/Linux_03_%E7%9B%AE%E5%BD%95%E6%A0%91/" data-id="cuideRrEf0paIZwtrMVkxWST4" data-title="Linux文件管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/01/14/Linux/Linux_01_%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux基础知识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/14/Linux/Linux_02_%E7%B3%BB%E7%BB%9F%E6%8E%A7%E5%88%B6_%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E7%AD%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux系统控制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

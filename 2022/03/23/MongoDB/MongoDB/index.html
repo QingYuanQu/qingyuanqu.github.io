@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MongoDB使用 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="MongoDB1. 简介略。 2. 导入、导出、查询数据导入导出数据需要安装mongo database tools，并把$Tools&#x2F;bin目录加入PATH。 1https:&#x2F;&#x2F;www.mongodb.com&#x2F;try&#x2F;download&#x2F;database-tools  准备示例数据（MongoDB Cloud）DEPLOYMENT -&gt; Database -&gt; Browse Colle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB使用">
+<meta property="og:url" content="http://www.studybigdata.com/2022/03/23/MongoDB/MongoDB/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="MongoDB1. 简介略。 2. 导入、导出、查询数据导入导出数据需要安装mongo database tools，并把$Tools&#x2F;bin目录加入PATH。 1https:&#x2F;&#x2F;www.mongodb.com&#x2F;try&#x2F;download&#x2F;database-tools  准备示例数据（MongoDB Cloud）DEPLOYMENT -&gt; Database -&gt; Browse Colle">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/MongoDB/image-20220607162511445.png">
+<meta property="article:published_time" content="2022-03-23T07:55:26.000Z">
+<meta property="article:modified_time" content="2022-10-14T04:34:18.496Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="MongoDB使用">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/MongoDB/image-20220607162511445.png">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MongoDB/MongoDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/23/MongoDB/MongoDB/" class="article-date">
+  <time class="dt-published" datetime="2022-03-23T07:55:26.000Z" itemprop="datePublished">2022-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MongoDB/">MongoDB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MongoDB使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>略。</p>
+<h2 id="2-导入、导出、查询数据"><a href="#2-导入、导出、查询数据" class="headerlink" title="2. 导入、导出、查询数据"></a>2. 导入、导出、查询数据</h2><h3 id="导入导出数据"><a href="#导入导出数据" class="headerlink" title="导入导出数据"></a>导入导出数据</h3><p>需要安装<code>mongo database tools</code>，并把<code>$Tools/bin</code>目录加入<code>PATH</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.mongodb.com/try/download/database-tools</span><br></pre></td></tr></table></figure>
+
+<h5 id="准备示例数据（MongoDB-Cloud）"><a href="#准备示例数据（MongoDB-Cloud）" class="headerlink" title="准备示例数据（MongoDB Cloud）"></a>准备示例数据（MongoDB Cloud）</h5><p><code>DEPLOYMENT -&gt; Database -&gt; Browse Collections -&gt; load a Sample Dataset</code></p>
+<p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/atlas/sample-data/#std-label-load-sample-data">https://www.mongodb.com/docs/atlas/sample-data/#std-label-load-sample-data</a></p>
+<h5 id="BSON"><a href="#BSON" class="headerlink" title="BSON"></a>BSON</h5><p>操作粒度为<code>DataBase</code>或<code>Collection</code>。</p>
+<h5 id="导出数据-cloud"><a href="#导出数据-cloud" class="headerlink" title="导出数据(cloud)"></a>导出数据(cloud)</h5><p>cloud.mongodb.com</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongodump --uri &quot;mongodb+srv://cluster0.0excx.mongodb.net/sample_supplies&quot; --username quqingyuan</span><br><span class="line">Enter password:</span><br><span class="line"></span><br><span class="line">2022-05-17T10:25:34.205+0800    writing sample_supplies.sales to dump\sample_supplies\sales.bson</span><br><span class="line">2022-05-17T10:25:35.099+0800    done dumping sample_supplies.sales (5000 documents)</span><br></pre></td></tr></table></figure>
+
+<h5 id="恢复数据-mongorestore"><a href="#恢复数据-mongorestore" class="headerlink" title="恢复数据(mongorestore)"></a>恢复数据(mongorestore)</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongorestore.exe --host localhost:27017 --db sample_supplies --dir C:\Users\Qingyuan_Qu\dump\sample_supplies</span><br></pre></td></tr></table></figure>
+
+<p>可以添加一个<code>--drop</code>参数，在<code>restore</code>之前<code>drop</code>掉每个<code>Collection</code>。</p>
+<h5 id="导出数据-mongodump"><a href="#导出数据-mongodump" class="headerlink" title="导出数据(mongodump)"></a>导出数据(mongodump)</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongodump --host localhost:27017 --db sample_supplies</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h5><p><code>操作粒度为Collection</code></p>
+<h5 id="导出数据-mongoexport"><a href="#导出数据-mongoexport" class="headerlink" title="导出数据(mongoexport)"></a>导出数据(mongoexport)</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongoexport --host 127.0.0.1:27017 --db sample_training --collection grades --out grades.json</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="导入数据-mongoimport"><a href="#导入数据-mongoimport" class="headerlink" title="导入数据(mongoimport)"></a>导入数据(mongoimport)</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongoimport --host localhost:27017 --db mydb --collection grades --file grades.json</span><br></pre></td></tr></table></figure>
+
+<p>可以添加一个<code>--drop</code>参数，在<code>import</code>之前<code>drop</code>掉每个<code>Collection</code>。</p>
+<h3 id="查询命令"><a href="#查询命令" class="headerlink" title="查询命令"></a>查询命令</h3><ul>
+<li>查询所有数据库 <code>show dbs</code>;</li>
+<li>选择数据库<code>use sample_training</code></li>
+<li>查询所有集合<code>show collections</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> <span class="keyword">show</span> dbs</span><br><span class="line">sample_airbnb        <span class="number">52.38</span> MiB</span><br><span class="line">sample_analytics      <span class="number">9.16</span> MiB</span><br><span class="line">sample_geospatial     <span class="number">1.38</span> MiB</span><br><span class="line">sample_guides        <span class="number">40.00</span> KiB</span><br><span class="line">sample_mflix         <span class="number">49.00</span> MiB</span><br><span class="line">sample_restaurants    <span class="number">6.59</span> MiB</span><br><span class="line">sample_supplies       <span class="number">1.12</span> MiB</span><br><span class="line">sample_training      <span class="number">54.51</span> MiB</span><br><span class="line">sample_weatherdata    <span class="number">2.75</span> MiB</span><br><span class="line">admin               <span class="number">280.00</span> KiB</span><br><span class="line"><span class="keyword">local</span>                 <span class="number">1.60</span> GiB</span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> use sample_training</span><br><span class="line"><span class="string">&#x27;switched to db sample_training&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> <span class="keyword">show</span> collections</span><br><span class="line">companies</span><br><span class="line">grades</span><br><span class="line">inspections</span><br><span class="line">posts</span><br><span class="line">routes</span><br><span class="line">trips</span><br><span class="line">zips</span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> db.zips.find(&#123;state:<span class="string">&#x27;NY&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>提供其他方法来定位数据。 语法：<code>{ &lt;field&gt; : &lt;value&gt; }</code></p>
+<p>returns a cursor with documents that match the find query。</p>
+<p><code>find()</code>函数返回一个<code>游标(cursor)</code>。<code>游标(cursor)</code>默认自动<code>it(iterate)</code>迭代<code>20</code>次。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.find(&#123;state:<span class="string">&#x27;NY&#x27;</span>&#125;)</span></span><br><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">it</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="it"><a href="#it" class="headerlink" title="it"></a>it</h5><p> iterates through a cursor  </p>
+<p>通过游标迭代。</p>
+<h5 id="cursor"><a href="#cursor" class="headerlink" title="cursor"></a>cursor</h5><p> a pointer to a result set of a query</p>
+<p>游标是一个指向查询结果集的指针。</p>
+<h5 id="pointer"><a href="#pointer" class="headerlink" title="pointer"></a>pointer</h5><p>a direct address of the memory location</p>
+<p>指针是指向内存位置的直接地址。</p>
+<h5 id="邮编查询例子"><a href="#邮编查询例子" class="headerlink" title="邮编查询例子"></a>邮编查询例子</h5><ul>
+<li>查询纽约州(<code>NY</code>)邮编个数(<code>zip</code>, <code>postal code</code>)</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.find(&#123;state:<span class="string">&#x27;NY&#x27;</span>&#125;).count()</span></span><br><span class="line">1596</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询纽约州，奥尔巴尼市邮编个数</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.find(&#123;state:<span class="string">&#x27;NY&#x27;</span>,city:<span class="string">&quot;ALBANY&quot;</span>&#125;).count()</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询前<code>3</code>条</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.find().<span class="built_in">limit</span>(3)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按人口排序</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.find().<span class="built_in">sort</span>(&#123;<span class="string">&quot;pop&quot;</span>:1&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>遍历</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; var cursor = db.zips.find(<span class="punctuation">&#123;</span>state<span class="punctuation">:</span>&#x27;NY&#x27;<span class="punctuation">,</span>city<span class="punctuation">:</span><span class="string">&quot;ALBANY&quot;</span><span class="punctuation">&#125;</span>)</span><br><span class="line">sample_training&gt; while(cursor.hasNext())<span class="punctuation">&#123;</span></span><br><span class="line">var doc = cursor.next();</span><br><span class="line">print(doc.state+<span class="string">&quot;-&quot;</span>+doc.city);</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="投影"><a href="#投影" class="headerlink" title="投影"></a>投影</h5><p><code>find( {filter}, {projection} )</code></p>
+<p>投影参数的<code>value</code>设置为1，选择该字段；设置为0，不选择该字段。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.trips.find(<span class="punctuation">&#123;</span><span class="attr">&quot;birth year&quot;</span><span class="punctuation">:</span><span class="number">1961</span><span class="punctuation">,</span><span class="attr">&quot;start station name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Howard St &amp; Centre St&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span>_id<span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span><span class="attr">&quot;end station name&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-创建并操作文档"><a href="#3-创建并操作文档" class="headerlink" title="3.创建并操作文档"></a>3.创建并操作文档</h2><h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h4><p><code>insert([{},{},{}]) </code></p>
+<ul>
+<li>默认顺序插入，如果有Key重复，不再继续插入后面的数据；</li>
+</ul>
+<p><code>insert([{},{},{}], {ordered:false}) </code></p>
+<ul>
+<li>可传递第二个参数<code>{ordered:false}</code>，Key重复的数据不被插入，不重复的继续插入。</li>
+</ul>
+<p>插入一个不存在的集合时，会自动创建该集合。</p>
+<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><p> 略。</p>
+<h4 id="更新操作符-Update-Operator"><a href="#更新操作符-Update-Operator" class="headerlink" title="更新操作符(Update Operator)"></a>更新操作符(Update Operator)</h4><p>修改数据库中的数据。比如： <code>$inc</code>,  <code>$set</code>,  <code>$unset</code>，<code>$push</code></p>
+<p><code>$inc</code>操作符使字段增加一个指定值，其形式如下：</p>
+<p><code>{ $inc: { &lt;field1&gt;: &lt;amount1&gt;, &lt;field2&gt;: &lt;amount2&gt;, ... } }</code></p>
+<p><code>$set</code>操作符将字段的值替换为指定的值。</p>
+<p><code>{ $set: { &lt;field1&gt;: &lt;value1&gt;, ... } }</code></p>
+<p><code>$unset</code>操作符删除一个特定的字段。</p>
+<p><code>{ $unset: { &lt;field1&gt;: &quot;&quot;, ... } }</code></p>
+<p>如： <code>{ $unset: { population: &quot;&quot;} }</code>，value为  “ “ 不影响操作。</p>
+<p><code>$push</code>操作符将指定的值追加到数组中。</p>
+<p><code>{ $push: { &lt;field1&gt;: &lt;value1&gt;, ... } }</code></p>
+<p><code>$pull</code>操作符从现有数组中删除一个或多个匹配指定条件的值的所有实例。</p>
+<p><code>{ $pull: { &lt;field1&gt;: &lt;value|condition&gt;, &lt;field2&gt;: &lt;value|condition&gt;, ... } }</code></p>
+<p>测试数据是城市邮编数据<code>zip</code>，其中<code>pop</code>字段值为城市人口，数据是几年前的数据，也就是意味着人口统计不准确。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">myFirstDatabase&gt; </span><span class="language-bash">use sample_training</span></span><br><span class="line">Atlas sample_training&gt; db.zips.find()</span><br></pre></td></tr></table></figure>
+
+<p>我们查询一下<code>HUDSON</code>市的邮编信息，可以得到16条数据。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.find(&#123;city:<span class="string">&quot;HUDSON&quot;</span>&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们更新每条数据的人口，让人口增加<code>10</code>人。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.<span class="property">zips</span>.<span class="title function_">updateMany</span>(&#123;<span class="attr">city</span>:<span class="string">&quot;HUDSON&quot;</span>&#125;, &#123;<span class="attr">$inc</span>:&#123;<span class="attr">pop</span>:<span class="number">10</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>我们更新一下<code>zip</code>为<code>12534</code>的人口，设置为<code>17630</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.<span class="property">zips</span>.<span class="title function_">updateOne</span>(&#123;<span class="attr">zip</span>:<span class="string">&#x27;12534&#x27;</span>&#125;,&#123;<span class="attr">$set</span>:&#123;<span class="attr">population</span>:<span class="string">&#x27;17630&#x27;</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>查询执行结果，发现我们新增了一个字段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">_id</span>: <span class="title class_">ObjectId</span>(<span class="string">&quot;5c8eccc1caa187d17ca73239&quot;</span>),</span><br><span class="line">  <span class="attr">city</span>: <span class="string">&#x27;HUDSON&#x27;</span>,</span><br><span class="line">  <span class="attr">zip</span>: <span class="string">&#x27;12534&#x27;</span>,</span><br><span class="line">  <span class="attr">loc</span>: &#123; <span class="attr">y</span>: <span class="number">42.246978</span>, <span class="attr">x</span>: <span class="number">73.755248</span> &#125;,</span><br><span class="line">  <span class="attr">pop</span>: <span class="number">21215</span>, <span class="comment">//应该更新的字段</span></span><br><span class="line">  <span class="attr">state</span>: <span class="string">&#x27;NY&#x27;</span>,</span><br><span class="line">  <span class="attr">population</span>: <span class="string">&#x27;17630&#x27;</span> <span class="comment">//结果新增了一个字段</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再次更新人口数量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.<span class="property">zips</span>.<span class="title function_">updateOne</span>(&#123;<span class="attr">zip</span>:<span class="string">&#x27;12534&#x27;</span>&#125;,&#123;<span class="attr">$set</span>:&#123;<span class="attr">pop</span>:<span class="string">&#x27;17630&#x27;</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>删除<code>population</code>字段：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">sample_training&gt; </span><span class="language-bash">db.zips.updateOne(&#123;zip:<span class="string">&#x27;12534&#x27;</span>&#125;,&#123;<span class="variable">$unset</span>:&#123;population:<span class="string">&#x27;&#x27;</span>&#125;&#125;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>查询集合<code>grades</code>中， <code>class_id</code>为<code>339</code>，<code>student_id</code>为<code>151</code>的学生成绩。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.<span class="property">grades</span>.<span class="title function_">find</span>(&#123;<span class="string">&quot;student_id&quot;</span>:<span class="number">151</span>, <span class="string">&quot;class_id&quot;</span>:<span class="number">339</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>然后我们给这个学生增加一个类型<code>type</code>为<code>extra credit</code>的成绩，<code>score</code>为<code>100</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.<span class="property">grades</span>.<span class="title function_">updateOne</span>(&#123;<span class="string">&quot;student_id&quot;</span>:<span class="number">151</span>, <span class="string">&quot;class_id&quot;</span>:<span class="number">339</span>&#125;,&#123;<span class="attr">$push</span>:&#123;<span class="attr">scores</span>:&#123;<span class="attr">type</span>:<span class="string">&#x27;extra credit-1&#x27;</span>,<span class="attr">score</span>:<span class="number">200</span>&#125;&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>可再次查询该学生的成绩。</p>
+<p>如果我们想把刚才插入的成绩删除：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.<span class="property">grades</span>.<span class="title function_">updateOne</span>(&#123;<span class="string">&quot;student_id&quot;</span>:<span class="number">151</span>, <span class="string">&quot;class_id&quot;</span>:<span class="number">339</span>&#125;,&#123;<span class="attr">$pull</span>:&#123;<span class="attr">scores</span>:&#123;<span class="attr">type</span>:<span class="string">&#x27;extra credit-1&#x27;</span>,<span class="attr">score</span>:<span class="number">200</span>&#125;&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-高级CRUD操作"><a href="#4-高级CRUD操作" class="headerlink" title="4. 高级CRUD操作"></a>4. 高级CRUD操作</h2><h4 id="比较操作符-Comparison-Operators"><a href="#比较操作符-Comparison-Operators" class="headerlink" title="比较操作符(Comparison Operators)"></a>比较操作符(Comparison Operators)</h4><p>比较操作符允许我们查找某个范围的数据。 语法：<code>{ &lt;field&gt; : { &lt;operator&gt; : &lt;value&gt; } }</code></p>
+<table>
+<thead>
+<tr>
+<th>等于</th>
+<th>不等于</th>
+<th>大于</th>
+<th>小于</th>
+<th>大于等于</th>
+<th>小于等于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$eq</code></td>
+<td><code>$ne</code></td>
+<td><code>$gt</code></td>
+<td><code>$lt</code></td>
+<td><code>$gte</code></td>
+<td><code>$lte</code></td>
+</tr>
+</tbody></table>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>使用<code>sample_training</code>数据库中的<code>trips</code>集合进行实验。<code>trips</code>是纽约自行车租赁公司提供的开源数据样本。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  _id<span class="punctuation">:</span> ObjectId(<span class="string">&quot;572bb8222b288919b68abf6d&quot;</span>)<span class="punctuation">,</span></span><br><span class="line">  tripduration<span class="punctuation">:</span> <span class="number">858</span><span class="punctuation">,</span><span class="comment">//骑行时间单位为秒</span></span><br><span class="line">  &#x27;start station id&#x27;<span class="punctuation">:</span> <span class="number">532</span><span class="punctuation">,</span> </span><br><span class="line">  &#x27;start station name&#x27;<span class="punctuation">:</span> &#x27;S <span class="number">5</span> Pl &amp; S <span class="number">4</span> St&#x27;<span class="punctuation">,</span></span><br><span class="line">  &#x27;end station id&#x27;<span class="punctuation">:</span> <span class="number">401</span><span class="punctuation">,</span></span><br><span class="line">  &#x27;end station name&#x27;<span class="punctuation">:</span> &#x27;Allen St &amp; Rivington St&#x27;<span class="punctuation">,</span></span><br><span class="line">  bikeid<span class="punctuation">:</span> <span class="number">17057</span><span class="punctuation">,</span></span><br><span class="line">  usertype<span class="punctuation">:</span> &#x27;Customer&#x27;<span class="punctuation">,</span></span><br><span class="line">  &#x27;birth year&#x27;<span class="punctuation">:</span> &#x27;&#x27;<span class="punctuation">,</span></span><br><span class="line">  &#x27;start station location&#x27;<span class="punctuation">:</span> <span class="punctuation">&#123;</span> type<span class="punctuation">:</span> &#x27;Point&#x27;<span class="punctuation">,</span> coordinates<span class="punctuation">:</span> <span class="punctuation">[</span> <span class="number">-73.960876</span><span class="punctuation">,</span> <span class="number">40.710451</span> <span class="punctuation">]</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  &#x27;end station location&#x27;<span class="punctuation">:</span> <span class="punctuation">&#123;</span> type<span class="punctuation">:</span> &#x27;Point&#x27;<span class="punctuation">,</span> coordinates<span class="punctuation">:</span> <span class="punctuation">[</span> <span class="number">-73.98997825</span><span class="punctuation">,</span> <span class="number">40.72019576</span> <span class="punctuation">]</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  &#x27;start time&#x27;<span class="punctuation">:</span> ISODate(<span class="string">&quot;2016-01-01T00:09:31.000Z&quot;</span>)<span class="punctuation">,</span></span><br><span class="line">  &#x27;stop time&#x27;<span class="punctuation">:</span> ISODate(<span class="string">&quot;2016-01-01T00:23:49.000Z&quot;</span>)</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>查询骑行时间<code>tripduration&lt;=1min</code>的旅行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  tripduration: &#123;</span><br><span class="line">    $lte: 60</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查询骑行时间<code>tripduration&lt;=70s</code>的旅行，并统计一下旅行次数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  tripduration: &#123;</span><br><span class="line">    $lt: 70</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，总共有<code>10</code>次旅行的骑行时间<code>&lt;=70s</code>，其中大部分都是会员用户。接下来，我们统计一下这些用户中有多少没有开会员。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  tripduration: &#123;</span><br><span class="line">    $lte: 70</span><br><span class="line">  &#125;,</span><br><span class="line">  usertype: &#123;</span><br><span class="line">    $eq: &#x27;Customer&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到<code>骑行时间小于等于70s</code>且<code>不是会员</code>的用户只有一个。且他的<code>出发站点</code>和<code>结束站点</code>是同一个站点，是不是车子坏了。。。</p>
+<p>此查询条件<code>{tripduration:{$lte:70},usertype:{$eq:&#39;Customer&#39;}}</code>中的<code>$eq</code>是默认值，我们可以省略为<code>{tripduration:{$lte:70},usertype:&#39;Customer&#39;}</code>。</p>
+<p>在以上练习中，我们使用<code>单列比较</code>和<code>多列比较</code>查询<code>集合</code>中符合条件的文档（<code>元组</code>）。</p>
+<h4 id="实验1"><a href="#实验1" class="headerlink" title="实验1"></a>实验1</h4><p>使用<code>sample_training</code>数据库中的<code>zips</code>集合进行实验。<code>zips</code>中存储了美帝的邮编信息。</p>
+<p>查询一下有多少个文档的<code>pop</code>字段值<code>&lt;1000</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  pop: &#123;</span><br><span class="line">    $lt: 1000</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="实验2"><a href="#实验2" class="headerlink" title="实验2"></a>实验2</h4><p>统计<code>trips</code>集合中<code>1998</code>年出生的人数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;birth year&quot;: 1998</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>统计<code>trips</code>集合中<code>1998</code>年后出生的人数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;birth year&quot;: &#123;</span><br><span class="line">    $gt: 1998</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="实验3"><a href="#实验3" class="headerlink" title="实验3"></a>实验3</h4><p>截至 2014 年 6 月，OpenFlights&#x2F;Airline Route Mapper 航线数据库包含全球<code>548</code>家航空公司的<code>3321</code>个机场之间的<code>67663</code>条航线。<a target="_blank" rel="noopener" href="https://openflights.org/data.html">https://openflights.org/data.html</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    _id<span class="punctuation">:</span> ObjectId(<span class="string">&quot;56e9b39b732b6122f877fc57&quot;</span>)<span class="punctuation">,</span></span><br><span class="line">    airline<span class="punctuation">:</span> <span class="punctuation">&#123;</span> id<span class="punctuation">:</span> <span class="number">9818</span><span class="punctuation">,</span> name<span class="punctuation">:</span> &#x27;Air Arabia Maroc&#x27;<span class="punctuation">,</span> alias<span class="punctuation">:</span> &#x27;<span class="number">3</span>O&#x27;<span class="punctuation">,</span> iata<span class="punctuation">:</span> &#x27;\\N&#x27; <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    src_airport<span class="punctuation">:</span> &#x27;TNG&#x27;<span class="punctuation">,</span></span><br><span class="line">    dst_airport<span class="punctuation">:</span> &#x27;BRU&#x27;<span class="punctuation">,</span></span><br><span class="line">    codeshare<span class="punctuation">:</span> &#x27;&#x27;<span class="punctuation">,</span></span><br><span class="line">    stops<span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span><span class="comment">//	Number of stops on this flight (&quot;0&quot; for direct)</span></span><br><span class="line">    airplane<span class="punctuation">:</span> <span class="number">320</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>查询经停次数大于0的航线。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  stops: &#123;</span><br><span class="line">    $gt: 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="课程-查询操作符-逻辑"><a href="#课程-查询操作符-逻辑" class="headerlink" title="课程 - 查询操作符 - 逻辑"></a>课程 - 查询操作符 - 逻辑</h3><table>
+<thead>
+<tr>
+<th>与</th>
+<th>或</th>
+<th>非</th>
+<th>或非</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$and</code></td>
+<td><code>$or</code></td>
+<td><code>$not</code></td>
+<td><code>$nor</code></td>
+</tr>
+</tbody></table>
+<p><strong>与、或、或非：</strong> <code>{ &lt;operator&gt; : [ {clause1}, {clause2}, ... ] }</code></p>
+<p><strong>非：</strong> <code>{ $not : {clause} }</code></p>
+<p><img src="/img/MongoDB/image-20220607162511445.png" alt="image-20220607162511445"></p>
+<p><code>inspections</code>集合的数据来自 <a target="_blank" rel="noopener" href="https://opendata.cityofnewyork.us/">NYC OpenData</a> 。每个文档包含以下信息:<code>被检查企业名称</code>、<code>部门</code>和<code>地址</code>、<code>检查id</code>、<code>结果</code>、<code>日期</code>和<code>证书号码</code>。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  _id<span class="punctuation">:</span> ObjectId(<span class="string">&quot;56d61033a378eccde8a8354f&quot;</span>)<span class="punctuation">,</span></span><br><span class="line">  id<span class="punctuation">:</span> &#x27;<span class="number">10021</span><span class="number">-2015</span>-ENFO&#x27;<span class="punctuation">,</span></span><br><span class="line">  certificate_number<span class="punctuation">:</span> <span class="number">9278806</span><span class="punctuation">,</span></span><br><span class="line">  business_name<span class="punctuation">:</span> &#x27;ATLIXCO DELI GROCERY INC.&#x27;<span class="punctuation">,</span></span><br><span class="line">  date<span class="punctuation">:</span> &#x27;Feb <span class="number">20</span> <span class="number">2015</span>&#x27;<span class="punctuation">,</span></span><br><span class="line">  result<span class="punctuation">:</span> &#x27;No Violation Issued&#x27;<span class="punctuation">,</span></span><br><span class="line">  sector<span class="punctuation">:</span> &#x27;Cigarette Retail Dealer - <span class="number">127</span>&#x27;<span class="punctuation">,</span></span><br><span class="line">  address<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    city<span class="punctuation">:</span> &#x27;RIDGEWOOD&#x27;<span class="punctuation">,</span></span><br><span class="line">    zip<span class="punctuation">:</span> <span class="number">11385</span><span class="punctuation">,</span></span><br><span class="line">    street<span class="punctuation">:</span> &#x27;MENAHAN ST&#x27;<span class="punctuation">,</span></span><br><span class="line">    number<span class="punctuation">:</span> <span class="number">1712</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="nor"><a href="#nor" class="headerlink" title="$nor"></a>$nor</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">nor: [</span></span><br><span class="line">    &#123;</span><br><span class="line">      result: &quot;No Violation Issued&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      result: &quot;Violation Issued&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">nor: [</span></span><br><span class="line">    &#123;</span><br><span class="line">      result: &quot;No Violation Issued&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      result: &quot;Violation Issued&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      result: &quot;Pass&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      result: &quot;Fail&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="and"><a href="#and" class="headerlink" title="$and"></a>$and</h4><h5 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h5><p>查询<code>sector=&quot;Mobile Food Vendor - 881&quot;</code>,  <code>result= &quot;Warning&quot;</code>的文档（元组），我们之前都这么写：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  sector: &quot;Mobile Food Vendor - 881&quot;,</span><br><span class="line">  result: &quot;Warning&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实，上述语句我们省略了<code>$and:[ ]</code>逻辑运算符。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">and: [</span></span><br><span class="line">    &#123;</span><br><span class="line">      sector: &quot;Mobile Food Vendor - 881&quot;,</span><br><span class="line">      result: &quot;Warning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="案例2"><a href="#案例2" class="headerlink" title="案例2"></a>案例2</h5><p>查询<code>grades</code>集合中，<code>student_id&gt;25</code> 且 <code>student_id&lt;100</code> 的元组。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">and: [</span></span><br><span class="line">    &#123;</span><br><span class="line">      student_id: &#123;</span><br><span class="line">        $gt: 25</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      student_id: &#123;</span><br><span class="line">        $lt: 100</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以简写为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  student_id: &#123;</span><br><span class="line">    $gt: 25,</span><br><span class="line">    $lt: 100</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="案例3"><a href="#案例3" class="headerlink" title="案例3"></a>案例3</h5><p>使用<code>routes</code>集合找出有多少<code>CR2</code>和<code>A81</code>飞机穿越了<code>KZN</code>机场。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  $and<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      $or<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          airplane<span class="punctuation">:</span> &#x27;CR2&#x27;</span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          airplane<span class="punctuation">:</span> &#x27;A81&#x27;</span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      $or<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          src_airport<span class="punctuation">:</span> &#x27;KZN&#x27;</span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          dst_airport<span class="punctuation">:</span> &#x27;KZN&#x27;</span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="测验1"><a href="#测验1" class="headerlink" title="测验1"></a>测验1</h5><p>商业检查(<code>inspections</code>)集合(<code>collection</code>)中有多少企业(<code>businesses </code>)的检查结果(<code>result</code>)为<code>Out of Business</code>，且行业(<code>sector</code>)属于<code>Home Improvement Contractor - 100</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">and: [</span></span><br><span class="line">    &#123;</span><br><span class="line">      result: &#123;</span><br><span class="line">        $eq: &#x27;Out of Business&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      sector: &#123;</span><br><span class="line">        $eq: &#x27;Home Improvement Contractor - 100&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或省略<code>$eq</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="meta prompt_">  $</span><span class="language-bash">and: [</span></span><br><span class="line">    &#123;</span><br><span class="line">      result: &#x27;Out of Business&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      sector: &#x27;Home Improvement Contractor - 100&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或省略<code>$and</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  result: &#x27;Out of Business&#x27;,</span><br><span class="line">  sector: &#x27;Home Improvement Contractor - 100&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-索引"><a href="#5-索引" class="headerlink" title="5. 索引"></a>5. 索引</h2><h5 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h5><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.createIndex(<span class="punctuation">&#123;</span>city<span class="punctuation">:</span><span class="number">1</span><span class="punctuation">&#125;</span>)</span><br><span class="line">city_1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.find(<span class="punctuation">&#123;</span>city<span class="punctuation">:</span>&#x27;ALPINE&#x27;<span class="punctuation">&#125;</span>).explain()</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  explainVersion<span class="punctuation">:</span> &#x27;<span class="number">1</span>&#x27;<span class="punctuation">,</span></span><br><span class="line">  queryPlanner<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    namespace<span class="punctuation">:</span> &#x27;sample_training.zips&#x27;<span class="punctuation">,</span></span><br><span class="line">    indexFilterSet<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    parsedQuery<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> <span class="punctuation">&#123;</span> &#x27;$eq&#x27;<span class="punctuation">:</span> &#x27;ALPINE&#x27; <span class="punctuation">&#125;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    maxIndexedOrSolutionsReached<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    maxIndexedAndSolutionsReached<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    maxScansToExplodeReached<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    winningPlan<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      stage<span class="punctuation">:</span> &#x27;FETCH&#x27;<span class="punctuation">,</span></span><br><span class="line">      inputStage<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        stage<span class="punctuation">:</span> &#x27;IXSCAN&#x27;<span class="punctuation">,</span><span class="comment">//查询方式，常见的有COLLSCAN/全表扫描、IXSCAN/索引扫描、FETCH/根据索引去检索文档、SHARD_MERGE/合并分片结果、IDHACK/针对_id进行查询</span></span><br><span class="line">        keyPattern<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        indexName<span class="punctuation">:</span> &#x27;city_1&#x27;<span class="punctuation">,</span><span class="comment">//索引名</span></span><br><span class="line">        isMultiKey<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        multiKeyPaths<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        isUnique<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        isSparse<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        isPartial<span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        indexVersion<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">        direction<span class="punctuation">:</span> &#x27;forward&#x27;<span class="punctuation">,</span></span><br><span class="line">        indexBounds<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> <span class="punctuation">[</span> &#x27;<span class="punctuation">[</span><span class="string">&quot;ALPINE&quot;</span><span class="punctuation">,</span> <span class="string">&quot;ALPINE&quot;</span><span class="punctuation">]</span>&#x27; <span class="punctuation">]</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    rejectedPlans<span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  command<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    find<span class="punctuation">:</span> &#x27;zips&#x27;<span class="punctuation">,</span></span><br><span class="line">    filter<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> &#x27;ALPINE&#x27; <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    &#x27;$db&#x27;<span class="punctuation">:</span> &#x27;sample_training&#x27;</span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  serverInfo<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    host<span class="punctuation">:</span> &#x27;honor&#x27;<span class="punctuation">,</span></span><br><span class="line">    port<span class="punctuation">:</span> <span class="number">27017</span><span class="punctuation">,</span></span><br><span class="line">    version<span class="punctuation">:</span> &#x27;<span class="number">5.0</span><span class="number">.8</span>&#x27;<span class="punctuation">,</span></span><br><span class="line">    gitVersion<span class="punctuation">:</span> &#x27;c87e1c23421bf79614baf500fda6622bd90f674e&#x27;</span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  serverParameters<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    internalQueryFacetBufferSizeBytes<span class="punctuation">:</span> <span class="number">104857600</span><span class="punctuation">,</span></span><br><span class="line">    internalQueryFacetMaxOutputDocSizeBytes<span class="punctuation">:</span> <span class="number">104857600</span><span class="punctuation">,</span></span><br><span class="line">    internalLookupStageIntermediateDocumentMaxSizeBytes<span class="punctuation">:</span> <span class="number">104857600</span><span class="punctuation">,</span></span><br><span class="line">    internalDocumentSourceGroupMaxMemoryBytes<span class="punctuation">:</span> <span class="number">104857600</span><span class="punctuation">,</span></span><br><span class="line">    internalQueryMaxBlockingSortMemoryUsageBytes<span class="punctuation">:</span> <span class="number">104857600</span><span class="punctuation">,</span></span><br><span class="line">    internalQueryProhibitBlockingMergeOnMongoS<span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    internalQueryMaxAddToSetBytes<span class="punctuation">:</span> <span class="number">104857600</span><span class="punctuation">,</span></span><br><span class="line">    internalDocumentSourceSetWindowFieldsMaxMemoryBytes<span class="punctuation">:</span> <span class="number">104857600</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  ok<span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="查看索引"><a href="#查看索引" class="headerlink" title="查看索引"></a>查看索引</h5><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.getIndexes()</span><br><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span> v<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> key<span class="punctuation">:</span> <span class="punctuation">&#123;</span> _id<span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> name<span class="punctuation">:</span> &#x27;_id_&#x27; <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> v<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> key<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> name<span class="punctuation">:</span> &#x27;city_1&#x27; <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="索引大小"><a href="#索引大小" class="headerlink" title="索引大小"></a>索引大小</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.totalIndexSize()</span><br><span class="line">684032</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h5><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.dropIndex(<span class="punctuation">&#123;</span>city<span class="punctuation">:</span><span class="number">-1</span><span class="punctuation">&#125;</span>)</span><br><span class="line">MongoshInternalError<span class="punctuation">:</span> can&#x27;t find index with key<span class="punctuation">:</span> <span class="punctuation">&#123;</span> city<span class="punctuation">:</span> <span class="number">-1</span> <span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line">sample_training&gt; db.zips.dropIndex(<span class="punctuation">&#123;</span>city<span class="punctuation">:</span><span class="number">1</span><span class="punctuation">&#125;</span>)</span><br><span class="line"><span class="punctuation">&#123;</span> nIndexesWas<span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span> ok<span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="删除所有索引"><a href="#删除所有索引" class="headerlink" title="删除所有索引"></a>删除所有索引</h5><p>除_id唯一索引都被删除。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.dropIndexes()</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  nIndexesWas<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  msg<span class="punctuation">:</span> &#x27;non-_id indexes dropped for collection&#x27;<span class="punctuation">,</span></span><br><span class="line">  ok<span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h5><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.zips.createIndex(<span class="punctuation">&#123;</span>state<span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span>city<span class="punctuation">:</span><span class="number">1</span><span class="punctuation">&#125;</span>)</span><br><span class="line">state_1_city_1</span><br><span class="line">sample_training&gt; db.zips.getIndexes()</span><br><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span> v<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> key<span class="punctuation">:</span> <span class="punctuation">&#123;</span> _id<span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> name<span class="punctuation">:</span> &#x27;_id_&#x27; <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span> v<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> key<span class="punctuation">:</span> <span class="punctuation">&#123;</span> state<span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> city<span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> name<span class="punctuation">:</span> &#x27;state_1_city_1&#x27; <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="多键值索引"><a href="#多键值索引" class="headerlink" title="多键值索引"></a>多键值索引</h5><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sample_training&gt; db.grades.createIndex(<span class="punctuation">&#123;</span>scores<span class="punctuation">:</span><span class="number">1</span><span class="punctuation">&#125;</span>)</span><br><span class="line">scores_1</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/03/23/MongoDB/MongoDB/" data-id="cuidPRoBkHp8V6a3dAJA8ggcU" data-title="MongoDB使用" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/23/Kettle/Kettle_CDC_BinLog/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Kettle - 基于日志的CDC
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/23/MongoDB/MongoDB_Python/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MongoDB Python API</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

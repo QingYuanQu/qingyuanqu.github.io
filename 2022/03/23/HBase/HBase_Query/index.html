@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>HBase 数据查询 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="HBase数据查询数据准备创建表创建Student表，两个列族Info和Score； 12hbase(main):047:0&gt; create &#x27;Student&#x27;,&#x27;Info&#x27;,&#x27;Score&#x27;0 row(s) in 2.3500 seconds  插入数据批量插入            No       Info       Scor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase 数据查询">
+<meta property="og:url" content="http://www.studybigdata.com/2022/03/23/HBase/HBase_Query/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="HBase数据查询数据准备创建表创建Student表，两个列族Info和Score； 12hbase(main):047:0&gt; create &#x27;Student&#x27;,&#x27;Info&#x27;,&#x27;Score&#x27;0 row(s) in 2.3500 seconds  插入数据批量插入            No       Info       Scor">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-23T07:55:26.000Z">
+<meta property="article:modified_time" content="2022-11-14T13:06:56.456Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="HBase Shell">
+<meta property="article:tag" content="过滤器">
+<meta property="article:tag" content="限定符">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-HBase/HBase_Query" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/23/HBase/HBase_Query/" class="article-date">
+  <time class="dt-published" datetime="2022-03-23T07:55:26.000Z" itemprop="datePublished">2022-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HBase/">HBase</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      HBase 数据查询
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="HBase数据查询"><a href="#HBase数据查询" class="headerlink" title="HBase数据查询"></a>HBase数据查询</h1><h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>创建<code>Student</code>表，两个列族<code>Info</code>和<code>Score</code>；</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">hbase(main):047:0&gt;</span> create <span class="string">&#x27;Student&#x27;</span>,<span class="string">&#x27;Info&#x27;</span>,<span class="string">&#x27;Score&#x27;</span></span><br><span class="line"><span class="number">0</span> row(s) <span class="keyword">in</span> <span class="number">2.3500</span> seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>批量插入</p>
+<table>
+   <tr>
+      <td rowspan="2">No</td>
+      <td colspan="2">Info</td>
+      <td colspan="3">Score</td>
+   </tr>
+   <tr>
+      <td>name</td>
+      <td>age</td>
+      <td>Hadoop</td>
+      <td>HBase</td>
+      <td>Spark</td>
+   </tr>
+   <tr>
+      <td>001</td>
+      <td>qiaofeng</td>
+      <td>30</td>
+      <td>93</td>
+      <td>85</td>
+      <td>70</td>
+   </tr>
+   <tr>
+      <td>002</td>
+      <td>duanyu</td>
+      <td>27</td>
+      <td>95</td>
+      <td>98</td>
+      <td>50</td>
+   </tr>
+   <tr>
+      <td>003</td>
+      <td>wangyuyan</td>
+      <td>18</td>
+      <td>95</td>
+      <td>97</td>
+      <td>92</td>
+   </tr
+</table>
+
+<h5 id="vim-data-sh"><a href="#vim-data-sh" class="headerlink" title="vim data.sh"></a>vim data.sh</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">put &#x27;Student&#x27;,&#x27;001&#x27;,&#x27;Info:name&#x27;,&#x27;qiaofeng&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;001&#x27;,&#x27;Info:age&#x27;,&#x27;30&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;001&#x27;,&#x27;Score:Hadoop&#x27;,&#x27;93&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;001&#x27;,&#x27;Score:Hbase&#x27;,&#x27;85&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;001&#x27;,&#x27;Score:Spark&#x27;,&#x27;70&#x27;</span><br><span class="line"></span><br><span class="line">put &#x27;Student&#x27;,&#x27;002&#x27;,&#x27;Info:name&#x27;,&#x27;duanyu&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;002&#x27;,&#x27;Info:age&#x27;,&#x27;27&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;002&#x27;,&#x27;Score:Hadoop&#x27;,&#x27;95&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;002&#x27;,&#x27;Score:Hbase&#x27;,&#x27;98&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;002&#x27;,&#x27;Score:Spark&#x27;,&#x27;59&#x27;</span><br><span class="line"></span><br><span class="line">put &#x27;Student&#x27;,&#x27;003&#x27;,&#x27;Info:name&#x27;,&#x27;wangyuyan&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;003&#x27;,&#x27;Info:age&#x27;,&#x27;18&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;003&#x27;,&#x27;Score:Hadoop&#x27;,&#x27;95&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;003&#x27;,&#x27;Score:Hbase&#x27;,&#x27;97&#x27;</span><br><span class="line">put &#x27;Student&#x27;,&#x27;003&#x27;,&#x27;Score:Spark&#x27;,&#x27;92&#x27;</span><br><span class="line"></span><br><span class="line">put &#x27;Student&#x27;,&#x27;10&#x27;,&#x27;Info:name&#x27;,&#x27;xuzhu&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node1 ~]$ hbase shell data.sh </span><br></pre></td></tr></table></figure>
+
+<h2 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h2><h3 id="行"><a href="#行" class="headerlink" title="行"></a>行</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">hbase(main):006:0&gt;</span> scan <span class="string">&#x27;Student&#x27;</span>,<span class="variable constant_">STARTROW</span>=&gt;<span class="string">&#x27;001&#x27;</span>,<span class="variable constant_">ENDROW</span>=&gt;<span class="string">&#x27;003&#x27;</span></span><br><span class="line"><span class="variable constant_">ROW</span>                        <span class="variable constant_">COLUMN</span>+<span class="variable constant_">CELL</span>                                                   </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668417929087</span>, value=<span class="number">30</span>             </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Info</span><span class="symbol">:name</span>, timestamp=<span class="number">1668417819932</span>, value=qiaofeng     </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Score</span><span class="symbol">:Hadoop</span>, timestamp=<span class="number">1668417929366</span>, value=<span class="number">93</span>         </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Score</span><span class="symbol">:Hbase</span>, timestamp=<span class="number">1668417929388</span>, value=<span class="number">85</span>         </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Score</span><span class="symbol">:Spark</span>, timestamp=<span class="number">1668417929400</span>, value=<span class="number">70</span>         </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668417929434</span>, value=<span class="number">27</span>             </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Info</span><span class="symbol">:name</span>, timestamp=<span class="number">1668417929414</span>, value=duanyu       </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Score</span><span class="symbol">:Hadoop</span>, timestamp=<span class="number">1668417929448</span>, value=<span class="number">95</span>         </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Score</span><span class="symbol">:Hbase</span>, timestamp=<span class="number">1668417929463</span>, value=<span class="number">98</span>         </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Score</span><span class="symbol">:Spark</span>, timestamp=<span class="number">1668417929481</span>, value=<span class="number">50</span>         </span><br><span class="line"><span class="number">2</span> row(s) <span class="keyword">in</span> <span class="number">0.0290</span> seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="列"><a href="#列" class="headerlink" title="列"></a>列</h3><h5 id="粒度：列族"><a href="#粒度：列族" class="headerlink" title="粒度：列族"></a>粒度：列族</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">hbase(main):003:0&gt;</span> get <span class="string">&#x27;Student&#x27;</span>,<span class="string">&#x27;001&#x27;</span>,<span class="variable constant_">COLUMN</span>=&gt;<span class="string">&#x27;Info&#x27;</span></span><br><span class="line"><span class="variable constant_">COLUMN</span>                     <span class="variable constant_">CELL</span>                                                           </span><br><span class="line"> <span class="title class_">Info</span><span class="symbol">:age</span>                  timestamp=<span class="number">1668417929087</span>, value=<span class="number">30</span>                             </span><br><span class="line"> <span class="title class_">Info</span><span class="symbol">:name</span>                 timestamp=<span class="number">1668417819932</span>, value=qiaofeng                       </span><br><span class="line"><span class="number">1</span> row(s) <span class="keyword">in</span> <span class="number">0.1410</span> seconds</span><br></pre></td></tr></table></figure>
+
+<h5 id="粒度：列"><a href="#粒度：列" class="headerlink" title="粒度：列"></a>粒度：列</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">hbase(main):004:0&gt;</span> get <span class="string">&#x27;Student&#x27;</span>,<span class="string">&#x27;001&#x27;</span>,<span class="variable constant_">COLUMN</span>=&gt;<span class="string">&#x27;Info:name&#x27;</span></span><br><span class="line"><span class="variable constant_">COLUMN</span>                     <span class="variable constant_">CELL</span>                                                          </span><br><span class="line"> <span class="title class_">Info</span><span class="symbol">:name</span>                 timestamp=<span class="number">1668417819932</span>, value=qiaofeng                      </span><br><span class="line"><span class="number">1</span> row(s) <span class="keyword">in</span> <span class="number">0.0110</span> seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="行列组合"><a href="#行列组合" class="headerlink" title="行列组合"></a>行列组合</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">hbase(main):007:0&gt;</span> scan <span class="string">&#x27;Student&#x27;</span>,<span class="variable constant_">COLUMN</span>=&gt;<span class="string">&#x27;Info&#x27;</span>,<span class="variable constant_">STARTROW</span>=&gt;<span class="string">&#x27;001&#x27;</span>,<span class="variable constant_">ENDROW</span>=&gt;<span class="string">&#x27;003&#x27;</span></span><br><span class="line"><span class="variable constant_">ROW</span>                        <span class="variable constant_">COLUMN</span>+<span class="variable constant_">CELL</span>                                                   </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668417929087</span>, value=<span class="number">30</span>             </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Info</span><span class="symbol">:name</span>, timestamp=<span class="number">1668417819932</span>, value=qiaofeng     </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668417929434</span>, value=<span class="number">27</span>             </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Info</span><span class="symbol">:name</span>, timestamp=<span class="number">1668417929414</span>, value=duanyu       </span><br><span class="line"><span class="number">2</span> row(s) <span class="keyword">in</span> <span class="number">0.0180</span> seconds</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="过滤器查询"><a href="#过滤器查询" class="headerlink" title="过滤器查询"></a>过滤器查询</h2><p><code>get</code>和<code>scan</code>都可以使用过滤器(<code>Filter</code>)来设置查询条件。</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="KV"><a href="#KV" class="headerlink" title="KV"></a>KV</h4><h5 id="key"><a href="#key" class="headerlink" title="key"></a>key</h5><h5 id="value"><a href="#value" class="headerlink" title="value"></a>value</h5><h5 id="family"><a href="#family" class="headerlink" title="family"></a>family</h5><h5 id="column"><a href="#column" class="headerlink" title="column"></a>column</h5><h5 id="Qualifier"><a href="#Qualifier" class="headerlink" title="Qualifier"></a>Qualifier</h5><h5 id="Single"><a href="#Single" class="headerlink" title="Single"></a>Single</h5><h5 id="Inclusive"><a href="#Inclusive" class="headerlink" title="Inclusive"></a>Inclusive</h5><h3 id="过滤器语法"><a href="#过滤器语法" class="headerlink" title="过滤器语法"></a>过滤器语法</h3><p><code>scan/get &#39;表名&#39;，{FILTER=&gt; &quot;过滤器 ( 比较运算符，&#39;比较器&#39;)&quot;}</code></p>
+<h5 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">hbase(main):078:0&gt;</span> show_filters</span><br><span class="line"></span><br><span class="line"><span class="title class_">RowFilter</span></span><br><span class="line"><span class="title class_">PrefixFilter</span></span><br><span class="line"><span class="title class_">InclusiveStopFilter</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title class_">FamilyFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">QualifierFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">ColumnPrefixFilter</span></span><br><span class="line"><span class="title class_">ColumnRangeFilter</span></span><br><span class="line"><span class="title class_">ColumnCountGetFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">DependentColumnFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">SingleColumnValueFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">SingleColumnValueExcludeFilter</span></span><br><span class="line"><span class="title class_">FirstKeyOnlyFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">ValueFilter</span></span><br><span class="line"><span class="title class_">TimestampsFilter</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title class_">MultipleColumnPrefixFilter</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">PageFilter</span></span><br><span class="line"><span class="title class_">KeyOnlyFilter</span> <span class="comment">#只返回每个KV的Key的过滤器（value将被重写为空)</span></span><br><span class="line"><span class="title class_">ColumnPaginationFilter</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="比较器"><a href="#比较器" class="headerlink" title="比较器"></a>比较器</h5><table>
+<thead>
+<tr>
+<th><strong>比较器</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BinaryComparator</td>
+<td>匹配完整字节数组</td>
+</tr>
+<tr>
+<td>BinaryPrefixComparator</td>
+<td>匹配字节数组前缀</td>
+</tr>
+<tr>
+<td>BitComparator</td>
+<td>匹配比特位</td>
+</tr>
+<tr>
+<td>NullComparator</td>
+<td>匹配空值</td>
+</tr>
+<tr>
+<td>RegexStringComparator</td>
+<td>匹配正则表达式</td>
+</tr>
+<tr>
+<td>SubstringComparator</td>
+<td>匹配子字符串</td>
+</tr>
+</tbody></table>
+<h5 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h5><table>
+<thead>
+<tr>
+<th><strong>比较运算符</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>!&#x3D;</td>
+<td>不等于</td>
+</tr>
+</tbody></table>
+<h3 id="过滤器分类"><a href="#过滤器分类" class="headerlink" title="过滤器分类"></a>过滤器分类</h3><ul>
+<li><p>行键过滤器</p>
+</li>
+<li><p>列族与列过滤器</p>
+</li>
+<li><p>值过滤器</p>
+</li>
+<li><p>其他过滤器</p>
+</li>
+</ul>
+<h4 id="行键过滤器"><a href="#行键过滤器" class="headerlink" title="行键过滤器"></a>行键过滤器</h4><h5 id="RowFilter"><a href="#RowFilter" class="headerlink" title="RowFilter"></a>RowFilter</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;RowFilter(=,&#x27;substring:0&#x27;)&quot;</span>&#125; <span class="comment">#行键包含字符0</span></span><br><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;RowFilter(&gt;,&#x27;binary:002&#x27;)&quot;</span>&#125; <span class="comment"># 行键顺序大于002</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="PrefixFilter"><a href="#PrefixFilter" class="headerlink" title="PrefixFilter"></a>PrefixFilter</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;PrefixFilter(&#x27;002&#x27;)&quot;</span>&#125; <span class="comment"># 行键前缀为002</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="KeyOnlyFilter"><a href="#KeyOnlyFilter" class="headerlink" title="KeyOnlyFilter"></a>KeyOnlyFilter</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;KeyOnlyFilter()&quot;</span>&#125; <span class="comment"># 显示所有Key，不显示Value</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="FirstKeyOnlyFilter"><a href="#FirstKeyOnlyFilter" class="headerlink" title="FirstKeyOnlyFilter"></a>FirstKeyOnlyFilter</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;FirstKeyOnlyFilter()&quot;</span>&#125; <span class="comment"># 无参.仅返回每行第一KV的滤波器。 此过滤器可用于更有效地执行row计数操作。</span></span><br><span class="line"><span class="comment"># 类似于</span></span><br><span class="line">count <span class="string">&#x27;Student&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="InclusiveStopFilter"><a href="#InclusiveStopFilter" class="headerlink" title="InclusiveStopFilter"></a>InclusiveStopFilter</h5><p>替代<code>ENDROW</code>返回终止条件行；显示[001,003)</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">STARTROW</span>=&gt;<span class="string">&#x27;001&#x27;</span>,<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;InclusiveStopFilter(&#x27;002&#x27;)&quot;</span>&#125; <span class="comment">#包含指定的终止行</span></span><br><span class="line"><span class="comment">#类似于</span></span><br><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">STARTROW</span>=&gt;<span class="string">&#x27;001&#x27;</span>,<span class="variable constant_">ENDROW</span>=&gt;<span class="string">&#x27;003&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="列族过滤器"><a href="#列族过滤器" class="headerlink" title="列族过滤器"></a>列族过滤器</h4><p>列族包含字符<code>Inf</code>的列；</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;FamilyFilter(=,&#x27;substring:Inf&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>筛选<code>Info</code>列：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;FamilyFilter(=,&#x27;binary:Score&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="列过滤器"><a href="#列过滤器" class="headerlink" title="列过滤器"></a>列过滤器</h4><h5 id="列过滤器-1"><a href="#列过滤器-1" class="headerlink" title="列过滤器"></a>列过滤器</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scan &#x27;Student&#x27;,&#123;FILTER=&gt;&quot;QualifierFilter(=,&#x27;binary:name&#x27;)&quot;&#125; #等值</span><br><span class="line">scan &#x27;Student&#x27;,&#123;FILTER=&gt;&quot;QualifierFilter(=,&#x27;substring:nam&#x27;)&quot;&#125; #包含</span><br></pre></td></tr></table></figure>
+
+<h5 id="列前缀过滤器"><a href="#列前缀过滤器" class="headerlink" title="列前缀过滤器"></a>列前缀过滤器</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;ColumnPrefixFilter(&#x27;H&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="多列前缀过滤器"><a href="#多列前缀过滤器" class="headerlink" title="多列前缀过滤器"></a>多列前缀过滤器</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;MultipleColumnPrefixFilter(&#x27;nam&#x27;,&#x27;age&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="列区间过滤器"><a href="#列区间过滤器" class="headerlink" title="列区间过滤器"></a>列区间过滤器</h5><p>各列的字典序如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sorted([<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;age&#x27;</span>,<span class="string">&#x27;Hadoop&#x27;</span>,<span class="string">&#x27;Spark&#x27;</span>,<span class="string">&#x27;HBase&#x27;</span>])</span><br><span class="line">[<span class="string">&#x27;HBase&#x27;</span>, <span class="string">&#x27;Hadoop&#x27;</span>, <span class="string">&#x27;Spark&#x27;</span>, <span class="string">&#x27;age&#x27;</span>, <span class="string">&#x27;name&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;ColumnRangeFilter(&#x27;S&#x27;,true,&#x27;n&#x27;,false)&quot;</span>&#125;</span><br><span class="line"><span class="variable constant_">ROW</span>                        <span class="variable constant_">COLUMN</span>+<span class="variable constant_">CELL</span>                                                   </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668417929087</span>, value=<span class="number">30</span>             </span><br><span class="line"> <span class="number">001</span>                       column=<span class="title class_">Score</span><span class="symbol">:Spark</span>, timestamp=<span class="number">1668417929400</span>, value=<span class="number">70</span>         </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668417929434</span>, value=<span class="number">27</span>             </span><br><span class="line"> <span class="number">002</span>                       column=<span class="title class_">Score</span><span class="symbol">:Spark</span>, timestamp=<span class="number">1668417929481</span>, value=<span class="number">50</span>         </span><br><span class="line"> <span class="number">003</span>                       column=<span class="title class_">Info</span><span class="symbol">:age</span>, timestamp=<span class="number">1668419546101</span>, value=<span class="number">18</span>             </span><br><span class="line"> <span class="number">003</span>                       column=<span class="title class_">Score</span><span class="symbol">:Spark</span>, timestamp=<span class="number">1668419564352</span>, value=<span class="number">92</span>         </span><br><span class="line"><span class="number">3</span> row(s) <span class="keyword">in</span> <span class="number">0.0120</span> seconds</span><br></pre></td></tr></table></figure>
+
+<h5 id="ColumnCountGetFilter"><a href="#ColumnCountGetFilter" class="headerlink" title="ColumnCountGetFilter"></a>ColumnCountGetFilter</h5><p>限制每个逻辑行返回的单元格数</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;ColumnCountGetFilter(2)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="值过滤器"><a href="#值过滤器" class="headerlink" title="值过滤器"></a>值过滤器</h4><h5 id="ValueFilter"><a href="#ValueFilter" class="headerlink" title="ValueFilter"></a>ValueFilter</h5><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;ValueFilter(=,&#x27;binary:98&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;ValueFilter(=,&#x27;substring:9&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SingleColumnValueFilter"><a href="#SingleColumnValueFilter" class="headerlink" title="SingleColumnValueFilter"></a>SingleColumnValueFilter</h5><p>注意：没有<code>Hbase</code>这列的逻辑行也会被匹配到。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;SingleColumnValueFilter(&#x27;Score&#x27;,&#x27;Hbase&#x27;,=,&#x27;binary:85&#x27;)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;SingleColumnValueFilter(&#x27;Score&#x27;,&#x27;Hbase&#x27;,=,&#x27;binary:85&#x27;,True,True)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="时间戳过滤器"><a href="#时间戳过滤器" class="headerlink" title="时间戳过滤器"></a>时间戳过滤器</h4><h5 id="TimestampsFilter"><a href="#TimestampsFilter" class="headerlink" title="TimestampsFilter"></a>TimestampsFilter</h5><p>只查询时间戳为<code>1649129478746</code>和<code>1649129465737</code>的键值对；</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,&#123;<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;TimestampsFilter(1649129478746,1649129465737)&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他过滤器"><a href="#其他过滤器" class="headerlink" title="其他过滤器"></a>其他过滤器</h4><h5 id="PageFilter"><a href="#PageFilter" class="headerlink" title="PageFilter"></a><strong>PageFilter</strong></h5><p>基于行的分页过滤器，设置返回行数。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">&#x27;Student&#x27;</span>,<span class="variable constant_">FILTER</span>=&gt;<span class="string">&quot;PageFilter(2)&quot;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/03/23/HBase/HBase_Query/" data-id="cuid2fyAax053wkMTzrlLWmME" data-title="HBase 数据查询" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/23/HBase/HBase/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HBase
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/23/FrontEnd/LayUI/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LayUI</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

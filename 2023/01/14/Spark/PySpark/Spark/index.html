@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Spark | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Spark        Term Meaning    Application User program built on Spark. Consists of a driver program and executors on the cluster.   Application jar A jar containing the user’s Spark application. In som">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark">
+<meta property="og:url" content="http://www.studybigdata.com/2023/01/14/Spark/PySpark/Spark/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="Spark        Term Meaning    Application User program built on Spark. Consists of a driver program and executors on the cluster.   Application jar A jar containing the user’s Spark application. In som">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/cluster-overview.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220908143725377.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220213132758743.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220213133658467.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220213110511064.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220215120443007.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220215120612101.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220327222339281.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220327224356950.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220327225144558.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220327225553622.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220327225621480.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220327225823459.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326095828496.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326095952397.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326101828219.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326144828512.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326145821944.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326145915997.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/Spark/image-20220326151133505.png">
+<meta property="article:published_time" content="2023-01-14T07:55:26.000Z">
+<meta property="article:modified_time" content="2023-06-25T06:49:00.069Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="PySpark">
+<meta property="article:tag" content="Spark环境部署">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/Spark/cluster-overview.png">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Spark/PySpark/Spark" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/14/Spark/PySpark/Spark/" class="article-date">
+  <time class="dt-published" datetime="2023-01-14T07:55:26.000Z" itemprop="datePublished">2023-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PySpark/">PySpark</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Spark
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 style="color:red; text-align:center;color:red;">Spark</h1>
+
+
+
+<p><img src="/img/Spark/cluster-overview.png" alt="Spark cluster components"></p>
+<table>
+<thead>
+<tr>
+<th align="left">Term</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Application</code></td>
+<td align="left">User program built on Spark. Consists of a <em>driver program</em> and <em>executors</em> on the cluster.</td>
+</tr>
+<tr>
+<td align="left">Application jar</td>
+<td align="left">A jar containing the user’s Spark application. In some cases users will want to create an “uber jar” containing their application along with its dependencies. The user’s jar should never include Hadoop or Spark libraries, however, these will be added at runtime.</td>
+</tr>
+<tr>
+<td align="left"><code>Driver</code></td>
+<td align="left">The process running the <code>main() function</code> of the application and <code>creating the SparkContext</code></td>
+</tr>
+<tr>
+<td align="left">Cluster manager</td>
+<td align="left">An external service for acquiring resources on the cluster (e.g. standalone manager, Mesos, YARN)</td>
+</tr>
+<tr>
+<td align="left">Deploy mode</td>
+<td align="left">Distinguishes where the driver process runs. In “cluster” mode, the framework launches the driver inside of the cluster. In “client” mode, the submitter launches the driver outside of the cluster.</td>
+</tr>
+<tr>
+<td align="left">Worker node</td>
+<td align="left">Any node that can run application code in the cluster</td>
+</tr>
+<tr>
+<td align="left"><code>Executor</code></td>
+<td align="left">A process launched for an application on a worker node, that runs tasks and keeps data in memory or disk storage across them. Each application has its own executors.</td>
+</tr>
+<tr>
+<td align="left">Task</td>
+<td align="left">A unit of work that will be sent to one executor</td>
+</tr>
+<tr>
+<td align="left">Job</td>
+<td align="left">A parallel computation consisting of multiple tasks that gets spawned in response to a Spark action (e.g. <code>save</code>, <code>collect</code>); you’ll see this term used in the driver’s logs.</td>
+</tr>
+<tr>
+<td align="left">Stage</td>
+<td align="left">Each job gets divided into smaller sets of tasks called <em>stages</em> that depend on each other (similar to the map and reduce stages in MapReduce); you’ll see this term used in the driver’s logs.</td>
+</tr>
+</tbody></table>
+<h1 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h1><blockquote>
+<p><strong>官方文档</strong></p>
+<p><a target="_blank" rel="noopener" href="https://spark.apache.org/docs/2.4.8/">https://spark.apache.org/docs/2.4.8/</a></p>
+<p><strong>下载地址</strong></p>
+<p><a target="_blank" rel="noopener" href="https://archive.apache.org/dist/spark/spark-2.4.8/">https://archive.apache.org/dist/spark/spark-2.4.8/</a></p>
+<p><strong>安装目录</strong></p>
+<p><code>/opt/bigdata/spark</code></p>
+<p><strong>部署规划</strong></p>
+<p><code>node0</code>：Local (Linux File System &amp; HDFS)</p>
+<p><code>node1</code> <code>node2</code> <code>node3</code>  配置为<code>spark</code>集群。</p>
+</blockquote>
+<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:525px; height:400px;" src="https://www.processon.com/embed/62083c165653bb06de331e3c"></iframe>
+
+<p><img src="/img/Spark/image-20220908143725377.png" alt="image-20220908143725377"></p>
+<p>在<code>/opt/</code>目录下创建<code>bigdata</code>目录，并修改目录的所有者和所属组为<code>zhangsan</code>，我们将<code>spark</code>安装到该目录中。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建/opt/bigdata/spark文件夹</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">!!! 注意： 因为普通用户没有权限在/opt/目录写数据，所有本次操作使用的是root账户。</span></span><br><span class="line">[root@node0 ~]# mkdir /opt/bigdata/spark</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改/opt/bigdata/spark文件夹及子文件夹的所有者所属组为zhangsan</span></span><br><span class="line">[root@node0 ~]# chown -R zhangsan:zhangsan /opt/bigdata/spark</span><br><span class="line">[root@node0 ~]# ls -al /opt/bigdata/</span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x. 3 zhangsan zhangsan 19 Feb 15 08:38 .</span><br><span class="line">drwxr-xr-x. 3 root   root   21 Feb 15 08:38 ..</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Feb 15 08:38 spark</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退出root账号</span></span><br><span class="line">[root@node0 ~]# exit</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>xftp</code>等文件传输工具，将<code>spark</code>安装包上传到<code>CentOS 7</code>系统的<code>/opt/bigdata/spark</code>目录中。</p>
+<hr>
+<h2 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a><a href="#Local">本地运行</a></h2><h3 id="读写Linux"><a href="#读写Linux" class="headerlink" title="读写Linux"></a>读写Linux</h3><p>本地运行模式开箱即用，只需要<a href=""><code>Java</code>环境</a>，无需其他任何配置。此时，只能读写本机<code>Linux文件系统</code>中的文件，无法读写<code>HDFS</code>。</p>
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ cd /opt/bigdata/spark/</span><br><span class="line">[zhangsan@node0 spark]$ tar -zxf spark-2.4.8-bin-hadoop2.7.tgz</span><br><span class="line">[zhangsan@node0 spark]$ ll</span><br><span class="line">total 230372</span><br><span class="line">drwxr-xr-x. 13 zhangsan zhangsan       211 May  8  2021 spark-2.4.8-bin-hadoop2.7</span><br><span class="line">-rw-rw-r--.  1 zhangsan zhangsan 235899716 Feb 15 08:42 spark-2.4.8-bin-hadoop2.7.tgz</span><br><span class="line">[zhangsan@node0 spark]$ ln -s spark-2.4.8-bin-hadoop2.7 default</span><br><span class="line">[zhangsan@node0 spark]$ ll</span><br><span class="line">total 230372</span><br><span class="line">lrwxrwxrwx.  1 zhangsan zhangsan        25 Feb 15 08:42 default -&gt; spark-2.4.8-bin-hadoop2.7</span><br><span class="line">drwxr-xr-x. 13 zhangsan zhangsan       211 May  8  2021 spark-2.4.8-bin-hadoop2.7</span><br><span class="line">-rw-rw-r--.  1 zhangsan zhangsan 235899716 Feb 15 08:42 spark-2.4.8-bin-hadoop2.7.tgz</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>无需配置。</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 spark]$ cd default/bin/</span><br><span class="line">[zhangsan@node0 bin]$ rm -rf *.cmd # 删除Windows平台的脚本（可选）</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 spark-shell 交互式环境（scala语言）</span></span><br><span class="line">[zhangsan@node0 bin]$ ./spark-shell --master local[*]</span><br><span class="line">22/02/13 12:50:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可通过此 web 界面查看 spark job 的运行情况</span></span><br><span class="line">Spark context Web UI available at http://node0:4040</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">local</span>[*] 表示使用所有计算资源</span></span><br><span class="line">Spark context available as &#x27;sc&#x27; (master = local[*], app id = local-1644727904419).</span><br><span class="line">Spark session available as &#x27;spark&#x27;.</span><br><span class="line">Welcome to</span><br><span class="line">      ____              __</span><br><span class="line">     / __/__  ___ _____/ /__</span><br><span class="line">    _\ \/ _ \/ _ `/ __/  &#x27;_/</span><br><span class="line">   /___/ .__/\_,_/_/ /_/\_\   version 2.4.8</span><br><span class="line">      /_/</span><br><span class="line">         </span><br><span class="line">Using Scala version 2.11.12 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_202)</span><br></pre></td></tr></table></figure>
+
+<p>可通过spark web界面查job的启动情况，网页中看不到job的运行情况，因为我们还没有执行spark job。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://node0:4040</span><br></pre></td></tr></table></figure>
+
+<p>本地模式只有一个进程启动。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ jps</span><br><span class="line">18371 SparkSubmit</span><br><span class="line">20020 Jps</span><br><span class="line">[zhangsan@node0 ~]$ </span><br></pre></td></tr></table></figure>
+
+<h4 id="Master参数"><a href="#Master参数" class="headerlink" title="Master参数"></a>Master参数</h4><table>
+<thead>
+<tr>
+<th>–master参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>local</code></td>
+<td>使用<code>一个Worker线程</code>本地化运行Spark</td>
+</tr>
+<tr>
+<td><code>local[k]</code></td>
+<td>使用<code>K个Worker线程</code>本地化运行Spark</td>
+</tr>
+<tr>
+<td><code>local[*]</code></td>
+<td>使用<code>* 个Worker线程</code>本地化运行Spark(<code>* =机器的CPU核数</code>)（默认）</td>
+</tr>
+<tr>
+<td><code>spark://HOST:PORT</code></td>
+<td>连接到指定的<code>Standalone集群</code>。<code>HOST</code>参数是<code>Spark Master</code>的<code>hostname</code>或<code>IP</code>，默认端口是<code>7077。</code></td>
+</tr>
+<tr>
+<td><code>mesos://HOST:PORT</code></td>
+<td>连接到指定的<code>Mesos集群</code>。<code>HOST</code>参数是<code>Moses Master</code>的<code>hostname</code>或<code>IP</code>，默认端口是<code>5050</code>  。</td>
+</tr>
+<tr>
+<td><code>yarn</code></td>
+<td>默认以<code>客户端模式</code>连接到<code>YARN集群</code>，集群位置由环境变量<code>YARN_CONF_DIR</code>决定 。</td>
+</tr>
+</tbody></table>
+<p><code>Spark2.0</code>以前，<code>yarn</code>分为<code>yarn-client</code>与<code>yarn-cluster</code></p>
+<p><code>Spark2.0</code>以后，设置<code>--deploy-mode=[client/cluster]</code>以不同模式连接到<code>YARN集群</code></p>
+<h4 id="案例-wordcount"><a href="#案例-wordcount" class="headerlink" title="案例 - wordcount"></a>案例 - wordcount</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">study bigdata</span><br><span class="line">hello study bigdata</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">var</span> wordcount = sc.textFile(<span class="string">&quot;/home/zhangsan/bigdata.txt&quot;</span>).flatMap(line =&gt; line.split(<span class="string">&quot; &quot;</span>)).map(word =&gt; (word,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line"></span><br><span class="line">scala&gt; wordcount.collect()</span><br><span class="line">res0: <span class="type">Array</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Array</span>((hello,<span class="number">2</span>), (bigdata,<span class="number">2</span>), (study,<span class="number">2</span>))         </span><br></pre></td></tr></table></figure>
+
+<p>打开web <a target="_blank" rel="noopener" href="http://node0:4040/">http://node0:4040</a> 界面，可以查看<code>Job</code>的运行情况，此地址为<code>driver</code>执行任务的查看地址。</p>
+<p><img src="/img/Spark/image-20220213132758743.png" alt="image-20220213132758743"></p>
+<p>可以看到该<code>Job</code>包括两个<code>stage</code></p>
+<p><img src="/img/Spark/image-20220213133658467.png" alt="image-20220213133658467"></p>
+<p>直接解压运行，<code>spark</code>只能读写本地<code>Linux</code>文件系统；接下来我们配置<code>spark</code>，让其能够读写<code>HDFS</code>。</p>
+<h3 id="读写HDFS"><a href="#读写HDFS" class="headerlink" title="读写HDFS"></a>读写HDFS</h3><p>接下来的实验中，我们需要使用<code>Spark</code>读写<code>HDFS</code>，因此，我们需要完成<a href=""><code>Hadoop</code>伪分布式环境的搭建</a>。</p>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><p>Spark配置文件<code>spark-env.sh</code>中添加如下行即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入spark配置文件存放目录</span></span><br><span class="line">[zhangsan@node0 ~]$ cd /opt/bigdata/spark/default/conf/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重命名配置文件模板</span></span><br><span class="line">[zhangsan@node0 conf]$ mv spark-env.sh.template spark-env.sh</span><br><span class="line"></span><br><span class="line">[zhangsan@node0 conf]$ vim spark-env.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 HADOOP_CONF_DIR配置项</span></span><br><span class="line">HADOOP_CONF_DIR=/opt/bigdata/hadoop/default/etc/hadoop</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><h5 id="格式化名称节点"><a href="#格式化名称节点" class="headerlink" title="格式化名称节点"></a>格式化名称节点</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ hadoop namenode -format</span><br></pre></td></tr></table></figure>
+
+<h5 id="启动Hadoop"><a href="#启动Hadoop" class="headerlink" title="启动Hadoop"></a>启动Hadoop</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ start-all.sh </span><br></pre></td></tr></table></figure>
+
+<h5 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ hdfs dfs -mkdir /input</span><br></pre></td></tr></table></figure>
+
+<h5 id="上传测试数据"><a href="#上传测试数据" class="headerlink" title="上传测试数据"></a>上传测试数据</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ hdfs dfs -put bigdata.txt /input</span><br></pre></td></tr></table></figure>
+
+<h5 id="wordcount"><a href="#wordcount" class="headerlink" title="wordcount"></a>wordcount</h5><p><code>$SPARK_HOME/bin</code></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">var</span> wordcount = sc.textFile(<span class="string">&quot;hdfs:///input/bigdata.txt&quot;</span>).flatMap(line =&gt; line.split(<span class="string">&quot; &quot;</span>)).map(word =&gt; (word,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">wordcount: org.apache.spark.rdd.<span class="type">RDD</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">ShuffledRDD</span>[<span class="number">11</span>] at reduceByKey at &lt;console&gt;:<span class="number">24</span></span><br><span class="line"></span><br><span class="line">scala&gt; wordcount.collect()</span><br><span class="line">res3: <span class="type">Array</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Array</span>((hello,<span class="number">2</span>), (bigdata,<span class="number">2</span>), (study,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+<h5 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; :quit</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在以上两个步骤中，我们使用了<code>spark-shell</code>命令进入了交互式编程环境，编程语言为<code>scala</code>。那如何使用<code>Python</code>语言进行<code>Spark</code>编程呢？可以使用 <code>$SPARK_HOME/bin/pyspark</code> 命令。</p>
+<h3 id="pyspark"><a href="#pyspark" class="headerlink" title="pyspark"></a>pyspark</h3><p><code>CentOS 7</code> 自带的<code>Python</code>版本为<code>2.x</code>，<code>Python2.x</code>已经不被官方支持了。因此，我们安装一个<code>Python3</code>环境，那如何在<code>Linux</code>发行版<code>CentOS 7</code>中安装<code>Python3</code>呢 ？</p>
+<h4 id="Python3安装"><a href="#Python3安装" class="headerlink" title="Python3安装"></a>Python3安装</h4><h5 id="下载Anaconda"><a href="#下载Anaconda" class="headerlink" title="下载Anaconda"></a>下载Anaconda</h5><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.anaconda.com/products/individual</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/Spark/image-20220213110511064.png" alt="image-20220213110511064"></p>
+<h5 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ chmod +x Anaconda3-2021.11-Linux-x86_64.sh </span><br><span class="line">[zhangsan@node0 ~]$ ./Anaconda3-2021.11-Linux-x86_64.sh </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">统一安装到/opt/bigdata/目录下</span></span><br><span class="line">Anaconda3 will now be installed into this location:</span><br><span class="line">/home/zhangsan/anaconda3</span><br><span class="line">[/home/zhangsan/anaconda3] &gt;&gt;&gt; /opt/bigdata/anaconda3</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输入<span class="built_in">yes</span>初始化Anaconda</span></span><br><span class="line">installation finished.</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">by running conda init? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes</span><br></pre></td></tr></table></figure>
+
+<h5 id="环境变量激活"><a href="#环境变量激活" class="headerlink" title="环境变量激活"></a>环境变量激活</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 ~]$ source .bashrc </span><br><span class="line">(base) [zhangsan@node0 ~]$ </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你的终端没有出现base，应该是你没有初始化anaconda，这样的话，用户张三使用的依然是系统自带的Python2.x，可以使用下面的方式手动初始化。</p>
+</blockquote>
+<h6 id="手动初始化"><a href="#手动初始化" class="headerlink" title="手动初始化"></a>手动初始化</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1. 把ANACONDA3_HOME加入环境变量; <span class="variable">$ANACONDA3_HOME</span>/bin 加入PATH</span></span><br><span class="line">[zhangsan@node0 ~]$vim ~/.bashrc</span><br><span class="line">export ANACONDA3_HOME=/opt/bigdata/anaconda3</span><br><span class="line">export PATH=$ANACONDA3_HOME/bin:$PATH</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2. <span class="built_in">source</span> 一下环境变量配置文件，这样的话，我们可以使用bin里面的可执行文件了</span></span><br><span class="line">[zhangsan@node0 ~]$source ~/.bashrc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3. 使用<span class="built_in">source</span>执行一下anaconda3的activate脚本</span></span><br><span class="line">[zhangsan@node0 ~]$source /opt/bigdata/anaconda3/bin/activate</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">4. 初始化</span></span><br><span class="line">[zhangsan@node0 ~]$conda init</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="配置软件源"><a href="#配置软件源" class="headerlink" title="配置软件源"></a>配置软件源</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(base) [zhangsan@node0 ~]$ conda config --set show_channel_urls yes</span><br><span class="line">(base) [zhangsan@node0 ~]$ vim .condarc </span><br></pre></td></tr></table></figure>
+
+<p>配置如下</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">channels</span>:</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">channel_alias: https://mirrors.tuna.tsinghua.edu.cn/anaconda</span><br><span class="line">default_channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br></pre></td></tr></table></figure>
+
+<h5 id="新建Python环境"><a href="#新建Python环境" class="headerlink" title="新建Python环境"></a>新建Python环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(base) [zhangsan@node0 ~]$ conda create -n python37 python=3.7</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换环境</span></span><br><span class="line">(base) [zhangsan@node0 ~]$ conda activate python37</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置zhangsan用户的默认Python环境</span></span><br><span class="line">(python37) [zhangsan@node3 ~]$ vim .bashrc </span><br><span class="line">conda activate python37</span><br></pre></td></tr></table></figure>
+
+<p>此时，我们完成了<code>CentOS</code>系统下<code>Python3.7</code>的安装。</p>
+<h4 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h4><h5 id="spark-env-sh"><a href="#spark-env-sh" class="headerlink" title="spark-env.sh"></a>spark-env.sh</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SPARK_LOCAL_IP=127.0.0.1</span><br><span class="line">PYSPARK_DRIVER_PYTHON=/opt/bigdata/anaconda3/envs/python37/bin/python</span><br><span class="line">PYSPARK_PYTHON=/opt/bigdata/anaconda3/envs/python37/bin/python</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="启动PySpark"><a href="#启动PySpark" class="headerlink" title="启动PySpark"></a>启动PySpark</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ cd /opt/bigdata/spark/default/bin/</span><br><span class="line">(python37) [zhangsan@node0 bin]$ ./pyspark </span><br><span class="line">Python 3.7.11 (default, Jul 27 2021, 14:32:16) </span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+
+<h4 id="WordCount"><a href="#WordCount" class="headerlink" title="WordCount"></a>WordCount</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sc.textFile(<span class="string">&#x27;hdfs:///input/bigdata.txt&#x27;</span>).flatMap(<span class="keyword">lambda</span> x: x.split(<span class="string">&quot; &quot;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> x: (x,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a,b: a+b).collect()</span><br><span class="line">[(<span class="string">&#x27;bigdata&#x27;</span>, <span class="number">2</span>), (<span class="string">&#x27;hello&#x27;</span>, <span class="number">2</span>), (<span class="string">&#x27;study&#x27;</span>, <span class="number">2</span>)]   </span><br></pre></td></tr></table></figure>
+
+<h3 id="spark-submit"><a href="#spark-submit" class="headerlink" title="spark-submit"></a>spark-submit</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bin]$ ./spark-submit /opt/bigdata/spark/default/examples/src/main/python/pi.py </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="伪分布式"><a href="#伪分布式" class="headerlink" title="伪分布式"></a><a href="#Pseudo">伪分布式</a></h2><h3 id="Standalone"><a href="#Standalone" class="headerlink" title="Standalone"></a><a href="#Standalone">Standalone</a></h3><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>包括 <code>Hadoop</code>配置，Master, Worker的通信地址和Web UI的地址</p>
+<h5 id="spark-env-sh（Server）"><a href="#spark-env-sh（Server）" class="headerlink" title="spark-env.sh（Server）"></a>spark-env.sh（Server）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果Worker提示JAVA_HOME is not <span class="built_in">set</span>, 在此文件配置一下JAVA_HOME</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">JAVA_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span></span></span><br><span class="line">PYSPARK_DRIVER_PYTHON=/opt/bigdata/anaconda3/envs/python37/bin/python</span><br><span class="line">PYSPARK_PYTHON=/opt/bigdata/anaconda3/envs/python37/bin/python</span><br><span class="line"></span><br><span class="line">HADOOP_CONF_DIR=/opt/bigdata/hadoop/default/etc/hadoop #读写HDFS</span><br><span class="line">SPARK_MASTER_HOST=node0  # Master节点</span><br><span class="line">SPARK_WORKER_CORES=1 # core</span><br><span class="line">SPARK_WORKER_MEMORY=1g # 内存</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">日志服务器HistoryServer会去指定的位置读取执行事件日志</span></span><br><span class="line">SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://node0:9000/shared/spark-logs&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="spark-default-conf（Client）"><a href="#spark-default-conf（Client）" class="headerlink" title="spark-default-conf（Client）"></a>spark-default-conf（Client）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 conf]$ mv spark-defaults.conf.template spark-defaults.conf</span><br><span class="line">(python37) [zhangsan@node0 conf]$ vim spark-defaults.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">spark.master                     spark://node0:7077</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">spark applications 执行的事件日志会存放到指定的位置</span></span><br><span class="line">spark.eventLog.enabled           true</span><br><span class="line">spark.eventLog.dir               hdfs://node0:9000/shared/spark-logs</span><br></pre></td></tr></table></figure>
+
+<h5 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 conf]$ mv slaves.template slaves</span><br><span class="line">(python37) [zhangsan@node1 conf]$ vim slaves </span><br><span class="line">localhost</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动Spark集群"><a href="#启动Spark集群" class="headerlink" title="启动Spark集群"></a>启动Spark集群</h4><h5 id="启动HDFS"><a href="#启动HDFS" class="headerlink" title="启动HDFS"></a>启动HDFS</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 sbin]$ start-dfs.sh </span><br></pre></td></tr></table></figure>
+
+<h5 id="启动History-Server"><a href="#启动History-Server" class="headerlink" title="启动History Server"></a>启动History Server</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 启动HistoryServer</span><br><span class="line">(python37) [zhangsan@node0 sbin]$ ./start-history-server.sh </span><br></pre></td></tr></table></figure>
+
+<h5 id="启动Spark"><a href="#启动Spark" class="headerlink" title="启动Spark"></a>启动Spark</h5><p>启动<code>Master</code>和<code>Worker</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 sbin]$ ./start-all.sh </span><br><span class="line">(python37) [zhangsan@node1 sbin]$ jps</span><br><span class="line">5393 `Worker`</span><br><span class="line">5300 `Master`</span><br><span class="line">4582 NodeManager</span><br><span class="line">5447 Jps</span><br><span class="line">4216 SecondaryNameNode</span><br><span class="line">4376 ResourceManager</span><br><span class="line">4027 DataNode</span><br><span class="line">3871 NameNode</span><br><span class="line">14845 `HistoryServer`</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web-UI查看"><a href="#Web-UI查看" class="headerlink" title="Web UI查看"></a>Web UI查看</h4><p>可以在<code>windows</code>系统中配置一下<code>hosts</code>映射。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># C:\Windows\System32\drivers\etc\hosts</span><br><span class="line">192.168.179.100	node0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Master : 8080</strong></p>
+<p><strong>Worker : 8081</strong></p>
+<p><strong>HistoryServer：18080</strong></p>
+<p><strong>Driver：4040</strong></p>
+<h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bin]$ ./pyspark --master spark://node0:7077</span><br><span class="line">Python 3.7.11 (default, Jul 27 2021, 14:32:16) </span><br><span class="line">[GCC 7.5.0] :: Anaconda, Inc. on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">22/02/15 12:41:57 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</span><br><span class="line">Setting default log level to &quot;WARN&quot;.</span><br><span class="line">To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).</span><br><span class="line">22/02/15 12:41:59 WARN spark.SparkContext: Please ensure that the number of slots available on your executors is limited by the number of cores to task cpus and not another custom resource. If cores is not the limiting resource then dynamic allocation will not work properly!</span><br><span class="line">Welcome to</span><br><span class="line">      ____              __</span><br><span class="line">     / __/__  ___ _____/ /__</span><br><span class="line">    _\ \/ _ \/ _ `/ __/  &#x27;_/</span><br><span class="line">   /__ / .__/\_,_/_/ /_/\_\   version 3.0.3</span><br><span class="line">      /_/</span><br><span class="line"></span><br><span class="line">Using Python version 3.7.11 (default, Jul 27 2021 14:32:16)</span><br><span class="line">SparkSession available as &#x27;spark&#x27;.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">转换算子，不触发计算</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">动作算子Action，触发计算</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; sc.textFile(<span class="string">&quot;hdfs:///input/bigdata.txt&quot;</span>).flatMap(lambda line : line.split(<span class="string">&quot; &quot;</span>)).map(lambda word : (word,1)).reduceByKey(lambda a,b : a+b).collect()</span></span><br><span class="line">[(&#x27;bigdata&#x27;, 2), (&#x27;hello&#x27;, 2), (&#x27;study&#x27;, 2)]    </span><br></pre></td></tr></table></figure>
+
+<p>可以在 <a target="_blank" rel="noopener" href="http://node0:4040/">http://node0:4040</a> 下查看<code>driver</code>下job的运行情况。</p>
+<h3 id="Spark-On-YARN"><a href="#Spark-On-YARN" class="headerlink" title="Spark On YARN"></a><a href="#SparkOnYARN">Spark On YARN</a></h3><h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><p><code>Spark</code>的<code>Master</code>由<code>YARN</code>的<code>ResourceManager</code>替代，<code>Worker</code>由<code>NodeManager</code>替代。</p>
+<h5 id="spark-env-sh-1"><a href="#spark-env-sh-1" class="headerlink" title="spark-env.sh"></a>spark-env.sh</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HADOOP_CONF_DIR=/opt/bigdata/hadoop/default/etc/hadoop</span><br><span class="line">YARN_CONF_DIR=/opt/bigdata/hadoop/default/etc/hadoop</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">日志服务器HistoryServer配置</span></span><br><span class="line">SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://node0:9000/shared/spark-logs&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="spark-defaults-conf"><a href="#spark-defaults-conf" class="headerlink" title="spark-defaults.conf"></a>spark-defaults.conf</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 conf]$ vim spark-defaults.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">spark.master                     spark://node0:7077</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">spark app执行的事件日志会存放到指定的位置</span></span><br><span class="line">spark.eventLog.enabled           true</span><br><span class="line">spark.eventLog.dir               hdfs://node0:9000/shared/spark-logs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">spark包位置</span></span><br><span class="line">spark.yarn.archive               hdfs://node0:9000/shared/spark-archive</span><br></pre></td></tr></table></figure>
+
+<p>将<code>spark</code>的<code>jar</code>包上传到<code>HDFS</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在hdfs上创建目录hdfs:node0:9000/shared/spark-archive</span></span><br><span class="line">(python37) [zhangsan@node0 default]$ hdfs dfs -mkdir /shared/spark-archive</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将<span class="variable">$SPARK_HOME</span>/spark/jars/*.jar上传到hdfs</span></span><br><span class="line">(python37) [zhangsan@node0 default]$ hdfs dfs -put jars/* /shared/spark-archive</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行SparkApp"><a href="#运行SparkApp" class="headerlink" title="运行SparkApp"></a>运行SparkApp</h4><p><code>Spark Application</code>有两种运行模式，<code>Client</code>和<code>Cluster</code>。可以通过 <code>--deploy-mode=client/cluster</code>来指定。在提交<code>Application</code>的时候，可以告诉<code>YARN</code>需要的计算资源。</p>
+<h5 id="Client模式"><a href="#Client模式" class="headerlink" title="Client模式"></a>Client模式</h5><p><code>Client</code>模式，<code>driver</code>运行在客户端进程中；</p>
+<p><strong>实验</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 default]$ bin/pyspark --master yarn --deploy-mode client </span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Cluster模式"><a href="#Cluster模式" class="headerlink" title="Cluster模式"></a>Cluster模式</h5><p><code>Cluster</code>模式，<code>driver</code>运行在<code>YARN</code>容器中<code>ApplicationMaster</code>。</p>
+<h3 id="Mesos"><a href="#Mesos" class="headerlink" title="Mesos"></a>Mesos</h3><p>略。</p>
+<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a><a href="#Fully_Distributed">集群部署</a></h2><p>如要继续如下步骤，请完成<a href=""><code>Hadoop</code>全分布式环境</a>的搭建。</p>
+<p>集群规划</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Hadoop</th>
+<th>spark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>node1</td>
+<td><code>NameNode</code>, <code>SecondNameNode</code>, <code>ResourceManager</code></td>
+<td><code>Master</code>, <code>Worker</code>, <code>HistoryServer</code></td>
+</tr>
+<tr>
+<td>node2</td>
+<td><code>DataNode</code>, <code>NodeManager</code></td>
+<td><code>Worker</code></td>
+</tr>
+<tr>
+<td>node3</td>
+<td><code>DataNode</code>,<code> NodeManager</code></td>
+<td><code>Worker</code></td>
+</tr>
+</tbody></table>
+<p>为三台机器<a href="">安装<code>Python3.7</code></a>环境。</p>
+<h3 id="Standalone-1"><a href="#Standalone-1" class="headerlink" title="Standalone"></a>Standalone</h3><h4 id="Spark配置"><a href="#Spark配置" class="headerlink" title="Spark配置"></a>Spark配置</h4><p>包括 <code>Hadoop</code>配置，<code>Master</code>, <code>Worker</code>的通信地址和<code>Web UI</code>的地址</p>
+<h5 id="spark-env-sh（Server）-1"><a href="#spark-env-sh（Server）-1" class="headerlink" title="spark-env.sh（Server）"></a>spark-env.sh（Server）</h5><h5 id="spark-default-conf（Client）-1"><a href="#spark-default-conf（Client）-1" class="headerlink" title="spark-default-conf（Client）"></a>spark-default-conf（Client）</h5><p>与<code>伪分布式-Standalone</code>配置基本一致，</p>
+<p>此处我们的<code>Master</code>运行在<code>node1</code>节点上，<code>Namenode</code>运行在<code>node1</code>节点上。</p>
+<p>因此需要修改一下<code>node0</code>为<code>node1</code>，</p>
+<h5 id="Slave-1"><a href="#Slave-1" class="headerlink" title="Slave"></a>Slave</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 conf]$ mv slaves.template slaves</span><br><span class="line">(python37) [zhangsan@node1 conf]$ vim slaves </span><br><span class="line">node1</span><br><span class="line">node2</span><br><span class="line">node3</span><br></pre></td></tr></table></figure>
+
+<p>将修改好的<code>spark</code>分发到其他两个节点。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 bigdata]$ scp -r spark node3:`pwd`/</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h4><h5 id="启动HDFS-1"><a href="#启动HDFS-1" class="headerlink" title="启动HDFS"></a>启动HDFS</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 sbin]$ start-dfs.sh </span><br></pre></td></tr></table></figure>
+
+<h5 id="启动Spark-1"><a href="#启动Spark-1" class="headerlink" title="启动Spark"></a>启动Spark</h5><p>启动Master和Worker</p>
+<p><strong>node1</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动HistoryServer</span></span><br><span class="line">(python37) [zhangsan@node1 sbin]$ ./start-history-server.sh </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动Master和所有Worker</span></span><br><span class="line">(python37) [zhangsan@node1 sbin]$ ./start-all.sh </span><br><span class="line">(python37) [zhangsan@node1 sbin]$ jps</span><br><span class="line">5393 Worker</span><br><span class="line">5300 Master</span><br><span class="line">4582 NodeManager</span><br><span class="line">5447 Jps</span><br><span class="line">4216 SecondaryNameNode</span><br><span class="line">4376 ResourceManager</span><br><span class="line">4027 DataNode</span><br><span class="line">3871 NameNode</span><br><span class="line">14845 HistoryServer</span><br></pre></td></tr></table></figure>
+
+<p><strong>node2</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node2 bigdata]$ jps</span><br><span class="line">4417 Worker</span><br><span class="line">3826 DataNode</span><br><span class="line">4476 Jps</span><br><span class="line">3966 NodeManager</span><br></pre></td></tr></table></figure>
+
+<p><strong>node3</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node3 bigdata]$ jps</span><br><span class="line">3928 NodeManager</span><br><span class="line">4441 Jps</span><br><span class="line">4378 Worker</span><br><span class="line">3788 DataNode</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Web-UI查看-1"><a href="#Web-UI查看-1" class="headerlink" title="Web UI查看"></a>Web UI查看</h4><p>可以在<code>windows</code>系统中配置一下<code>hosts</code>映射。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># C:\Windows\System32\drivers\etc\hosts</span><br><span class="line">192.168.179.100	node0</span><br><span class="line">192.168.179.101	node1</span><br><span class="line">192.168.179.102	node2</span><br><span class="line">192.168.179.103	node3</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Master : 8080</strong></p>
+<p><img src="/img/Spark/image-20220215120443007.png" alt="image-20220215120443007"></p>
+<p><strong>Worker : 8081</strong></p>
+<p><img src="/img/Spark/image-20220215120612101.png" alt="image-20220215120612101"></p>
+<h4 id="测试集群"><a href="#测试集群" class="headerlink" title="测试集群"></a>测试集群</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 bin]$ ./pyspark --master spark://node1:7077</span><br><span class="line">Python 3.7.11 (default, Jul 27 2021, 14:32:16) </span><br><span class="line">[GCC 7.5.0] :: Anaconda, Inc. on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">22/02/15 12:41:57 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</span><br><span class="line">Setting default log level to &quot;WARN&quot;.</span><br><span class="line">To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).</span><br><span class="line">22/02/15 12:41:59 WARN spark.SparkContext: Please ensure that the number of slots available on your executors is limited by the number of cores to task cpus and not another custom resource. If cores is not the limiting resource then dynamic allocation will not work properly!</span><br><span class="line">Welcome to</span><br><span class="line">      ____              __</span><br><span class="line">     / __/__  ___ _____/ /__</span><br><span class="line">    _\ \/ _ \/ _ `/ __/  &#x27;_/</span><br><span class="line">   /__ / .__/\_,_/_/ /_/\_\   version 3.0.3</span><br><span class="line">      /_/</span><br><span class="line"></span><br><span class="line">Using Python version 3.7.11 (default, Jul 27 2021 14:32:16)</span><br><span class="line">SparkSession available as &#x27;spark&#x27;.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; sc.textFile(<span class="string">&quot;/input/bigdata.txt&quot;</span>).flatMap(lambda line : line.split(<span class="string">&quot; &quot;</span>)).map(lambda word : (word,1)).reduceByKey(lambda a,b : a+b).collect()</span></span><br><span class="line">[(&#x27;bigdata&#x27;, 2), (&#x27;hello&#x27;, 2), (&#x27;study&#x27;, 2)]    </span><br></pre></td></tr></table></figure>
+
+<p>可以在 <a target="_blank" rel="noopener" href="http://node1:4040/">http://node1:4040</a> 下查看<code>driver</code>下job的运行情况。</p>
+<h3 id="Spark-On-YARN-1"><a href="#Spark-On-YARN-1" class="headerlink" title="Spark On YARN"></a>Spark On YARN</h3><p><code>Spark On YARN</code>， 只需要在一个节点上部署<code>Spark</code>，<code>Spark</code>的<code>Master</code>由<code>YARN</code>的<code>ResourceManager</code>替代，<code>Worker</code>由<code>NodeManager</code>替代。</p>
+<h5 id="spark-env-sh-2"><a href="#spark-env-sh-2" class="headerlink" title="spark-env.sh"></a>spark-env.sh</h5><h5 id="spark-defaults-conf-1"><a href="#spark-defaults-conf-1" class="headerlink" title="spark-defaults.conf"></a>spark-defaults.conf</h5><p>与<code>伪分布式-YARN</code>配置基本一致，不同的是，此处我们的<code>Namenode</code>运行在<code>node1</code>节点上，因此需要修改一下<code>node0</code>为<code>node1</code>，</p>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ pip install jupyter notebook</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ pip install jupyter notebook</span><br><span class="line">(python37) [zhangsan@node0 ~]$ jupyter notebook --generate-config</span><br><span class="line">(python37) [zhangsan@node0 ~]$ vim ~/.jupyter/jupyter_notebook_config.py </span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">c.NotebookApp.ip</span> = <span class="string">&#x27;0.0.0.0&#x27;</span></span><br><span class="line"><span class="attr">c.NotebookApp.token</span> = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">c.NotebookApp.allow_origin</span> = <span class="string">&#x27;*&#x27; ＃允许所有起源</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ jupyter notebook</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Windows开发环境"><a href="#Windows开发环境" class="headerlink" title="Windows开发环境"></a>Windows开发环境</h2><h3 id="Python版"><a href="#Python版" class="headerlink" title="Python版"></a>Python版</h3><h4 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h4><p>下载地址：</p>
+<p><code>https://www.anaconda.com/products/individual#Downloads</code></p>
+<p><img src="/img/Spark/image-20220327222339281.png" alt="image-20220327222339281"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此命令将会在用户目录产生一个conda配置文件，名字为.condarc</span></span><br><span class="line">(base) <span class="built_in">PS</span> C:\Users\xiaoqu&gt; conda config <span class="literal">--set</span> show_channel_urls yes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用记事本打开conda的配置文件.condarc</span></span><br><span class="line">(base) <span class="built_in">PS</span> C:\Users\xiaoqu&gt; notepad .\.condarc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入如下配置（原内容清空）</span></span><br><span class="line">channels:</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">channel_alias: https://mirrors.tuna.tsinghua.edu.cn/anaconda</span><br><span class="line">default_channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/<span class="built_in">r</span></span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda<span class="literal">-forge</span>: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个Python 3.7 的环境，环境名称命名为python37</span></span><br><span class="line">(base) <span class="built_in">PS</span> C:\Users\xiaoqu&gt; conda create <span class="literal">-n</span> python37 python=<span class="number">3.7</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看本机Python环境列表</span></span><br><span class="line">(base) <span class="built_in">PS</span> C:\Users\xiaoqu&gt; conda env list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 激活python37环境</span></span><br><span class="line">(base) <span class="built_in">PS</span> C:\Users\xiaoqu&gt; conda activate python37</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装PySpark类库</span></span><br><span class="line">(python37) <span class="built_in">PS</span> C:\Users\xiaoqu&gt; conda install pyspark</span><br></pre></td></tr></table></figure>
+
+<h4 id="PyCharm"><a href="#PyCharm" class="headerlink" title="PyCharm"></a>PyCharm</h4><h5 id="安装PyCharm"><a href="#安装PyCharm" class="headerlink" title="安装PyCharm"></a>安装PyCharm</h5><p>本文使用的是<code>PyCharm 2021.2.2 Professional</code>版本。</p>
+<p>下载地址：</p>
+<p><code>https://www.jetbrains.com/pycharm/download/other.html</code></p>
+<p><img src="/img/Spark/image-20220327224356950.png" alt="image-20220327224356950"></p>
+<p>激活略。</p>
+<h5 id="配置PyCharm"><a href="#配置PyCharm" class="headerlink" title="配置PyCharm"></a>配置PyCharm</h5><h6 id="使用本地Python解释器"><a href="#使用本地Python解释器" class="headerlink" title="使用本地Python解释器"></a>使用本地Python解释器</h6><p><img src="/img/Spark/image-20220327225144558.png" alt="image-20220327225144558"></p>
+<h6 id="使用集群Python解释器"><a href="#使用集群Python解释器" class="headerlink" title="使用集群Python解释器"></a>使用集群Python解释器</h6><p><img src="/img/Spark/image-20220327225553622.png" alt="image-20220327225553622"></p>
+<p><img src="/img/Spark/image-20220327225621480.png" alt="image-20220327225621480"></p>
+<p><img src="/img/Spark/image-20220327225823459.png" alt="image-20220327225823459"></p>
+<p>在服务器的<code>Python</code>环境中安装<code>PySpark</code>类库：</p>
+<ul>
+<li>在线安装<code>PySpark</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ pip install pyspark==2.4.8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>本地安装<code>PySpark</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ cd /opt/bigdata/spark/default/python</span><br><span class="line">(python37) [zhangsan@node0 python]$ python setup.py install</span><br><span class="line">Finished processing dependencies for pyspark==2.4.8</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Application提交"><a href="#Application提交" class="headerlink" title="Application提交"></a><a href="#Spark_Submit">Application提交</a></h4><ul>
+<li><p>在<code>HDFS</code>创建文件<code>bigdata.txt</code></p>
+</li>
+<li><p>代码编写</p>
+</li>
+<li><p><code>bin/spark-submit ~/wordcount.py</code></p>
+</li>
+</ul>
+<h5 id="Local"><a href="#Local" class="headerlink" title="Local"></a>Local</h5><p>本地运行，可在<code>HistoryServer</code>看到执行情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pyspark import SparkContext, SparkConf</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    conf = SparkConf().setMaster(&quot;local[*]&quot;).setAppName(&#x27;wordcount&#x27;)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    result = sc.textFile(&quot;hdfs://node0:9000/user/zhangsan/bigdata.txt&quot;).flatMap(lambda line: line.split(&quot; &quot;)).\</span><br><span class="line">        map(lambda word:(word,1)).reduceByKey(lambda a,b:a+b).collect()</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+
+<h5 id="Standalone-2"><a href="#Standalone-2" class="headerlink" title="Standalone"></a>Standalone</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext, SparkConf</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;spark://node0:7077&quot;</span>).setAppName(<span class="string">&#x27;wordcount&#x27;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    result = sc.textFile(<span class="string">&quot;hdfs://node0:9000/user/zhangsan/bigdata.txt&quot;</span>).flatMap(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot; &quot;</span>)).\</span><br><span class="line">        <span class="built_in">map</span>(<span class="keyword">lambda</span> word:(word,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a,b:a+b).collect()</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<h5 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h5><h6 id="YARN-Client"><a href="#YARN-Client" class="headerlink" title="YARN Client"></a>YARN Client</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext, SparkConf</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;yarn&quot;</span>).<span class="built_in">set</span>(<span class="string">&quot;deployMode&quot;</span>,<span class="string">&quot;client&quot;</span>).setAppName(<span class="string">&#x27;wordcount&#x27;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    result = sc.textFile(<span class="string">&quot;hdfs://node0:9000/user/zhangsan/bigdata.txt&quot;</span>).flatMap(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot; &quot;</span>)).\</span><br><span class="line">        <span class="built_in">map</span>(<span class="keyword">lambda</span> word:(word,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a,b:a+b).collect()</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<h6 id="YARN-Cluster"><a href="#YARN-Cluster" class="headerlink" title="YARN Cluster"></a>YARN Cluster</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext, SparkConf</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;yarn&quot;</span>).<span class="built_in">set</span>(<span class="string">&quot;deployMode&quot;</span>,<span class="string">&quot;cluster&quot;</span>).setAppName(<span class="string">&#x27;wordcount&#x27;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    result = sc.textFile(<span class="string">&quot;hdfs://node0:9000/user/zhangsan/bigdata.txt&quot;</span>).flatMap(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot; &quot;</span>)).\</span><br><span class="line">        <span class="built_in">map</span>(<span class="keyword">lambda</span> word:(word,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a,b:a+b).collect()</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Scala版"><a href="#Scala版" class="headerlink" title="Scala版"></a>Scala版</h3><h4 id="查看Scala版本"><a href="#查看Scala版本" class="headerlink" title="查看Scala版本"></a>查看Scala版本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node0 bin]$ ./spark-shell </span><br><span class="line">Spark context Web UI available at http://node0:4040</span><br><span class="line">Spark context available as &#x27;sc&#x27; (master = local[*], app id = local-1648259787148).</span><br><span class="line">Spark session available as &#x27;spark&#x27;.</span><br><span class="line">Welcome to</span><br><span class="line">      ____              __</span><br><span class="line">     / __/__  ___ _____/ /__</span><br><span class="line">    _\ \/ _ \/ _ `/ __/  &#x27;_/</span><br><span class="line">   /___/ .__/\_,_/_/ /_/\_\   version 2.4.8</span><br><span class="line">      /_/</span><br><span class="line">Using Scala version 2.11.12 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_202)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="使用IDEA新建scala工程"><a href="#使用IDEA新建scala工程" class="headerlink" title="使用IDEA新建scala工程"></a>使用IDEA新建<code>scala</code>工程</h4><p><img src="/img/Spark/image-20220326095828496.png" alt="image-20220326095828496"></p>
+<h4 id="配置工程属性"><a href="#配置工程属性" class="headerlink" title="配置工程属性"></a>配置工程属性</h4><p><img src="/img/Spark/image-20220326095952397.png" alt="image-20220326095952397"></p>
+<h4 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.studybigdata</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkConf</span>, <span class="type">SparkContext</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCountScala</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">&quot;WordCountScala&quot;</span>).setMaster(<span class="string">&quot;local&quot;</span>);</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> result = sc.textFile(<span class="string">&quot;hdfs://node0:9000/user/zhangsan/bigdata.txt&quot;</span>).flatMap(_.split(<span class="string">&quot; &quot;</span>)).map((_, <span class="number">1</span>)).reduceByKey(_ + _)</span><br><span class="line">    result.foreach(println)</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Local-Jars"><a href="#Local-Jars" class="headerlink" title="Local-Jars"></a>Local-Jars</h4><h5 id="引入Jar包"><a href="#引入Jar包" class="headerlink" title="引入Jar包"></a>引入Jar包</h5><h5 id="配置Spark类库"><a href="#配置Spark类库" class="headerlink" title="配置Spark类库"></a>配置<code>Spark</code>类库</h5><p>![image-20220326101423345](img&#x2F;Spark&#x2F;image-20220326101423345.png</p>
+<p><img src="/img/Spark/image-20220326101828219.png" alt="image-20220326101828219"></p>
+<h5 id="结果输出到控制台"><a href="#结果输出到控制台" class="headerlink" title="结果输出到控制台"></a>结果输出到控制台</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(cn,1)</span><br><span class="line">(bigdata,2)</span><br><span class="line">(study,3)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Local-Maven"><a href="#Local-Maven" class="headerlink" title="Local-Maven"></a>Local-Maven</h4><p>无须上一步引入Spark里的Jars包，直接通过Maven引入。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">scala.minor.version</span>&gt;</span>2.11<span class="tag">&lt;/<span class="name">scala.minor.version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">scala.complete.version</span>&gt;</span>$&#123;scala.minor.version&#125;.12<span class="tag">&lt;/<span class="name">scala.complete.version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">spark.version</span>&gt;</span>2.4.8<span class="tag">&lt;/<span class="name">spark.version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">   </span><br><span class="line">   <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-core_$&#123;scala.minor.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="YARN-1"><a href="#YARN-1" class="headerlink" title="YARN"></a>YARN</h4><h5 id="代码编写-1"><a href="#代码编写-1" class="headerlink" title="代码编写"></a>代码编写</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkConf</span>, <span class="type">SparkContext</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCountScala</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">&quot;WordCountScala&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//WordCount</span></span><br><span class="line">    <span class="keyword">val</span> result = sc.textFile(args(<span class="number">0</span>)).flatMap(_.split(<span class="string">&quot; &quot;</span>)).map((_, <span class="number">1</span>)).reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//结果输出到container的日志中</span></span><br><span class="line">    result.foreach(println)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//结果输出到HDFS</span></span><br><span class="line">    result.saveAsTextFile(args(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//结果收集: </span></span><br><span class="line">    <span class="comment">//collect() 会将结果收集到Driver的内存中</span></span><br><span class="line">    <span class="comment">//在Client模式下，Driver运行在客户端进程中，因此println会将收集的结果输出到控制台；</span></span><br><span class="line">    <span class="comment">//在Cluster模式下，Driver在AM内，collect会将结果输出到AM所在Container的日志中。</span></span><br><span class="line">    result.collect().foreach(println)</span><br><span class="line"></span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8a0799201685">https://www.jianshu.com/p/8a0799201685</a></p>
+<p><strong><code>Build --&gt;  Build Artifacts --&gt; Build</code></strong></p>
+<h5 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h5><h6 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bin]$ ./spark-submit  --master yarn --deploy-mode cluster --class cn.studybigdata.WordCountScala  wordcount_artifact.jar hdfs://node0:9000/user/zhangsan/bigdata.txt hdfs://node0:9000/user/zhangsan/out</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">22/03/26 14:45:19 INFO yarn.YarnAllocator: Launching container container_1648172380450_0024_01_000002 on host node0 for executor with ID 1</span><br><span class="line"></span><br><span class="line">22/03/26 14:45:20 INFO yarn.YarnAllocator: Launching container container_1648172380450_0024_01_000003 on host node0 for executor with ID 2</span><br></pre></td></tr></table></figure>
+
+<h6 id="结果输出到Container日志"><a href="#结果输出到Container日志" class="headerlink" title="结果输出到Container日志"></a>结果输出到Container日志</h6><ul>
+<li>Container-1</li>
+</ul>
+<p><img src="/img/Spark/image-20220326144828512.png" alt="image-20220326144828512"></p>
+<ul>
+<li>Container-2</li>
+</ul>
+<p><img src="/img/Spark/image-20220326145821944.png" alt="image-20220326145821944"></p>
+<ul>
+<li>Container-3</li>
+</ul>
+<p><img src="/img/Spark/image-20220326145915997.png" alt="image-20220326145915997"></p>
+<h6 id="结果输出到HDFS"><a href="#结果输出到HDFS" class="headerlink" title="结果输出到HDFS"></a>结果输出到HDFS</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bin]$ hdfs dfs -cat out/part-00000</span><br><span class="line">(bigdata,2)</span><br><span class="line">(python37) [zhangsan@node0 bin]$ hdfs dfs -cat out/part-00001</span><br><span class="line">(cn,1)</span><br><span class="line">(study,3)</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h5><h6 id="执行-1"><a href="#执行-1" class="headerlink" title="执行"></a>执行</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bin]$ ./spark-submit --master yarn --deploy-mode client --class cn.studybigdata.WordCountScala  wordcount_artifact.jar hdfs://node0:9000/user/zhangsan/bigdata.txt hdfs://node0:9000/user/zhangsan/out</span><br></pre></td></tr></table></figure>
+
+<h6 id="结果输出到控制台-1"><a href="#结果输出到控制台-1" class="headerlink" title="结果输出到控制台"></a>结果输出到控制台</h6><p><img src="/img/Spark/image-20220326151133505.png" alt="image-20220326151133505"></p>
+<h6 id="结果输出到Container日志-1"><a href="#结果输出到Container日志-1" class="headerlink" title="结果输出到Container日志"></a>结果输出到Container日志</h6><p>略。</p>
+<h6 id="结果输出到HDFS-1"><a href="#结果输出到HDFS-1" class="headerlink" title="结果输出到HDFS"></a>结果输出到HDFS</h6><p>略。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2023/01/14/Spark/PySpark/Spark/" data-id="cuidJHmr6ylq56JmLURNcDGyN" data-title="Spark" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/01/14/Linux/Linux_09_%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux文件权限
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PySpark RDD综合案例</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux进程管理 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="进程管理静态监控 - psps - report a snapshot of the current processes. 报告当前进程的快照。 -e​	Select all processes.  Identical(完全相同的) to -A. -f​	Do full-format listing.   123456789101112[zhangsan@localhost ~]$ ps -efU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux进程管理">
+<meta property="og:url" content="http://www.studybigdata.com/2023/01/14/Linux/Linux_13_%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="进程管理静态监控 - psps - report a snapshot of the current processes. 报告当前进程的快照。 -e​	Select all processes.  Identical(完全相同的) to -A. -f​	Do full-format listing.   123456789101112[zhangsan@localhost ~]$ ps -efU">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-14T07:55:26.000Z">
+<meta property="article:modified_time" content="2026-03-08T13:21:12.896Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="Linux进程管理">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/Linux_13_进程管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/14/Linux/Linux_13_%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-01-14T07:55:26.000Z" itemprop="datePublished">2023-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux进程管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="静态监控-ps"><a href="#静态监控-ps" class="headerlink" title="静态监控 - ps"></a>静态监控 - ps</h3><p><strong>ps - report a snapshot of the current processes.</strong></p>
+<p>报告当前进程的快照。</p>
+<h5 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h5><p>​	Select all processes.  Identical(完全相同的) to -A.</p>
+<h5 id="f"><a href="#f" class="headerlink" title="-f"></a>-f</h5><p>​	Do full-format listing. </p>
+<hr>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ ps -ef</span><br><span class="line">UID         PID   PPID  C STIME TTY          TIME CMD</span><br><span class="line">root          1      0  0 01:36 ?        00:00:05 /usr/lib/systemd/systemd --switched-root --sy</span><br><span class="line">root          2      0  0 01:36 ?        00:00:00 [kthreadd]</span><br><span class="line">root          4      2  0 01:36 ?        00:00:00 [kworker/0:0H]</span><br><span class="line">root          6      2  0 01:36 ?        00:00:00 [ksoftirqd/0]</span><br><span class="line">root          7      2  0 01:36 ?        00:00:00 [migration/0]</span><br><span class="line">root          8      2  0 01:36 ?        00:00:00 [rcu_bh]</span><br><span class="line">root          9      2  0 01:36 ?        00:00:01 [rcu_sched]</span><br><span class="line">root         10      2  0 01:36 ?        00:00:00 [lru-add-drain]</span><br><span class="line">root         11      2  0 01:36 ?        00:00:00 [watchdog/0]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="动态监控-top"><a href="#动态监控-top" class="headerlink" title="动态监控 - top"></a>动态监控 - top</h3><p>​      display Linux processes</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost test]$ top</span><br><span class="line"></span><br><span class="line">top - 15:56:13 up  1:08,  1 user,  load average: 0.06, 0.02, 0.00</span><br><span class="line">Tasks: 257 total,   2 running, 255 sleeping,   0 stopped,   0 zombie</span><br><span class="line"><span class="meta prompt_">%</span><span class="language-bash">Cpu(s):  1.2 us,  0.3 sy,  0.0 ni, 98.2 <span class="built_in">id</span>,  0.2 wa,  0.2 hi,  0.0 si,  0.0 st</span></span><br><span class="line">MiB Mem :   3710.0 total,   1366.1 free,   1125.2 used,   1218.6 buff/cache</span><br><span class="line">MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   2328.8 avail Mem </span><br><span class="line"></span><br><span class="line">    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND   </span><br><span class="line">   2347 zhangsan  20   0 4132320 357460 118856 S   4.3   9.4   1:09.40 gnome-shell </span><br><span class="line">   2906 zhangsan  20   0  537584  49324  35264 S   1.0   1.3   0:08.82 gnome-terminal-  </span><br><span class="line">      1 root      20   0  252684  15052   9592 S   0.3   0.4   0:02.74 systemd        </span><br><span class="line">   2397 zhangsan  20   0 1152752  51468  38224 S   0.3   1.4   0:00.49 Xwayland  </span><br><span class="line">   2662 zhangsan  20   0  536416  42968  35364 S   0.3   1.1   0:22.03 vmtoolsd </span><br><span class="line">      2 root      20   0       0      0      0 S   0.0   0.0   0:00.02 kthreadd                         </span><br><span class="line">      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="向进程发送信号-kill"><a href="#向进程发送信号-kill" class="headerlink" title="向进程发送信号 - kill"></a>向进程发送信号 - kill</h3><h4 id="支持信号列表"><a href="#支持信号列表" class="headerlink" title="支持信号列表"></a>支持信号列表</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ kill -l</span><br><span class="line"> 1) SIGHUP  2) SIGINT  3) SIGQUIT  4) SIGILL  5) SIGTRAP</span><br><span class="line"> 6) SIGABRT  7) SIGBUS  8) SIGFPE  9) SIGKILL 10) SIGUSR1</span><br><span class="line">11) SIGSEGV 12) SIGUSR2 13) SIGPIPE 14) SIGALRM 15) SIGTERM</span><br><span class="line">16) SIGSTKFLT 17) SIGCHLD 18) SIGCONT 19) SIGSTOP 20) SIGTSTP</span><br><span class="line">21) SIGTTIN 22) SIGTTOU 23) SIGURG 24) SIGXCPU 25) SIGXFSZ</span><br><span class="line">26) SIGVTALRM 27) SIGPROF 28) SIGWINCH 29) SIGIO 30) SIGPWR</span><br><span class="line">31) SIGSYS 34) SIGRTMIN 35) SIGRTMIN+1 36) SIGRTMIN+2 37) SIGRTMIN+3</span><br><span class="line">38) SIGRTMIN+4 39) SIGRTMIN+5 40) SIGRTMIN+6 41) SIGRTMIN+7 42) SIGRTMIN+8</span><br><span class="line">43) SIGRTMIN+9 44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13</span><br><span class="line">48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12</span><br><span class="line">53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9 56) SIGRTMAX-8 57) SIGRTMAX-7</span><br><span class="line">58) SIGRTMAX-6 59) SIGRTMAX-5 60) SIGRTMAX-4 61) SIGRTMAX-3 62) SIGRTMAX-2</span><br><span class="line">63) SIGRTMAX-1 64) SIGRTMAX </span><br></pre></td></tr></table></figure>
+
+<p>主要理解<code>TERM</code>信号和<code>KILL</code>信号</p>
+<hr>
+<h4 id="终止进程-SIGTERM"><a href="#终止进程-SIGTERM" class="headerlink" title="终止进程 - SIGTERM"></a>终止进程 - SIGTERM</h4><p>TERM：该信号可由进程捕获，使用该信号让进程有机会在退出之前做好清理工作，从而体面地终止。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -SIGTERM 939 或 kill -TERM 939 或 kill -15 939 或 kill 939  </span><br></pre></td></tr></table></figure>
+
+<h4 id="杀死进程-SIGKILL"><a href="#杀死进程-SIGKILL" class="headerlink" title="杀死进程 - SIGKILL"></a>杀死进程 - SIGKILL</h4><p>KILL：该信号不能被进程捕捉和忽略，它向系统管理员提供了一种可靠地杀死任何进程的方法。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -SIGKILL 939 或 kill -KILL 939 或 kiil -9 939 </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="后台运行-nohup"><a href="#后台运行-nohup" class="headerlink" title="后台运行 - nohup"></a>后台运行 - nohup</h3><h4 id="后台运行-接收TERM"><a href="#后台运行-接收TERM" class="headerlink" title="后台运行(接收TERM)"></a>后台运行(接收TERM)</h4><p>nohup ： <code>no hang up</code> 不挂起，用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行。</p>
+<p>默认会在当前目录输出一个<code>nohup.out</code>文件，如果当前目录不可写，输出重定向到<code>$HOME/nohup.out</code>文件中。</p>
+<hr>
+<h4 id="实验脚本内容"><a href="#实验脚本内容" class="headerlink" title="实验脚本内容"></a>实验脚本内容</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ cat write.sh </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">while true</span><br><span class="line">do</span><br><span class="line">        echo $(date +%F%n%T)  &quot; hello &quot;&gt;&gt; hello.txt</span><br><span class="line">        sleep 5s</span><br><span class="line"></span><br><span class="line">done  </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h4><p>使用nohup command &amp; 使其后台运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ nohup ./write.sh &amp;</span><br><span class="line">[1] 5996</span><br><span class="line">nohup: ignoring input and appending output to &#x27;nohup.out&#x27;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="查询脚本运行状态"><a href="#查询脚本运行状态" class="headerlink" title="查询脚本运行状态"></a>查询脚本运行状态</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ps aux输出的进程信息，通过管道符&#x27;|&#x27;交给grep命令，grep过滤包含&#x27;write.sh&#x27;的行</span></span><br><span class="line">[zhangsan@localhost ~]$ ps aux|grep write.sh </span><br><span class="line">zhangsan    5996  0.0  0.0  12724  2924 pts/0    S    03:44   0:00 /bin/bash ./write.sh</span><br><span class="line">zhangsan    6026  0.0  0.0  12136  1068 pts/0    S+   03:44   0:00 grep --color=auto write.sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="查看脚本结果"><a href="#查看脚本结果" class="headerlink" title="查看脚本结果"></a>查看脚本结果</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看写入的文件内容</span></span><br><span class="line">[zhangsan@localhost ~]$ tail -n 10 hello.txt </span><br><span class="line">2021-11-15 03:28:29  hello </span><br><span class="line">2021-11-15 03:28:34  hello </span><br><span class="line">2021-11-15 03:28:39  hello </span><br><span class="line">2021-11-15 03:28:44  hello </span><br><span class="line">2021-11-15 03:28:49  hello </span><br><span class="line">2021-11-15 03:28:54  hello </span><br><span class="line">2021-11-15 03:28:59  hello </span><br><span class="line">2021-11-15 03:29:04  hello </span><br><span class="line">2021-11-15 03:29:09  hello </span><br><span class="line">2021-11-15 03:29:14  hello </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">向后台运行的脚本发送终止信号，让其体面的退出</span></span><br><span class="line">[zhangsan@localhost ~]$ kill 5996</span><br><span class="line">[1]+  Terminated              nohup ./write.sh</span><br></pre></td></tr></table></figure>
+
+<p>可以通过<code>ps</code>命令查询到该进程已被终止。</p>
+<hr>
+<h4 id="后台运行-忽略TERM"><a href="#后台运行-忽略TERM" class="headerlink" title="后台运行(忽略TERM)"></a>后台运行(忽略TERM)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">加入下面一行，忽略TERM信号</span></span><br><span class="line">trap &quot; &quot; TERM</span><br><span class="line">while true</span><br><span class="line">do</span><br><span class="line">        echo $(date +%F%n%T)  &quot; hello &quot;&gt;&gt; hello.txt</span><br><span class="line">        sleep 5s</span><br><span class="line"></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="后台运行-1"><a href="#后台运行-1" class="headerlink" title="后台运行"></a>后台运行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让其后台运行</span></span><br><span class="line">[zhangsan@localhost ~]$ <span class="built_in">nohup</span> ./write.sh &amp;</span><br><span class="line">[1] 6339</span><br><span class="line"><span class="built_in">nohup</span>: ignoring input and appending output to <span class="string">&#x27;nohup.out&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="查询脚本运行状态-1"><a href="#查询脚本运行状态-1" class="headerlink" title="查询脚本运行状态"></a>查询脚本运行状态</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询带有write.sh关键字的进程</span></span><br><span class="line">[zhangsan@localhost ~]$ ps aux|grep write.sh </span><br><span class="line">zhangsan    6339  0.0  0.0  12724  3064 pts/0    S    04:02   0:00 /bin/bash ./write.sh</span><br><span class="line">zhangsan    6371  0.0  0.0  12136  1172 pts/0    S+   04:02   0:00 grep --color=auto write.sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="终止进程-1"><a href="#终止进程-1" class="headerlink" title="终止进程"></a>终止进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送TERM信号，让其自行体面的退出。</span></span><br><span class="line">[zhangsan@localhost ~]$ <span class="built_in">kill</span> 6339</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="查询脚本运行状态-2"><a href="#查询脚本运行状态-2" class="headerlink" title="查询脚本运行状态"></a>查询脚本运行状态</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ ps aux|grep write.sh </span><br><span class="line">zhangsan    6339  0.0  0.0  12724  3092 pts/0    S    04:02   0:00 /bin/bash ./write.sh</span><br><span class="line">zhangsan    6400  0.0  0.0  12136  1044 pts/0    S+   04:02   0:00 grep --color=auto write.sh</span><br></pre></td></tr></table></figure>
+
+<p>发现该进程没有体面的退出，仍在后台运行。</p>
+<hr>
+<h4 id="强制杀死进程"><a href="#强制杀死进程" class="headerlink" title="强制杀死进程"></a>强制杀死进程</h4><p>发送杀死信号，它不体面，你帮他体面体面。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ <span class="built_in">kill</span> -KILL 6339</span><br><span class="line">[1]+  Killed                  <span class="built_in">nohup</span> ./write.sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="再次查询脚本运行状态"><a href="#再次查询脚本运行状态" class="headerlink" title="再次查询脚本运行状态"></a>再次查询脚本运行状态</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ ps aux|grep write.sh </span><br><span class="line">zhangsan    6611  0.0  0.0  12136  1172 pts/0    R+   04:05   0:00 grep --color=auto write.sh</span><br></pre></td></tr></table></figure>
+
+<p>再次查询，发现该进程被强制体面了。</p>
+<hr>
+<h3 id="查看打开的文件-lsof"><a href="#查看打开的文件-lsof" class="headerlink" title="查看打开的文件 - lsof"></a>查看打开的文件 - lsof</h3><p>lsof - list open files</p>
+<ul>
+<li><p>lsof filename    显示打开指定文件的所有进程</p>
+</li>
+<li><p>-c string     显示COMMAND列中包含指定字符的进程所有打开的文件</p>
+</li>
+<li><p>-u zhangsan    显示所属user进程打开的文件</p>
+</li>
+<li><p>-p 393     根据PID列出打开文件</p>
+</li>
+<li><p>-i :22     查看22端口现在运行的情况</p>
+</li>
+<li><p>-g gid     显示归属gid的进程情况</p>
+</li>
+</ul>
+<hr>
+<h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><h5 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h5><p>显示打开write.sh的所有进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ lsof write.sh </span><br><span class="line">COMMAND   PID     USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME</span><br><span class="line">write.sh 9565 zhangsan  255r   REG    8,3      101 17424983 write.sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="COMMAND列中包含某字符的行"><a href="#COMMAND列中包含某字符的行" class="headerlink" title="COMMAND列中包含某字符的行"></a>COMMAND列中包含某字符的行</h5><p>COMMAND列中包含write的行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ lsof -c write</span><br><span class="line">COMMAND    PID     USER   FD      TYPE DEVICE SIZE/OFF     NODE NAME</span><br><span class="line">writeback   45     root  cwd   unknown                          /proc/45/cwd (<span class="built_in">readlink</span>: Permission denied)</span><br><span class="line">writeback   45     root  rtd   unknown                          /proc/45/root (<span class="built_in">readlink</span>: Permission denied)</span><br><span class="line">writeback   45     root  txt   unknown                          /proc/45/exe (<span class="built_in">readlink</span>: Permission denied)</span><br><span class="line">writeback   45     root NOFD                                    /proc/45/fd (opendir: Permission denied)</span><br><span class="line">write.sh  9565 zhangsan  cwd       DIR    8,3     4096 17425438 /home/zhangsan</span><br><span class="line">write.sh  9565 zhangsan  rtd       DIR    8,3      233      128 /</span><br><span class="line">write.sh  9565 zhangsan  txt       REG    8,3  1150736 50725009 /usr/bin/bash</span><br><span class="line">write.sh  9565 zhangsan  mem       REG    8,3  2586930 33857713 /usr/lib/locale/en_US.utf8/LC_COLLATE</span><br><span class="line">write.sh  9565 zhangsan  mem       REG    8,3  3167976   431987 /usr/lib64/libc-2.28.so</span><br><span class="line">write.sh  9565 zhangsan  mem       REG    8,3    28816   431989 /usr/lib64/libdl-2.28.so</span><br><span class="line">write.sh  9565 zhangsan  mem       REG    8,3   208616   431889 /usr/lib64/libtinfo.so.6.1</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="所属主"><a href="#所属主" class="headerlink" title="所属主"></a>所属主</h5><p>显示所属主为zhangsan的进程所打开的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ lsof -u zhangsan |<span class="built_in">head</span> -n 5</span><br><span class="line">COMMAND    PID     USER   FD      TYPE             DEVICE SIZE/OFF       NODE NAME</span><br><span class="line">systemd   2275 zhangsan  cwd       DIR                8,3      233        128 /</span><br><span class="line">systemd   2275 zhangsan  rtd       DIR                8,3      233        128 /</span><br><span class="line">systemd   2275 zhangsan  txt       REG                8,3  1588952    1067907 /usr/lib/systemd/systemd</span><br><span class="line">systemd   2275 zhangsan  mem       REG                8,3   147064     506448 /usr/lib64/libnl-3.so.200.26.0</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="进程号"><a href="#进程号" class="headerlink" title="进程号"></a>进程号</h5><p>显示9565号进程所打开的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ lsof -p 9565</span><br><span class="line">COMMAND   PID     USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME</span><br><span class="line">write.sh 9565 zhangsan  cwd    DIR    8,3     4096 17425438 /home/zhangsan</span><br><span class="line">write.sh 9565 zhangsan  rtd    DIR    8,3      233      128 /</span><br><span class="line">write.sh 9565 zhangsan  txt    REG    8,3  1150736 50725009 /usr/bin/bash</span><br><span class="line">write.sh 9565 zhangsan  mem    REG    8,3  3167976   431987 /usr/lib64/libc-2.28.so</span><br><span class="line">write.sh 9565 zhangsan  mem    REG    8,3   278504   431980 /usr/lib64/ld-2.28.so</span><br><span class="line">write.sh 9565 zhangsan  mem    REG    8,3      286 50605560 /usr/lib/locale/en_US.utf8/LC_MONETARY</span><br><span class="line">write.sh 9565 zhangsan    0w   CHR    1,3      0t0     2051 /dev/null</span><br><span class="line">write.sh 9565 zhangsan    1w   REG    8,3       28 17425007 /home/zhangsan/nohup.out</span><br><span class="line">write.sh 9565 zhangsan    2w   REG    8,3       28 17425007 /home/zhangsan/nohup.out</span><br><span class="line">write.sh 9565 zhangsan  255r   REG    8,3      101 17424983 /home/zhangsan/write.sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h5><p>查看22端口现在运行的情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ls[root@localhost ~]# lsof -i :22</span><br><span class="line">COMMAND  PID     USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span><br><span class="line">sshd    1102     root    3u  IPv4  28299      0t0  TCP *:ssh (LISTEN)</span><br><span class="line">sshd    1102     root    4u  IPv6  28301      0t0  TCP *:ssh (LISTEN)</span><br><span class="line">sshd    9079     root    3u  IPv4  65146      0t0  TCP localhost.localdomain:ssh-&gt;192.168.174.1:50576 (ESTABLISHED)</span><br><span class="line">sshd    9087 zhangsan    3u  IPv4  65146      0t0  TCP localhost.localdomain:ssh-&gt;192.168.174.1:50576 (ESTABLISHED)</span><br><span class="line">[root@localhost ~]# lsof -i :3306</span><br><span class="line">COMMAND  PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span><br><span class="line">mysqld  1743 mysql   21u  IPv6  30634      0t0  TCP *:mysql (LISTEN)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2023/01/14/Linux/Linux_13_%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" data-id="cuidZgkJqgFCN-Gw1IVuFuV8K" data-title="Linux进程管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/01/14/Linux/Linux_14_%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux磁盘管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/14/Linux/Linux_09_%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux文件权限</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

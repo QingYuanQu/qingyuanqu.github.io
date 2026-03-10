@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Scala数据结构 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Scala 数据结构数组Array1final class Array[T](_length: Int) extends java.io.Serializable with java.lang.Cloneable   数组是可变的可索引集合，数组内容可变。 构造指定长度的空数组12scala&gt; val arr &#x3D; new Array[String](4)arr: Array[String]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala数据结构">
+<meta property="og:url" content="http://www.studybigdata.com/2022/10/26/Scala/Scala_Collection/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="Scala 数据结构数组Array1final class Array[T](_length: Int) extends java.io.Serializable with java.lang.Cloneable   数组是可变的可索引集合，数组内容可变。 构造指定长度的空数组12scala&gt; val arr &#x3D; new Array[String](4)arr: Array[String]">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-26T07:55:26.000Z">
+<meta property="article:modified_time" content="2022-11-03T12:18:11.692Z">
+<meta property="article:author" content="QuZheng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Scala/Scala_Collection" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/26/Scala/Scala_Collection/" class="article-date">
+  <time class="dt-published" datetime="2022-10-26T07:55:26.000Z" itemprop="datePublished">2022-10-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Scala/">Scala</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Scala数据结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Scala-数据结构"><a href="#Scala-数据结构" class="headerlink" title="Scala 数据结构"></a>Scala 数据结构</h1><h2 id="数组Array"><a href="#数组Array" class="headerlink" title="数组Array"></a>数组Array</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Array</span>[<span class="type">T</span>](<span class="params">_length: <span class="type">Int</span></span>) <span class="keyword">extends</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> <span class="keyword">with</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">Cloneable</span> </span></span><br></pre></td></tr></table></figure>
+
+<p>数组是可变的可索引集合，数组内容可变。</p>
+<h3 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h3><h4 id="指定长度的空数组"><a href="#指定长度的空数组" class="headerlink" title="指定长度的空数组"></a>指定长度的空数组</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> arr = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">String</span>](<span class="number">4</span>)</span><br><span class="line">arr: <span class="type">Array</span>[<span class="type">String</span>] = <span class="type">Array</span>(<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示指定类型"><a href="#显示指定类型" class="headerlink" title="显示指定类型"></a>显示指定类型</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> nums = <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">nums: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="隐式推断类型"><a href="#隐式推断类型" class="headerlink" title="隐式推断类型"></a>隐式推断类型</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects = <span class="type">Array</span>(<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects: <span class="type">Array</span>[<span class="type">String</span>] = <span class="type">Array</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"><span class="comment">//注意字符串不要使用单引号</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">var</span> twoDimArray = <span class="type">Array</span>.ofDim[<span class="type">Int</span>](<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">twoDimArray: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Array</span>(<span class="type">Array</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="type">Array</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="元素访问与修改"><a href="#元素访问与修改" class="headerlink" title="元素访问与修改"></a>元素访问与修改</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 元素访问</span></span><br><span class="line">scala&gt; nums(<span class="number">1</span>)</span><br><span class="line">res4: <span class="type">Int</span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素修改</span></span><br><span class="line">scala&gt; subjects(<span class="number">2</span>)=<span class="string">&quot;PySpark&quot;</span></span><br><span class="line">scala&gt; subjects(<span class="number">2</span>)</span><br><span class="line">res2: <span class="type">String</span> = <span class="type">PySpark</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 二维数组元素修改</span></span><br><span class="line">scala&gt; twoDimArray(<span class="number">1</span>)(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">scala&gt; twoDimArray</span><br><span class="line">res5: <span class="type">Array</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Array</span>(<span class="type">Array</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="type">Array</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="元组TupleN"><a href="#元组TupleN" class="headerlink" title="元组TupleN"></a>元组TupleN</h2><p><code>元组</code>是对多个不同数据类型对象的封装，<code>Scala</code>提供了<code>TupleN</code>类（<code>1&lt;=N&lt;=22</code>）；元组内容不可变。</p>
+<h3 id="构造-1"><a href="#构造-1" class="headerlink" title="构造"></a>构造</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> scores = <span class="type">Tuple3</span>(<span class="string">&quot;quqingyuan&quot;</span>, &#x27;m&#x27;, <span class="number">98</span>)</span><br><span class="line">scores: (<span class="type">String</span>, <span class="type">Char</span>, <span class="type">Int</span>) = (quqingyuan,m,<span class="number">98</span>)</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">scala&gt; (<span class="string">&quot;quqingyuan&quot;</span>, &#x27;m&#x27;, <span class="number">98</span>)</span><br><span class="line">res6: (<span class="type">String</span>, <span class="type">Char</span>, <span class="type">Int</span>) = (quqingyuan,m,<span class="number">98</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="元素访问"><a href="#元素访问" class="headerlink" title="元素访问"></a>元素访问</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; scores._1</span><br><span class="line">res8: <span class="type">String</span> = quqingyuan</span><br></pre></td></tr></table></figure>
+
+<p>注意：索引值从<code>1</code>开始，不支持元素的修改。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>数组也可存放不同数据类型的对象，<code>scala</code>选择所有初始值<code>最近的数据类型</code>作为元素的类型。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2.3</span>f)</span><br><span class="line">subjects: <span class="type">Array</span>[<span class="type">Float</span>] = <span class="type">Array</span>(<span class="number">1.0</span>, <span class="number">2.3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:1050px; height:490px;" src="https://www.processon.com/embed/6355f2c76376896b5f9c9b32"></iframe>
+
+<h2 id="相关特质"><a href="#相关特质" class="headerlink" title="相关特质"></a>相关特质</h2><h3 id="Seq-Set-Map"><a href="#Seq-Set-Map" class="headerlink" title="Seq&#x2F;Set&#x2F;Map"></a>Seq&#x2F;Set&#x2F;Map</h3><p>序列<code>Seq(Sequence)</code>，有序，使用整数从<code>0</code>进行索引；</p>
+<p>集合<code>Set</code>，无序，无法索引；</p>
+<p>映射<code>Map</code>，可根据<code>key</code>进行索引。</p>
+<p><code>List</code>,<code>Set</code>,<code>Map</code>均在<code>scala.collection.immutable</code>包下定义，值不可变。</p>
+<h2 id="序列Seq"><a href="#序列Seq" class="headerlink" title="序列Seq"></a>序列Seq</h2><h3 id="列表List"><a href="#列表List" class="headerlink" title="列表List"></a>列表List</h3><h4 id="构造-2"><a href="#构造-2" class="headerlink" title="构造"></a>构造</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects = <span class="type">List</span>[<span class="type">String</span>](<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="空列表"><a href="#空列表" class="headerlink" title="空列表"></a>空列表</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Nil</span></span><br><span class="line">res0: scala.collection.immutable.<span class="type">Nil</span>.<span class="keyword">type</span> = <span class="type">List</span>()</span><br></pre></td></tr></table></figure>
+
+<h4 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h4><h5 id="按照索引访问"><a href="#按照索引访问" class="headerlink" title="按照索引访问"></a>按照索引访问</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects(<span class="number">2</span>)</span><br><span class="line">res5: <span class="type">String</span> = <span class="type">Spark</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="访问头部"><a href="#访问头部" class="headerlink" title="访问头部"></a>访问头部</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//访问第一元素</span></span><br><span class="line">scala&gt; subjects.head</span><br><span class="line">res13: <span class="type">String</span> = <span class="type">Hadoop</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="访问尾部"><a href="#访问尾部" class="headerlink" title="访问尾部"></a>访问尾部</h5><p><code>tail</code>返回除第一个元素外的其他元素构成的列表</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects.tail</span><br><span class="line">res15: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<p>注意：列表采用<code>链表</code>结构，除<code>head</code>和<code>tail</code>时间复杂度为<code>O(1)</code>，其他索引访问都需要从头部开始遍历，时间复杂度为<code>O(n)</code>，如要实现操作为常数时间，可以使用向量<code>Vector</code>。</p>
+<h4 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h4><h5 id="头部拼接1"><a href="#头部拼接1" class="headerlink" title="头部拼接1"></a>头部拼接1</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjectsList = <span class="string">&quot;Linux&quot;</span>::subjects</span><br><span class="line">subjectsList: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Linux</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>::</code> 操作符实际上是如下方法：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjectList2 = subjectsList.::(<span class="string">&quot;Java&quot;</span>)</span><br><span class="line">subjectList2: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Java</span>, <span class="type">Linux</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="头部拼接2"><a href="#头部拼接2" class="headerlink" title="头部拼接2"></a>头部拼接2</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjectsList3 = <span class="string">&quot;Java&quot;</span>::<span class="string">&quot;Hadoop&quot;</span>::<span class="string">&quot;HBase&quot;</span>::<span class="type">Nil</span></span><br><span class="line">subjectsList3: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Java</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>)</span><br></pre></td></tr></table></figure>
+
+<p>注意<code>Nil</code>空列表不可省略。</p>
+<h5 id="头部拼接3"><a href="#头部拼接3" class="headerlink" title="头部拼接3"></a>头部拼接3</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">&quot;Java&quot;</span>+:subjects</span><br><span class="line">res8: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Java</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>+:</code>操作符实际上是如下方法：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects.+:(<span class="string">&quot;Java&quot;</span>)</span><br><span class="line">res11: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Java</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="尾部拼接"><a href="#尾部拼接" class="headerlink" title="尾部拼接"></a>尾部拼接</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects:+<span class="string">&quot;Flink&quot;</span></span><br><span class="line">res9: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>::</code>,<code>+:</code>,<code>:+</code>操作符都会返回新对象。</p>
+<h5 id="两个列表拼接"><a href="#两个列表拼接" class="headerlink" title="两个列表拼接"></a>两个列表拼接</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects1 = <span class="type">List</span>[<span class="type">String</span>](<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects1: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> subjects2 = <span class="type">List</span>(<span class="string">&quot;Storm&quot;</span>,<span class="string">&quot;Flink&quot;</span>)</span><br><span class="line">subjects2: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Storm</span>, <span class="type">Flink</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects1++subjects2</span><br><span class="line">res31: <span class="type">List</span>[<span class="type">String</span>] = <span class="type">List</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Storm</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="向量Vector"><a href="#向量Vector" class="headerlink" title="向量Vector"></a>向量Vector</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects = <span class="type">Vector</span>(<span class="string">&quot;quqingyuan&quot;</span>,&#x27;m&#x27;,<span class="number">90</span>)</span><br><span class="line">subjects: scala.collection.immutable.<span class="type">Vector</span>[<span class="type">Any</span>] = <span class="type">Vector</span>(quqingyuan, m, <span class="number">90</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="拼接-1"><a href="#拼接-1" class="headerlink" title="拼接"></a>拼接</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subject1 = <span class="number">0</span>+:subjects</span><br><span class="line">subject1: scala.collection.immutable.<span class="type">Vector</span>[<span class="type">Any</span>] = <span class="type">Vector</span>(<span class="number">0</span>, quqingyuan, m, <span class="number">90</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> subject1 = subjects:+<span class="string">&quot;shandong&quot;</span></span><br><span class="line">subject1: scala.collection.immutable.<span class="type">Vector</span>[<span class="type">Any</span>] = <span class="type">Vector</span>(quqingyuan, m, <span class="number">90</span>, shandong)</span><br></pre></td></tr></table></figure>
+
+<p>注意<code>Vector</code>不支持<code>::</code>操作符，<code>::</code>是<code>List</code>中的成员方法。</p>
+<p><code>List</code>和<code>Vector</code>都是不可变的，元素不能被增加、删除、修改。<code>List</code>和<code>Vector</code>的可变版本为<code>ListBuffer</code>和<code>ArrayBuffer</code>。均在<code>scala.collection.mutable</code>包下定义，值可变。使用前需要先导入</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">import</span> scala.collection.mutable.<span class="type">ListBuffer</span></span><br><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">ListBuffer</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ListBuffer"><a href="#ListBuffer" class="headerlink" title="ListBuffer"></a>ListBuffer</h3><h4 id="构造-3"><a href="#构造-3" class="headerlink" title="构造"></a>构造</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects = <span class="type">ListBuffer</span>(<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><h5 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="string">&quot;Java&quot;</span>+:subjects</span><br><span class="line">res19: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Java</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects:+<span class="string">&quot;Storm&quot;</span></span><br><span class="line">res20: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Storm</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects+=<span class="string">&quot;Flink&quot;</span></span><br><span class="line">res21: subjects.<span class="keyword">type</span> = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects-=<span class="string">&quot;HBase&quot;</span></span><br><span class="line">res22: subjects.<span class="keyword">type</span> = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">Spark</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以发现</p>
+<p>与<code>List</code>相同，<code>+:</code>和<code>:+</code>操作符都没有对原对象进行修改，只是返回了一个新的对象。</p>
+<p>直接修改原对象，可以使用<code>+=</code>或<code>-=</code>操作符。</p>
+<p>与<code>List</code>相同，<code>++</code>会拼接两个<code>ListBuffer</code>，但不会修改两个<code>ListBuffer</code>，会返回拼接后的结果。</p>
+<p>直接在原<code>ListBuffer</code>上拼接另一个<code>ListBuffer</code>，可以使用<code>++=</code>操作符。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> subjects1 = <span class="type">ListBuffer</span>(<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects1: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> subjects2 = <span class="type">ListBuffer</span>(<span class="string">&quot;Storm&quot;</span>,<span class="string">&quot;Flink&quot;</span>)</span><br><span class="line">subjects2: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Storm</span>, <span class="type">Flink</span>)</span><br><span class="line"></span><br><span class="line">scala&gt;</span><br><span class="line"></span><br><span class="line">scala&gt; subjects1++subjects2</span><br><span class="line">res34: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Storm</span>, <span class="type">Flink</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects1++=subjects2</span><br><span class="line">res35: subjects1.<span class="keyword">type</span> = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Storm</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="按索引插入"><a href="#按索引插入" class="headerlink" title="按索引插入"></a>按索引插入</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects.insert(<span class="number">1</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Hive&quot;</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects</span><br><span class="line">res24: scala.collection.mutable.<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Hive</span>, <span class="type">Spark</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="按索引删除元素"><a href="#按索引删除元素" class="headerlink" title="按索引删除元素"></a>按索引删除元素</h5><p>会返回删除元素</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; subjects.remove(<span class="number">2</span>)</span><br><span class="line">res26: <span class="type">String</span> = <span class="type">Hive</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ArrayBuffer"><a href="#ArrayBuffer" class="headerlink" title="ArrayBuffer"></a>ArrayBuffer</h3><p>略。</p>
+<h3 id="等差数列"><a href="#等差数列" class="headerlink" title="等差数列"></a>等差数列</h3><h4 id="until"><a href="#until" class="headerlink" title="until"></a>until</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> nums = <span class="number">1</span> until <span class="number">7</span> by <span class="number">2</span></span><br><span class="line">nums: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span> <span class="number">1</span> until <span class="number">7</span> by <span class="number">2</span></span><br><span class="line"></span><br><span class="line">scala&gt; nums(<span class="number">2</span>)</span><br><span class="line">res45: <span class="type">Int</span> = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">scala&gt; nums.length</span><br><span class="line">res46: <span class="type">Int</span> = <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="type">Range</span>(<span class="number">1</span>,<span class="number">7</span>,<span class="number">2</span>)</span><br><span class="line">res47: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span> <span class="number">1</span> until <span class="number">7</span> by <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="to"><a href="#to" class="headerlink" title="to"></a>to</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> nums = <span class="number">1</span> to <span class="number">7</span> by <span class="number">2</span></span><br><span class="line">nums: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span> <span class="number">1</span> to <span class="number">7</span> by <span class="number">2</span></span><br><span class="line"></span><br><span class="line">scala&gt; nums.length</span><br><span class="line">res49: <span class="type">Int</span> = <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>until</code>和<code>to</code>还可以应用于<code>浮点</code>，<code>字符</code>数据类型；<code>Range</code>作用于字符时，会根据<code>ASCII表</code>转为对应的数字。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> chars = &#x27;a&#x27; to &#x27;z&#x27;</span><br><span class="line">chars: scala.collection.immutable.<span class="type">NumericRange</span>.<span class="type">Inclusive</span>[<span class="type">Char</span>] = <span class="type">NumericRange</span> a to z</span><br><span class="line"></span><br><span class="line">scala&gt; chars.length</span><br><span class="line">res52: <span class="type">Int</span> = <span class="number">26</span></span><br><span class="line"></span><br><span class="line">scala&gt; chars(<span class="number">2</span>)</span><br><span class="line">res55: <span class="type">Char</span> = c</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="type">Range</span>(&#x27;a&#x27;,&#x27;z&#x27;)</span><br><span class="line">res56: scala.collection.immutable.<span class="type">Range</span> = <span class="type">Range</span> <span class="number">97</span> until <span class="number">122</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="集合Set"><a href="#集合Set" class="headerlink" title="集合Set"></a>集合Set</h2><p>默认情况下，创建的是不可变<code>Set</code>。</p>
+<h3 id="Immutable"><a href="#Immutable" class="headerlink" title="Immutable"></a>Immutable</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">var</span> subjects = <span class="type">Set</span>(<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects: scala.collection.immutable.<span class="type">Set</span>[<span class="type">String</span>] = <span class="type">Set</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"><span class="comment">// 当声明为val，则不能追加元素</span></span><br><span class="line">scala&gt; subjects+=<span class="string">&quot;Flink&quot;</span></span><br><span class="line"></span><br><span class="line">scala&gt; subjects</span><br><span class="line">res28: scala.collection.immutable.<span class="type">Set</span>[<span class="type">String</span>] = <span class="type">Set</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>, <span class="type">Flink</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mutable"><a href="#Mutable" class="headerlink" title="Mutable"></a>Mutable</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">import</span> scala.collection.mutable.<span class="type">Set</span></span><br><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">Set</span></span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> subjects = <span class="type">Set</span>(<span class="string">&quot;Hadoop&quot;</span>,<span class="string">&quot;HBase&quot;</span>,<span class="string">&quot;Spark&quot;</span>)</span><br><span class="line">subjects: scala.collection.mutable.<span class="type">Set</span>[<span class="type">String</span>] = <span class="type">Set</span>(<span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects+=<span class="string">&quot;Flink&quot;</span></span><br><span class="line">res29: subjects.<span class="keyword">type</span> = <span class="type">Set</span>(<span class="type">Flink</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; subjects</span><br><span class="line">res30: scala.collection.mutable.<span class="type">Set</span>[<span class="type">String</span>] = <span class="type">Set</span>(<span class="type">Flink</span>, <span class="type">Hadoop</span>, <span class="type">HBase</span>, <span class="type">Spark</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="映射Map"><a href="#映射Map" class="headerlink" title="映射Map"></a>映射Map</h2><p>与<code>List</code>和<code>Map</code>一样，<code>scala</code>默认使用的是不可变<code>Map</code>。</p>
+<h3 id="immutable"><a href="#immutable" class="headerlink" title="immutable"></a>immutable</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造</span></span><br><span class="line"><span class="keyword">var</span> hadoopScore = <span class="type">Map</span>(<span class="string">&quot;zhangsan&quot;</span>-&gt;<span class="number">80</span>, <span class="string">&quot;lisi&quot;</span>-&gt;<span class="number">90</span>, <span class="string">&quot;quqingyuan&quot;</span>-&gt;<span class="number">100</span>)</span><br><span class="line"><span class="comment">//查询</span></span><br><span class="line"><span class="keyword">val</span> score = <span class="keyword">if</span> (hadoopScore.contains(<span class="string">&quot;quqingyuan&quot;</span>))&#123;</span><br><span class="line">  hadoopScore(<span class="string">&quot;quqingyuan&quot;</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="number">80</span></span><br><span class="line">&#125;</span><br><span class="line">println(score)</span><br><span class="line"><span class="comment">//追加元素，如果hadoopScore声明为val则不能追加</span></span><br><span class="line">hadoopScore+=(<span class="string">&quot;wangwu&quot;</span>-&gt;<span class="number">75</span>)</span><br><span class="line">println(hadoopScore)</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改元素，则会报错</span></span><br><span class="line">hadoopScore(<span class="string">&quot;quqingyuan&quot;</span>) = <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="mutable"><a href="#mutable" class="headerlink" title="mutable"></a>mutable</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造</span></span><br><span class="line"><span class="keyword">val</span> hadoopScore = <span class="type">Map</span>(<span class="string">&quot;zhangsan&quot;</span> -&gt; <span class="number">80</span>, <span class="string">&quot;lisi&quot;</span> -&gt; <span class="number">90</span>, <span class="string">&quot;quqingyuan&quot;</span> -&gt; <span class="number">100</span>)</span><br><span class="line"><span class="comment">//查询</span></span><br><span class="line"><span class="keyword">val</span> score = <span class="keyword">if</span> (hadoopScore.contains(<span class="string">&quot;quqingyuan&quot;</span>))&#123;</span><br><span class="line">  hadoopScore(<span class="string">&quot;quqingyuan&quot;</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="number">80</span></span><br><span class="line">&#125;</span><br><span class="line">println(score)</span><br><span class="line"><span class="comment">//增加元素</span></span><br><span class="line">hadoopScore+=(<span class="string">&quot;wangwu&quot;</span>-&gt;<span class="number">75</span>)</span><br><span class="line">println(hadoopScore)</span><br><span class="line"></span><br><span class="line"><span class="comment">//可修改元素值</span></span><br><span class="line">hadoopScore(<span class="string">&quot;quqingyuan&quot;</span>) = <span class="number">99</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代器Iterator"><a href="#迭代器Iterator" class="headerlink" title="迭代器Iterator"></a>迭代器Iterator</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> hadoopScore = <span class="type">Map</span>(<span class="string">&quot;zhangsan&quot;</span> -&gt; <span class="number">80</span>, <span class="string">&quot;lisi&quot;</span> -&gt; <span class="number">90</span>, <span class="string">&quot;quqingyuan&quot;</span> -&gt; <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> iter = <span class="type">Iterator</span>(hadoopScore.keys)</span><br><span class="line"><span class="keyword">while</span> (iter.hasNext)&#123;</span><br><span class="line">  println(iter.next())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/10/26/Scala/Scala_Collection/" data-id="cuid3QNUA3la_XRqQb5QeAFJc" data-title="Scala数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/26/Scala/Scala_Basics/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Scala基本数据类型、输入输出、控制结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/20/Kettle/Kettle_Clean_Field/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">kettle - 数据清理之字段清理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

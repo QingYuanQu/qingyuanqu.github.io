@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux用户管理 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="用户管理查看当前登录用户1# whoami  查询用户信息123# 查询用户信息[root@localhost ~]# id zhangsanuid&#x3D;1000(zhangsan) gid&#x3D;1000(zhangsan) groups&#x3D;1000(zhangsan)  切换用户12# Switch usersu zhangsan : 切换为张三用户  12# Switch usersu - zhangs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux用户管理">
+<meta property="og:url" content="http://www.studybigdata.com/2023/01/14/Linux/Linux_08_%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="用户管理查看当前登录用户1# whoami  查询用户信息123# 查询用户信息[root@localhost ~]# id zhangsanuid&#x3D;1000(zhangsan) gid&#x3D;1000(zhangsan) groups&#x3D;1000(zhangsan)  切换用户12# Switch usersu zhangsan : 切换为张三用户  12# Switch usersu - zhangs">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/Linux_08_%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/1713242419787.png">
+<meta property="article:published_time" content="2023-01-14T07:55:26.000Z">
+<meta property="article:modified_time" content="2026-03-08T13:17:56.518Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="Linux用户管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/Linux_08_%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/1713242419787.png">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/Linux_08_用户管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/14/Linux/Linux_08_%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-01-14T07:55:26.000Z" itemprop="datePublished">2023-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux用户管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h3 id="查看当前登录用户"><a href="#查看当前登录用户" class="headerlink" title="查看当前登录用户"></a>查看当前登录用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">whoami</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查询用户信息</span></span><br><span class="line">[root@localhost ~]# id zhangsan</span><br><span class="line">uid=1000(zhangsan) gid=1000(zhangsan) groups=1000(zhangsan)</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Switch user</span></span><br><span class="line">su zhangsan : 切换为张三用户</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Switch user</span></span><br><span class="line">su - zhangsan : 切换为张三用户，并进入张三的用户目录</span><br></pre></td></tr></table></figure>
+
+<h3 id="用户添加删除-root"><a href="#用户添加删除-root" class="headerlink" title="用户添加删除 - root"></a>用户添加删除 - root</h3><p><strong>以下命令使用root账号操作</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">增加用户lisi</span></span><br><span class="line">[root@Honor ~]# useradd lisi # 增加用户 lisi  注意：此处‘#’号表示root权限，当前登录用户为root</span><br><span class="line">[root@Honor ~]# passwd lisi  # 为新增用户lisi设置密码</span><br><span class="line">Changing password for user lisi.</span><br><span class="line">New password:</span><br><span class="line">BAD PASSWORD: The password is shorter than 8 characters</span><br><span class="line">Retype new password:</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换到lisi用户</span></span><br><span class="line">[root@Honor ~]# su lisi  # 切换到用户lisi</span><br><span class="line"></span><br><span class="line">[lisi@Honor root]$ cd ~  # 进入用户lisi的Home目录  注意：此处&#x27;$&#x27;号表示当前登录用户为普通用户，用户为&#x27;lisi&#x27;</span><br><span class="line">[lisi@Honor ~]$ pwd   # 查看当前用户的工作目录</span><br><span class="line">/home/lisi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除用户lisi</span></span><br><span class="line">[lisi@Honor ~]$ userdel -r lisi  #当前登录用户是lisi，删除用户lisi，删除失败，提示lisi正在36号进程登录。</span><br><span class="line">userdel: user lisi is currently used by process 36</span><br><span class="line">[lisi@Honor ~]$ exit #lisi退出登录</span><br><span class="line">exit</span><br><span class="line">[root@Honor ~]# userdel -r lisi  # 当前登录用户为root，删除用户lisi</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改密码-普通用户"><a href="#修改密码-普通用户" class="headerlink" title="修改密码 - 普通用户"></a>修改密码 - 普通用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用passwd命令修改个人密码</span></span><br><span class="line">[zhangsan@aliyunecs ~]$ passwd</span><br><span class="line">Changing password for user zhangsan.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输入当前密码</span></span><br><span class="line">Current password: </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">让你输入新密码</span></span><br><span class="line">New password: </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">提示你输入的新密码和旧密码一样了</span></span><br><span class="line">BAD PASSWORD: The password is the same as the old one</span><br><span class="line">passwd: Authentication token manipulation error</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">再次修改密码</span></span><br><span class="line">[zhangsan@aliyunecs ~]$ passwd</span><br><span class="line">Changing password for user zhangsan.</span><br><span class="line">Current password: </span><br><span class="line">New password:</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">提示新密码中包含用户名</span></span><br><span class="line">BAD PASSWORD: The password contains the user name in some form</span><br><span class="line">passwd: Authentication token manipulation error</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">再次修改密码</span></span><br><span class="line">[zhangsan@aliyunecs ~]$ passwd</span><br><span class="line">Changing password for user zhangsan.</span><br><span class="line">Current password: </span><br><span class="line">New password: </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">提示你密码太短，低于8个字符了</span></span><br><span class="line">BAD PASSWORD: The password is shorter than 8 characters</span><br><span class="line">passwd: Authentication token manipulation error</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如忘记个人密码，找root重置密码</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="授权普通用户执行root指令"><a href="#授权普通用户执行root指令" class="headerlink" title="授权普通用户执行root指令"></a>授权普通用户执行root指令</h3><p>在linux系统下，普通用户无法直接执行root用户权限下的命令，如果想让普通用户执行只有root用户才能执行的操作命令，就需要用到sudo，需要修改&#x2F;etc&#x2F;sudoers文件。</p>
+<p><strong>sudo 以其他用户身份执行命令</strong></p>
+<ol>
+<li>切换为<code>root</code>用户</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lisi@localhost ~]$ su root</span><br><span class="line">Password: </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查看相关文件详细信息  <code>/etc/sudoers</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ls -al /etc/sudoers</span><br><span class="line">-r--r-----. 1 root root 4328 Oct 25 19:45 /etc/sudoers</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以看到 即使是root用户，仍然没有修改权限</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>为<code>/etc/sudoers</code>增加修改权限</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# chmod u+w /etc/sudoers</span><br><span class="line">[root@localhost ~]# ll -al /etc/sudoers</span><br><span class="line">-rw-r-----. 1 root root 4328 Oct 25 19:45 /etc/sudoers #此时文件所有者root用户有了w权限</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>此时可以修改<code>/etc/sudoers</code>文件了，找到文件大约第100行的位置；</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 99 ## Allow root to run any commands anywhere </span><br><span class="line">100 root    ALL=(ALL)       ALL</span><br><span class="line">101 </span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>仿照第100行，增加李四用户，如下图，保存退出。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 99 ## Allow root to run any commands anywhere </span><br><span class="line">100 root    ALL=(ALL)       ALL</span><br><span class="line">101 lisi        ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>此时<code>lisi</code>用户便有了管理员权限。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">李四用户使用<span class="built_in">sudo</span>，便可修改/etc/sudoers文件了，即使该文件的所有者所属组都是root</span></span><br><span class="line">[lisi@localhost ~]$ sudo vim /etc/sudoers # 如果前面没有使用sudo，lisi无法修改该文件</span><br><span class="line">[lsii@localhost ~]$ sudo vim /etc/sudoers</span><br><span class="line"></span><br><span class="line">We trust you have received the usual lecture from the local System</span><br><span class="line">Administrator. It usually boils down to these three things:</span><br><span class="line"></span><br><span class="line">    #1) Respect the privacy of others.</span><br><span class="line">    #2) Think before you type.</span><br><span class="line">    #3) With great power comes great responsibility.</span><br><span class="line"></span><br><span class="line">[sudo] password for lisi: </span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>安全起见，此时可以把<code>/etc/sudoers</code>的权限修改回去 <code>u-w</code></li>
+</ol>
+<h5 id="发工资案例"><a href="#发工资案例" class="headerlink" title="发工资案例"></a>发工资案例</h5><ul>
+<li>工资账本<code>salary.csv</code>由<code>root</code>创建，存放在<code> /opt/</code>目录中；</li>
+<li>提升 <code>zhangsan</code> 用户为会计，负责工资的发放，让其能够修改<code> /opt/salary</code> 账本文件；</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###### root ######</span></span><br><span class="line">[root@localhost opt]<span class="comment"># pwd</span></span><br><span class="line">/opt</span><br><span class="line">[root@localhost opt]<span class="comment"># touch salary.csv</span></span><br><span class="line">[root@localhost opt]<span class="comment"># ll</span></span><br><span class="line">total <span class="number">0</span></span><br><span class="line">drwxr-xr-x. <span class="number">2</span> root root <span class="number">6</span> Oct <span class="number">30</span>  <span class="number">2018</span> rh</span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">0</span> Apr <span class="number">10</span> <span class="number">18</span>:<span class="number">30</span> salary.csv</span><br><span class="line">[root@localhost opt]<span class="comment"># </span></span><br><span class="line">[root@localhost opt]<span class="comment"># vim salary.csv  </span></span><br><span class="line"><span class="comment"># 如增加 2024-04-11,user1,5000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">####### 张三 ######</span></span><br><span class="line">[zhangsan@localhost ~]$ cd /opt/</span><br><span class="line"><span class="comment"># 可以看到，salary.csv的所有者是root</span></span><br><span class="line">[zhangsan@localhost opt]$ ll</span><br><span class="line">total <span class="number">4</span></span><br><span class="line">drwxr-xr-x. <span class="number">2</span> root root  <span class="number">6</span> Oct <span class="number">30</span>  <span class="number">2018</span> rh</span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">19</span> Apr <span class="number">10</span> <span class="number">18</span>:<span class="number">30</span> salary.csv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 张三无法修改此文件</span></span><br><span class="line">[zhangsan@localhost opt]$ vim /opt/salary.csv</span><br><span class="line"></span><br><span class="line"><span class="comment">###### root ######</span></span><br><span class="line"><span class="comment"># 切换到root，将zhangsan加入sudoers名单</span></span><br><span class="line">[root@localhost ~]<span class="comment"># vim /etc/sudoers</span></span><br><span class="line"><span class="comment"># 新增一行</span></span><br><span class="line">zhangsan        ALL=(ALL)       ALL</span><br><span class="line"></span><br><span class="line"><span class="comment">####### 张三 ######</span></span><br><span class="line"><span class="comment"># 此时张三便可以使用sudo来修改salary.csv文件了</span></span><br><span class="line">[zhangsan@localhost opt]$ sudo vim /opt/salary.csv</span><br><span class="line"></span><br><span class="line">We trust you have received the usual lecture <span class="keyword">from</span> the local System</span><br><span class="line">Administrator. It usually boils down to these three things:</span><br><span class="line"></span><br><span class="line">    <span class="comment">#1) Respect the privacy of others.</span></span><br><span class="line">    <span class="comment">#2) Think before you type.</span></span><br><span class="line">    <span class="comment">#3) With great power comes great responsibility.</span></span><br><span class="line"></span><br><span class="line">[sudo] password <span class="keyword">for</span> zhangsan: </span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h3><h4 id="增加用户组"><a href="#增加用户组" class="headerlink" title="增加用户组"></a>增加用户组</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# groupadd group_1</span><br><span class="line">[root@localhost ~]# tail -2 /etc/group</span><br><span class="line">zhangsan:x:1002:</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">新增的用户组</span></span><br><span class="line">group_1:x:1004:</span><br></pre></td></tr></table></figure>
+
+<h4 id="用户加入用户组"><a href="#用户加入用户组" class="headerlink" title="用户加入用户组"></a>用户加入用户组</h4><pre><code>usermod ：modify a user account
+-a, --append
+       Add the user to the supplementary(额外的) group(s). Use only with the -G option.
+</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第一种方法，将zhangsan加入到group_1中</span></span><br><span class="line">[root@localhost ~]# usermod -a -G group_1 zhangsan</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第二种方法，将lisi加入到group_1中</span></span><br><span class="line">[root@localhost ~]# gpasswd -a lisi group_1</span><br><span class="line">Adding user lisi to group group_1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看组group_1内有两个用户 zhangsan, lisi</span></span><br><span class="line">[root@localhost ~]# tail -2 /etc/group</span><br><span class="line">zhangsan:x:1002:</span><br><span class="line">group_1:x:1004:zhangsan,lisi</span><br></pre></td></tr></table></figure>
+
+<h4 id="用户组内移除用户"><a href="#用户组内移除用户" class="headerlink" title="用户组内移除用户"></a>用户组内移除用户</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用<span class="built_in">sudo</span>提升权限，移除成功</span></span><br><span class="line">[root@localhost ~]$ gpasswd -d lisi group_1</span><br><span class="line">Removing user lisi from group group_1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看组内成员，发现group_1组内仅剩zhangsan</span></span><br><span class="line">[root@localhost ~]$ sudo tail -n 2 /etc/group</span><br><span class="line">lisi:x:1002:</span><br><span class="line">group_1:x:1012:zhangsan</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除用户组"><a href="#删除用户组" class="headerlink" title="删除用户组"></a>删除用户组</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ sudo groupdel group_1</span><br><span class="line">[zhangsan@localhost ~]$ sudo tail -n 5 /etc/group</span><br><span class="line">devgroup:x:1003:</span><br><span class="line">depart1:x:1004:</span><br><span class="line">depart2:x:1010:</span><br><span class="line">depart3:x:1011:</span><br><span class="line">lisi:x:1002:</span><br></pre></td></tr></table></figure>
+
+<h3 id="用户历史操作"><a href="#用户历史操作" class="headerlink" title="用户历史操作"></a>用户历史操作</h3><p> history会列出所有使用过的命令并加以编号。这些信息被存储在用户主目录的<code>~/.bash_history</code>文件中，这个文件默认情况下可以存储1000条命令记录。</p>
+<h5 id="查看最近10条命令"><a href="#查看最近10条命令" class="headerlink" title="查看最近10条命令"></a>查看最近10条命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ history 10</span><br><span class="line">  396  sudo groupdel group_1</span><br><span class="line">  397  sudo tail -n 5 /etc/group</span><br><span class="line">  398  sudo tail -n 10 /etc/group</span><br><span class="line">  399  ll</span><br><span class="line">  400  more /etc/sudoers</span><br><span class="line">  401  sudo more /etc/sudoers</span><br><span class="line">  402  sudo less /etc/sudoers</span><br><span class="line">  403  sudo more /etc/sudoers</span><br><span class="line">  404  history</span><br><span class="line">  405  history 10</span><br></pre></td></tr></table></figure>
+
+<h5 id="执行第399条命令"><a href="#执行第399条命令" class="headerlink" title="执行第399条命令"></a>执行第399条命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ !399</span><br><span class="line">ll</span><br><span class="line">total 24</span><br><span class="line">-rw-r--r--. 1 root     root     25 Oct 18 06:58 3days.txt</span><br><span class="line">-rw-rw-r--. 1 zhangsan zhangsan 25 Oct 18 18:04 3.txt</span><br><span class="line">-r---w----. 1 zhangsan zhangsan 57 Oct 18 06:54 days</span><br><span class="line">-r--------. 1 root     root     57 Oct 18 20:09 days_copy</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Desktop</span><br><span class="line">drwxr-xr-x. 2 root     root      6 Oct 18 20:06 dir1</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Documents</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Downloads</span><br><span class="line">-rwx------. 1 zhangsan zhangsan 33 Oct 18 18:27 hello.sh</span><br><span class="line">-rw-rw-r--. 1 zhangsan zhangsan  5 Oct 18 17:55 ls_out</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Music</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Pictures</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Public</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Templates</span><br><span class="line">drwxrwxr-x. 3 zhangsan zhangsan 19 Oct 18 20:10 test</span><br><span class="line">drwxr-xr-x. 2 zhangsan zhangsan  6 Oct 11 18:07 Videos</span><br><span class="line">drwxrwxr-x. 2 zhangsan zhangsan 53 Oct 11 18:25 zsdir</span><br></pre></td></tr></table></figure>
+
+<h5 id="清空历史操作"><a href="#清空历史操作" class="headerlink" title="清空历史操作"></a>清空历史操作</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@localhost ~]$ history -c</span><br><span class="line">[zhangsan@localhost ~]$ history</span><br><span class="line">    1  history</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h3 id="密码影子shadow"><a href="#密码影子shadow" class="headerlink" title="密码影子shadow"></a>密码影子shadow</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>用户账号名称，如root</td>
+</tr>
+<tr>
+<td>2</td>
+<td>用户加密后的口令。如果该字段的值为“!!”和“*”，则表示该用户当前没有密码，也不能登录系统，这些用户通常是标准账号。  其他的用户密码都是经过MD5加密后的内容。另外，用户任何时候都不能通过直接修改该字段的方法，来更变用户口令</td>
+</tr>
+<tr>
+<td>3</td>
+<td>由1970年1月1号算起，到最后一次修改密码的时间间隔（以日为单位）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>密码自上次修改后，要间隔多少天数后才能再次被修改，如果为0则无限制</td>
+</tr>
+<tr>
+<td>5</td>
+<td>密码自上次修改后，最多间隔多少天数后密码必须被修改</td>
+</tr>
+<tr>
+<td>6</td>
+<td>如果密码有时间限制，那么在过期前多少天向用户发出警告，默认为7天</td>
+</tr>
+<tr>
+<td>7</td>
+<td>如果密码设置为必须修改，到期后仍未修改，系统自动关闭账号的天数</td>
+</tr>
+<tr>
+<td>8</td>
+<td>从1970年1月1号算起，到账号过期的天数</td>
+</tr>
+<tr>
+<td>9</td>
+<td>系统保留，尚未使用</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">现在距离1970.1.1日共19829天，wangwu的密码设置为至少3天一更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">王五的密码是5天前更新的。</span></span><br><span class="line">1      ：                 2                 ：  3    ：4 ：5    : 6: 7 : 8 : 9</span><br><span class="line">wangwu : $1$cd1m5G0O$FqMmi0icYyPa6hoI6HCUE/ : 19824 : 0 : 3    : 7:  :    :</span><br><span class="line">user2  : $1$AjOvyxXg$JYVXD8rvQtVW6ONtc8gES. : 19829 : 1 : 99999: 7:  :    :</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./img/Linux_08_%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/1713242419787.png" alt="1713242419787"></p>
+<h3 id="setuid"><a href="#setuid" class="headerlink" title="setuid"></a>setuid</h3><h5 id="shadow文件"><a href="#shadow文件" class="headerlink" title="shadow文件"></a>shadow文件</h5><pre>[root@localhost zhangsan]# ls -al /etc/shadow
+----------. 1 root root 1291 Apr 15 21:37 <span style="background-color:#FF0000"><font color="#EEEEEC">/etc/shadow</font></span>
+</pre>
+
+
+<p>shadow文件的权限是000，普通用户别说写了，连看都看不到这个文件，<strong>但是普通用户可以更改自己的密码，把密码写入了&#x2F;etc&#x2F;shadow这个文件，</strong> 普通用户明明对他没有权限，怎么可能写入这个文件的呢？</p>
+<h5 id="passwd命令"><a href="#passwd命令" class="headerlink" title="passwd命令"></a>passwd命令</h5><pre>[root@localhost zhangsan]# ls -al /usr/bin/passwd
+-rwsr-xr-x. 1 root root 27856 Mar 31  2020 <span style="background-color:#FF0000"><font color="#EEEEEC">/usr/bin/passwd</font></span>
+</pre>
+
+
+<p>因为这个<code>passwd</code>这条命令作用的，当普通用户执行<code>passwd</code>这条命令的时候，<strong>因为passwd有SetUID权限。 任何普通用户在执行这条命令的时候，都暂时性地获得这个文件的所有者权限。</strong></p>
+<p>普通用户在执行<code>passwd</code>命令的时候，系统没有把他当作普通用户来对待，而是当作<code>超级用户</code>来对待，超级用户对shadow文件拥有任何权限，虽然shadow文件的权限是000，这个权限对超级用户是没有意义的，超级用户对这个文件依然有rwx权限。</p>
+<blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44657888/article/details/128785535">https://blog.csdn.net/weixin_44657888/article/details/128785535</a></p>
+</blockquote>
+<h3 id="用户管理-1"><a href="#用户管理-1" class="headerlink" title="用户管理"></a>用户管理</h3><h4 id="useradd"><a href="#useradd" class="headerlink" title="useradd"></a>useradd</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新增用户</span></span><br><span class="line">[root@localhost zhangsan]# useradd user3 -d /opt/user3 -s /bin/bash -c <span class="string">&quot;user3&#x27;s account&quot;</span> -g 1002</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户的主目录</span></span><br><span class="line">[root@localhost zhangsan]# <span class="built_in">ls</span> /opt/</span><br><span class="line">rh  salary.csv  user3</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户的个人信息</span></span><br><span class="line">[root@localhost zhangsan]# <span class="built_in">tail</span> -n 1 /etc/passwd</span><br><span class="line">user3:x:1003:1002:user3<span class="string">&#x27;s account:/opt/user3:/bin/bash</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 用户的所属组</span></span><br><span class="line"><span class="string">[root@localhost zhangsan]# id user3</span></span><br><span class="line"><span class="string">uid=1003(user3) gid=1002(bigdata) groups=1002(bigdata)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="passwd"><a href="#passwd" class="headerlink" title="passwd"></a>passwd</h4><p><code>-l</code> ：锁定密码，不许用户登录系统。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看zhangsan的密码</span></span><br><span class="line">[root@localhost ~]# cat /etc/shadow |grep zhangsan</span><br><span class="line">zhangsan:$1$VL4C6Fg0$EXd.i7dNZr8I8FvMCsXLd1:19829:0:99999:7:::</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root用户锁定zhangsan的密码</span></span><br><span class="line">[root@localhost ~]# passwd -l zhangsan</span><br><span class="line">Locking password for user zhangsan.</span><br><span class="line">passwd: Success</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">######################</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> 张三用户无法登录系统  <span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">######################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">再次查看zhangsan的密码</span></span><br><span class="line">[root@localhost ~]# cat /etc/shadow |grep zhangsan</span><br><span class="line">zhangsan:!!$1$VL4C6Fg0$EXd.i7dNZr8I8FvMCsXLd1:19829:0:99999:7:::</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以发现密码前多了两个!</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用root用户解锁zhangsan的密码</span></span><br><span class="line">[root@localhost ~]# passwd -u zhangsan</span><br><span class="line">Unlocking password for user zhangsan.</span><br><span class="line">passwd: Success</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">######################</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> 张三用户可以登录系统  <span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">######################</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">再次查看zhangsan的密码</span></span><br><span class="line">[root@localhost ~]# cat /etc/shadow |grep zhangsan</span><br><span class="line">zhangsan:$1$VL4C6Fg0$EXd.i7dNZr8I8FvMCsXLd1:19829:0:99999:7:::</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="设置密码时，显示密码内容"><a href="#设置密码时，显示密码内容" class="headerlink" title="设置密码时，显示密码内容"></a>设置密码时，显示密码内容</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost zhangsan]<span class="comment"># passwd --stdin zhangsan</span></span><br><span class="line">Changing password <span class="keyword">for</span> user zhangsan.</span><br><span class="line"><span class="number">12345677</span></span><br><span class="line">passwd: <span class="built_in">all</span> authentication tokens updated successfully.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="chfn"><a href="#chfn" class="headerlink" title="chfn"></a>chfn</h4><h5 id="修改用户信息"><a href="#修改用户信息" class="headerlink" title="修改用户信息"></a>修改用户信息</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost zhangsan]# chfn</span><br><span class="line">Changing finger information <span class="keyword">for</span> root.</span><br><span class="line">Name [root]: </span><br><span class="line">Office []: uzz</span><br><span class="line">Office Phone []: 12345</span><br><span class="line">Home Phone []: 123456</span><br><span class="line"></span><br><span class="line">Finger information changed.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="查看用户信息"><a href="#查看用户信息" class="headerlink" title="查看用户信息"></a>查看用户信息</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost zhangsan]# <span class="built_in">cat</span> /etc/passwd |grep root</span><br><span class="line">root:x:0:0:root,uzz,12345,123456:/root:/bin/bash</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="who"><a href="#who" class="headerlink" title="who"></a>who</h4><p>查看当前登录的用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# who</span><br><span class="line">zhangsan :0           2024-04-16 00:37 (:0)</span><br><span class="line">zhangsan pts/0        2024-04-16 00:37 (:0)</span><br><span class="line">zhangsan pts/1        2024-04-22 21:46 (192.168.174.1)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="finger"><a href="#finger" class="headerlink" title="finger"></a>finger</h4><p>查看用户信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">yum -y install finger</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# finger zhangsan</span><br><span class="line">Login: zhangsan       			Name: zhangsan</span><br><span class="line">Directory: /home/zhangsan           	Shell: /bin/bash</span><br><span class="line">On since Tue Apr 16 00:37 (PDT) on :0 from :0 (messages off)</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">zhangsan 从 Tue Apr 16 00:37 开始登录，并且是在本地控制台（:0）上登录的。(messages off) 表示消息通知是关闭的。</span></span><br><span class="line"></span><br><span class="line">On since Tue Apr 16 00:37 (PDT) on pts/0 from :0</span><br><span class="line">   1 minute 38 seconds idle</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zhangsan 从 Tue Apr 16 00:37 开始登录，并且是在本地控制台（:0）上登录的。(messages off) 表示消息通知是关闭的。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">自从上次活动以来，用户已经空闲了 1 minute 38 seconds。</span></span><br><span class="line"></span><br><span class="line">On since Mon Apr 22 21:46 (PDT) on pts/1 from 192.168.174.1</span><br><span class="line">   2 seconds idle</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zhangsan 在 Mon Apr 22 21:46 从 IP 地址 192.168.174.1 在 pts/1 上登录。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">自上次活动以来，这个会话已经空闲了 2 seconds。</span></span><br><span class="line">No mail.</span><br><span class="line">No Plan.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="在登录的用户间传递消息"><a href="#在登录的用户间传递消息" class="headerlink" title="在登录的用户间传递消息"></a>在登录的用户间传递消息</h3><h4 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">张三允许其他人向自己发消息</span></span><br><span class="line">[zhangsan@localhost ~]$ mesg</span><br><span class="line">is y</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root向外广播</span></span><br><span class="line">[root@localhost ~]# wall</span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line">Broadcast message from root@localhost.localdomain (pts/1) (Mon Apr 15 05:02:52 2024):</span><br><span class="line"></span><br><span class="line">hello world</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  <code>Ctrl+D</code>结束消息发送。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 张三收到消息</span></span><br><span class="line">[zhangsan@localhost ~]$ </span><br><span class="line">Broadcast message from root@localhost.localdomain (pts/1) (Mon Apr 15 05:02:52 2024):</span><br><span class="line"></span><br><span class="line">hello world</span><br><span class="line">[zhangsan@localhost ~]$</span><br></pre></td></tr></table></figure>
+
+<h4 id="向某用户"><a href="#向某用户" class="headerlink" title="向某用户"></a>向某用户</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root向张三发送消息</span></span><br><span class="line">[root@localhost ~]# write zhangsan</span><br><span class="line">hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zhangsan接收到root发过来的消息</span></span><br><span class="line">[zhangsan@localhost ~]$ hello</span><br><span class="line">[zhangsan@localhost ~]$ world</span><br><span class="line">[zhangsan@localhost ~]$ </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="用户管理练习"><a href="#用户管理练习" class="headerlink" title="用户管理练习"></a>用户管理练习</h3><ol>
+<li>切换到<code>root</code>用户;</li>
+<li>新增一个用户，用户名为<code>姓名全拼-new</code>，为其设置密码；</li>
+<li>新增一个用户组，组名为<code>linux-study</code>；</li>
+<li>将新用户加入到用户组内；</li>
+<li>将新用户从用户组内移除；</li>
+<li>修改用户的个人信息；Name为中文姓名；homePhone为你的手机号；</li>
+<li>查看passwd文件中的个人信息。</li>
+</ol>
+<h3 id="权限管理练习"><a href="#权限管理练习" class="headerlink" title="权限管理练习"></a>权限管理练习</h3><ul>
+<li>使用<code>root</code>用户，在<code>opt</code>目录创建目录<code>salary</code>， 并在目录内创建文件<code>salary-01.csv</code></li>
+<li>查看<code>salary</code>的权限信息；</li>
+<li>将目录<code>salary</code>的所有者和所属组变更为<code>姓名全拼-new</code></li>
+<li>切换到用户<code>姓名全拼-new</code></li>
+<li>赋予所有者<code>读写</code>权限；赋予所属组<code>读</code>权限；赋予其他人<code>空</code>权限。</li>
+<li>此时，尝试进入<code>salary</code>目录， 打印提示信息。</li>
+<li>根据提示信息重新调整权限，让所有者能够进入<code>salary</code>目录；</li>
+<li>调整权限后，所有者进入<code>salary</code>目录，在<code>salary-01.csv</code>中插入一行文本，文本内容为<code>姓名全拼-new  01  10000</code></li>
+<li>如插入失败，思考失败原因，并进行修复；</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2023/01/14/Linux/Linux_08_%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" data-id="cuidWjg15B7cLLpB_OtZZo38c" data-title="Linux用户管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/01/14/Linux/Linux_06_%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux查看文本文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/14/Linux/Linux_11_%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85_YUM/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux软件安装 - YUM软件安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

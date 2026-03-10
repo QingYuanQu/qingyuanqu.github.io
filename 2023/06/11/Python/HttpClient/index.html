@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Http Clients | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="字节与字符串单位换算1 byte &#x3D; 8 bits 字符串转字节1b &#x3D; &quot;abc张三&quot;.encode(&quot;utf-8&quot;)  字节转字符串12b.decode(&quot;utf-8&quot;)# &#x27;abc张三&#x27;  Web通信原理 Http请求方法   方法 描述    GET 请求指定的页面信息，并返回实体主体   POST">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http Clients">
+<meta property="og:url" content="http://www.studybigdata.com/2023/06/11/Python/HttpClient/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="字节与字符串单位换算1 byte &#x3D; 8 bits 字符串转字节1b &#x3D; &quot;abc张三&quot;.encode(&quot;utf-8&quot;)  字节转字符串12b.decode(&quot;utf-8&quot;)# &#x27;abc张三&#x27;  Web通信原理 Http请求方法   方法 描述    GET 请求指定的页面信息，并返回实体主体   POST">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/HttpClient/image-20230611201102563.png">
+<meta property="article:published_time" content="2023-06-11T13:02:00.000Z">
+<meta property="article:modified_time" content="2023-07-20T13:24:36.124Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="Requests">
+<meta property="article:tag" content="urllib">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/HttpClient/image-20230611201102563.png">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Python/HttpClient" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/11/Python/HttpClient/" class="article-date">
+  <time class="dt-published" datetime="2023-06-11T13:02:00.000Z" itemprop="datePublished">2023-06-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Requests/">Requests</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Http Clients
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="字节与字符串"><a href="#字节与字符串" class="headerlink" title="字节与字符串"></a>字节与字符串</h1><h5 id="单位换算"><a href="#单位换算" class="headerlink" title="单位换算"></a>单位换算</h5><p>1 byte &#x3D; 8 bits</p>
+<h5 id="字符串转字节"><a href="#字符串转字节" class="headerlink" title="字符串转字节"></a>字符串转字节</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="string">&quot;abc张三&quot;</span>.encode(<span class="string">&quot;utf-8&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="字节转字符串"><a href="#字节转字符串" class="headerlink" title="字节转字符串"></a>字节转字符串</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b.decode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line"><span class="comment"># &#x27;abc张三&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Web通信原理"><a href="#Web通信原理" class="headerlink" title="Web通信原理"></a>Web通信原理</h1><p><img src="/img/HttpClient/image-20230611201102563.png" alt="image-20230611201102563"></p>
+<h4 id="Http请求方法"><a href="#Http请求方法" class="headerlink" title="Http请求方法"></a>Http请求方法</h4><table>
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>GET</strong></td>
+<td>请求指定的页面信息，并返回实体主体</td>
+</tr>
+<tr>
+<td><strong>POST</strong></td>
+<td>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和&#x2F;或已有资源的修改</td>
+</tr>
+<tr>
+<td><strong>HEAD</strong></td>
+<td>类似于GET请求，只不过返回的响应中没有具体的内容，用于获取报头</td>
+</tr>
+<tr>
+<td><strong>PUT</strong></td>
+<td>从客户端向服务器传送的数据取代指定的文档的内容</td>
+</tr>
+<tr>
+<td><strong>DELETE</strong></td>
+<td>请求服务器删除指定的页面</td>
+</tr>
+<tr>
+<td><strong>OPTIONS</strong></td>
+<td>允许客户端查看服务器的性能</td>
+</tr>
+</tbody></table>
+<h4 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h4><table>
+<thead>
+<tr>
+<th><strong>代码</strong></th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1*</strong>*</td>
+<td>信息，请求收到，继续处理</td>
+</tr>
+<tr>
+<td><strong>2*</strong>*</td>
+<td>成功，行为被成功地接受、理解和采纳</td>
+</tr>
+<tr>
+<td><strong>3*</strong>*</td>
+<td>重定向，为了完成请求，必须进一步执行的动作</td>
+</tr>
+<tr>
+<td><strong>4*</strong>*</td>
+<td>客户端错误，请求包含语法错误或者请求无法实现</td>
+</tr>
+<tr>
+<td><strong>5*</strong>*</td>
+<td>服务器错误，服务器不能实现一种明显无效的请求</td>
+</tr>
+</tbody></table>
+<h1 id="urllib官方标准库"><a href="#urllib官方标准库" class="headerlink" title="urllib官方标准库"></a>urllib官方标准库</h1><table>
+<thead>
+<tr>
+<th><strong>模块名称</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>urllib.parse</strong></td>
+<td>该模块定义的功能分为两大类：URL解析和URL引用</td>
+</tr>
+<tr>
+<td><strong>urllib.request</strong></td>
+<td>该模块定义了打开URL（主要是HTTP）的方法和类，如身份验证、重定向、cookie等</td>
+</tr>
+<tr>
+<td><strong>urllib.error</strong></td>
+<td>该模块中主要包含异常类，基本的异常类是URLError</td>
+</tr>
+<tr>
+<td><strong>urllib.robotparser</strong></td>
+<td>该模块用于解析robots.txt文件</td>
+</tr>
+</tbody></table>
+<h3 id="导入-urllib"><a href="#导入-urllib" class="headerlink" title="导入 urllib"></a>导入 urllib</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br></pre></td></tr></table></figure>
+
+<h3 id="UrlParse模块"><a href="#UrlParse模块" class="headerlink" title="UrlParse模块"></a>UrlParse模块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&quot;http://localhost:8080/servlet_api/Hello?username=zhangsan#body&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="UrlParse函数"><a href="#UrlParse函数" class="headerlink" title="UrlParse函数"></a>UrlParse函数</h4><p>urlparse() 函数可以将 URL 解析成 ParseResult 对象。对象中包含了六个元素，分别为协议（scheme） 、域名（netloc） 、路径（path） 、路径参数（params） 、查询参数（query） 、片段（fragment）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlparse</span><br><span class="line">parsed_result = urlparse(url)</span><br><span class="line">parsed_result</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>ParseResult(scheme=&#39;http&#39;, netloc=&#39;localhost:8080&#39;, path=&#39;/servlet_api/Hello&#39;, params=&#39;&#39;, query=&#39;username=zhangsan&#39;, fragment=&#39;body&#39;)
+</code></pre>
+<h4 id="UrlSplit函数"><a href="#UrlSplit函数" class="headerlink" title="UrlSplit函数"></a>UrlSplit函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlsplit</span><br><span class="line">split_result = urlsplit(url)</span><br><span class="line">split_result</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>SplitResult(scheme=&#39;http&#39;, netloc=&#39;localhost:8080&#39;, path=&#39;/servlet_api/Hello&#39;, query=&#39;username=zhangsan&#39;, fragment=&#39;body&#39;)
+</code></pre>
+<h4 id="UrlDeFrag函数"><a href="#UrlDeFrag函数" class="headerlink" title="UrlDeFrag函数"></a>UrlDeFrag函数</h4><p>urldefrag：如果url包含一个片段标识符，urldefrag()函数可以返回一个没有片段标识符的修改过的url，并且这个片段标识符作为单独的字符串。如果url中没有片段标识符，则返回未修改的url和一个空字符串。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urldefrag</span><br><span class="line">defrag_result = urldefrag (url)</span><br><span class="line">defrag_result</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>DefragResult(url=&#39;http://localhost:8080/servlet_api/Hello?username=zhangsan&#39;, fragment=&#39;body&#39;)
+</code></pre>
+<h4 id="UrlUnParse函数"><a href="#UrlUnParse函数" class="headerlink" title="UrlUnParse函数"></a>UrlUnParse函数</h4><p>urlunparse()接收一个列表的参数，组成一个完整的URL，而且列表的长度是有要求的，是必须六个参数以上，否则抛出异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlunparse</span><br><span class="line">url_compos = (<span class="string">&quot;http&quot;</span>,<span class="string">&quot;localhost:8080&quot;</span>, <span class="string">&quot;/servlet_api/Hello&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="string">&quot;username=zhangsan&quot;</span>,<span class="string">&quot;head&quot;</span>)</span><br><span class="line">urlunparse(url_compos)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/servlet_api/Hello?username=zhangsan#head</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="UrlJoin函数"><a href="#UrlJoin函数" class="headerlink" title="UrlJoin函数"></a>UrlJoin函数</h4><p>连接两个参数的url，将第二个参数中缺的部分用第一个参数的补齐;  如果第二个有完整的路径，则以第二个为主</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="built_in">print</span>(urljoin(<span class="string">&quot;https://movie.douban.com/&quot;</span>,<span class="string">&quot;index&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(urljoin(<span class="string">&quot;https://movie.douban.com/&quot;</span>,<span class="string">&quot;https://accounts.douban.com/login&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>https://movie.douban.com/index
+https://accounts.douban.com/login
+</code></pre>
+<h4 id="urlencode函数"><a href="#urlencode函数" class="headerlink" title="urlencode函数"></a>urlencode函数</h4><h5 id="字典转请求参数"><a href="#字典转请求参数" class="headerlink" title="字典转请求参数"></a>字典转请求参数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlencode</span><br><span class="line">requestParameters = &#123;<span class="string">&quot;username&quot;</span>:<span class="string">&quot;张三&quot;</span>,<span class="string">&quot;password&quot;</span>:<span class="string">&quot;123456&quot;</span>&#125;</span><br><span class="line">requestParametersEncode = urlencode(requestParameters,encoding=<span class="string">&quot;gbk&quot;</span>)</span><br><span class="line">requestParametersEncode</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&#39;username=%D5%C5%C8%FD&amp;password=123456&#39;
+</code></pre>
+<h5 id="请求参数转字典"><a href="#请求参数转字典" class="headerlink" title="请求参数转字典"></a>请求参数转字典</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> parse_qs</span><br><span class="line">parse_qs(requestParametersEncode,encoding=<span class="string">&quot;gbk&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>{&#39;username&#39;: [&#39;张三&#39;], &#39;password&#39;: [&#39;123456&#39;]}
+</code></pre>
+<h3 id="Request模块"><a href="#Request模块" class="headerlink" title="Request模块"></a>Request模块</h3><h4 id="Get请求"><a href="#Get请求" class="headerlink" title="Get请求"></a>Get请求</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response = urllib.request.urlopen(<span class="string">f&quot;http://localhost:8080/servlet_api/AboutUs&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response.read().decode(<span class="string">&quot;utf-8&quot;</span>)) <span class="comment">#字节序列</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;关于我们&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;关于我们&lt;/h1&gt;
+&lt;p&gt;公司网址：www.studybigdata.cn&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>​    </p>
+<h4 id="Post请求"><a href="#Post请求" class="headerlink" title="Post请求"></a>Post请求</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">requestParameters = &#123;<span class="string">&quot;username&quot;</span>:<span class="string">&quot;张三&quot;</span>,<span class="string">&quot;password&quot;</span>:<span class="string">&quot;123456&quot;</span>&#125;</span><br><span class="line">requestParametersBytesString = urllib.parse.urlencode(requestParameters) <span class="comment"># 将请求参数编码成字节字符串</span></span><br><span class="line">data = <span class="built_in">bytes</span>(requestParametersBytesString,encoding = <span class="string">&quot;utf-8&quot;</span>) <span class="comment"># 转成字节</span></span><br><span class="line">response = urllib.request.urlopen(<span class="string">&quot;http://localhost:8080/servlet_api/LogIn&quot;</span>, data=data)</span><br><span class="line">response.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)<span class="comment">#读取服务器的响应的字节，转为字符串</span></span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&#39;&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;首页&lt;/title&gt;&lt;/head&gt;\r\n&lt;body&gt;\r\n当前登录用户: 未登录\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n&#39;
+</code></pre>
+<h1 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h1><h3 id="安装Requests库"><a href="#安装Requests库" class="headerlink" title="安装Requests库"></a>安装Requests库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!pip install requests</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="导入Requests模块"><a href="#导入Requests模块" class="headerlink" title="导入Requests模块"></a>导入Requests模块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造Request-Header"><a href="#构造Request-Header" class="headerlink" title="构造Request Header"></a>构造Request Header</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Head请求"><a href="#Head请求" class="headerlink" title="Head请求"></a>Head请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&quot;http://localhost:8080/servlet_api/AboutUs&quot;</span></span><br><span class="line">response = requests.head(<span class="string">&quot;http://localhost:8080/servlet_api/Hello&quot;</span>)</span><br><span class="line">response.content.decode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> response.headers.items():</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+
+<pre><code>(&#39;Server&#39;, &#39;Apache-Coyote/1.1&#39;)
+(&#39;Content-Length&#39;, &#39;107&#39;)
+(&#39;Date&#39;, &#39;Sun, 11 Jun 2023 07:16:23 GMT&#39;)
+</code></pre>
+<h3 id="Get请求-1"><a href="#Get请求-1" class="headerlink" title="Get请求"></a>Get请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HelloURL = <span class="string">&quot;http://localhost:8080/servlet_api/Hello?username=zhangsan&quot;</span></span><br><span class="line">response = requests.get(HelloURL,headers=headers)</span><br><span class="line"><span class="comment">#以字节流形式打印网页源码</span></span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;a servlet&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+Hello! zhangsan
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>​    </p>
+<h3 id="Post请求-1"><a href="#Post请求-1" class="headerlink" title="Post请求"></a>Post请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">req_param = &#123;<span class="string">&quot;username&quot;</span>:<span class="string">&quot;张三&quot;</span>,<span class="string">&quot;password&quot;</span>:<span class="string">&quot;123456&quot;</span>&#125;</span><br><span class="line">response = requests.post(<span class="string">&quot;http://localhost:8080/servlet_api/LogIn&quot;</span>,data=req_param)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;首页&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+当前登录用户: 张三
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>​    </p>
+<h3 id="Put请求"><a href="#Put请求" class="headerlink" title="Put请求"></a>Put请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HelloURL = <span class="string">&quot;http://localhost:8080/servlet_api/Hello&quot;</span></span><br><span class="line">response = requests.put(HelloURL)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;a servlet&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+您发送了一个Put请求! 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>​    </p>
+<h3 id="Delete请求"><a href="#Delete请求" class="headerlink" title="Delete请求"></a>Delete请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response = requests.delete(HelloURL)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;a servlet&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+您发送了一个Put请求! 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>​    </p>
+<h3 id="Options请求"><a href="#Options请求" class="headerlink" title="Options请求"></a>Options请求</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response = requests.options(HelloURL)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;a servlet&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+您发送了一个Put请求! 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>​    </p>
+<h3 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">response = requests.get(<span class="string">&quot;http://localhost:8080/servlet_api/Index&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response.url)</span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.headers)</span><br><span class="line"><span class="built_in">print</span>(response.encoding)</span><br><span class="line"><span class="built_in">print</span>(response.content)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br><span class="line"><span class="built_in">print</span>(response.cookies)</span><br></pre></td></tr></table></figure>
+
+<pre><code>http://localhost:8080/servlet_api/Index
+200
+{&#39;Server&#39;: &#39;Apache-Coyote/1.1&#39;, &#39;Set-Cookie&#39;: &#39;JSESSIONID=44C6D212AE2468EE107B40E3B6109664; Path=/servlet_api/; HttpOnly&#39;, &#39;Content-Type&#39;: &#39;text/html;charset=utf-8&#39;, &#39;Content-Length&#39;: &#39;101&#39;, &#39;Date&#39;: &#39;Sun, 11 Jun 2023 07:41:13 GMT&#39;}
+utf-8
+b&#39;&lt;html&gt;\r\n&lt;head&gt;&lt;title&gt;\xe9\xa6\x96\xe9\xa1\xb5&lt;/title&gt;&lt;/head&gt;\r\n&lt;body&gt;\r\n\xe5\xbd\x93\xe5\x89\x8d\xe7\x99\xbb\xe5\xbd\x95\xe7\x94\xa8\xe6\x88\xb7: \xe6\x9c\xaa\xe7\x99\xbb\xe5\xbd\x95\r\n&lt;/body&gt;\r\n&lt;/html&gt;\r\n&#39;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;首页&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+当前登录用户: 未登录
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;RequestsCookieJar[&lt;Cookie JSESSIONID=44C6D212AE2468EE107B40E3B6109664 for localhost.local/servlet_api/&gt;]&gt;
+</code></pre>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">response = requests.get(<span class="string">&quot;http://localhost:8080/servlet_api/CookieTest&quot;</span>, headers=headers)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response.content.decode(<span class="string">&quot;utf-8&quot;</span>))</span><br><span class="line"><span class="keyword">for</span> cookie <span class="keyword">in</span> response.cookies.keys():</span><br><span class="line">    <span class="built_in">print</span>(cookie + <span class="string">&quot;:&quot;</span>+ response.cookies.get(cookie))</span><br></pre></td></tr></table></figure>
+
+<pre><code>给你确定个广告ID：
+username:zhangsan
+advertisementId:999999
+</code></pre>
+<h4 id="自定义Cookie"><a href="#自定义Cookie" class="headerlink" title="自定义Cookie"></a>自定义Cookie</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#自定义cookies</span></span><br><span class="line">cookies = <span class="built_in">dict</span>(view=<span class="string">&quot;kouhong&quot;</span>,advertisementId=<span class="string">&quot;888888&quot;</span>)</span><br><span class="line">response = requests.post(<span class="string">&quot;http://localhost:8080/servlet_api/CookieTest&quot;</span>, headers=headers, cookies=cookies)</span><br><span class="line"><span class="built_in">print</span>(response.content.decode(<span class="string">&quot;utf-8&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>小李啊，据我了解你喜欢买化妆品，我给你推荐个面膜！
+</code></pre>
+<h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送POST请求(禁用重定向)</span></span><br><span class="line">response = requests.post(<span class="string">&quot;http://localhost:8080/servlet_api/LogIn&quot;</span>,data=req_param, allow_redirects=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在header中取出重定向地址</span></span><br><span class="line">redirect_url = response.headers[<span class="string">&#x27;Location&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(redirect_url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录成功后，服务器为当前会话产生Session，返回给客户端一个cookie：JSESSIONID</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> response.cookies.items():</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<pre><code>http://localhost:8080/servlet_api/Index
+(&#39;JSESSIONID&#39;, &#39;7406A09B5D0A3CB79784FE002BA9E905&#39;)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再次请求服务器，服务器会根据cookie信息识别当前用户。    </span></span><br><span class="line">response = requests.get(redirect_url,cookies=response.cookies)</span><br><span class="line"><span class="built_in">print</span>(response.content.decode(<span class="string">&quot;utf-8&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;首页&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+当前登录用户: 张三
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<blockquote>
+<p>实验接口源码：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/A-stranger/studybigdata/tree/master/javaee/servlet_api">https://github.com/A-stranger/studybigdata/tree/master/javaee/servlet_api</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2023/06/11/Python/HttpClient/" data-id="cuidDCb50gfbLOE_ydaGExICP" data-title="Http Clients" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/06/13/JavaEE/%E5%9F%BA%E4%BA%8ESpring%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          基于Spring-MyBatis的学生信息管理系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/06/10/MySQL/MySQL_Install/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

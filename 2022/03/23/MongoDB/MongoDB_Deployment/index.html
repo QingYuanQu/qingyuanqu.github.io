@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MongoDB部署 | 学习大数据</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Windows下载https:&#x2F;&#x2F;www.mongodb.com&#x2F;try&#x2F;download&#x2F;community install-mongodb-on-windowshttps:&#x2F;&#x2F;www.mongodb.com&#x2F;docs&#x2F;manual&#x2F;tutorial&#x2F;install-mongodb-on-windows&#x2F;    Install mongoshhttps:&#x2F;&#x2F;www.mongodb.com&#x2F;try">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB部署">
+<meta property="og:url" content="http://www.studybigdata.com/2022/03/23/MongoDB/MongoDB_Deployment/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="Windows下载https:&#x2F;&#x2F;www.mongodb.com&#x2F;try&#x2F;download&#x2F;community install-mongodb-on-windowshttps:&#x2F;&#x2F;www.mongodb.com&#x2F;docs&#x2F;manual&#x2F;tutorial&#x2F;install-mongodb-on-windows&#x2F;    Install mongoshhttps:&#x2F;&#x2F;www.mongodb.com&#x2F;try">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.studybigdata.com/img/MongoDB_Deployment/image-20220503092132342.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/MongoDB_Deployment/image-20220503092218302.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/MongoDB_Deployment/image-20220503092243822.png">
+<meta property="og:image" content="http://www.studybigdata.com/img/MongoDB_Deployment/image-20220503095810497.png">
+<meta property="article:published_time" content="2022-03-23T07:55:26.000Z">
+<meta property="article:modified_time" content="2022-10-14T04:52:42.834Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="MongoDB环境部署">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studybigdata.com/img/MongoDB_Deployment/image-20220503092132342.png">
+  
+    <link rel="alternate" href="/atom.xml" title="学习大数据" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">学习大数据</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">StudyBigdata</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.studybigdata.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MongoDB/MongoDB_Deployment" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/23/MongoDB/MongoDB_Deployment/" class="article-date">
+  <time class="dt-published" datetime="2022-03-23T07:55:26.000Z" itemprop="datePublished">2022-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MongoDB/">MongoDB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MongoDB部署
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a></p>
+<h3 id="install-mongodb-on-windows"><a href="#install-mongodb-on-windows" class="headerlink" title="install-mongodb-on-windows"></a>install-mongodb-on-windows</h3><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/">https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/</a></p>
+<p><img src="/img/MongoDB_Deployment/image-20220503092132342.png" alt="image-20220503092132342"></p>
+<p><img src="/img/MongoDB_Deployment/image-20220503092218302.png" alt="image-20220503092218302"></p>
+<p><img src="/img/MongoDB_Deployment/image-20220503092243822.png" alt="image-20220503092243822"></p>
+<h3 id="Install-mongosh"><a href="#Install-mongosh" class="headerlink" title="Install mongosh"></a>Install <code>mongosh</code></h3><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell</a></p>
+<p><img src="/img/MongoDB_Deployment/image-20220503095810497.png" alt="image-20220503095810497"></p>
+<h3 id="连接MongoDB"><a href="#连接MongoDB" class="headerlink" title="连接MongoDB"></a>连接MongoDB</h3><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/mongodb-shell/connect/#std-label-mdb-shell-connect">https://www.mongodb.com/docs/mongodb-shell/connect/#std-label-mdb-shell-connect</a></p>
+<p>默认端口<code>27017</code></p>
+<h5 id="连接本地Server"><a href="#连接本地Server" class="headerlink" title="连接本地Server"></a>连接本地<code>Server</code></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongosh</span><br><span class="line">Current Mongosh Log ID: 62708c7078e29ade98bc9a22</span><br><span class="line">Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&amp;serverSelectionTimeoutMS=2000&amp;appName=mongosh+1.3.1</span><br><span class="line">Using MongoDB:          5.0.8</span><br><span class="line">Using Mongosh:          1.3.1</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="连接远程Server"><a href="#连接远程Server" class="headerlink" title="连接远程Server"></a>连接远程<code>Server</code></h5><p>在MongoDB官网创建Server<a target="_blank" rel="noopener" href="https://cloud.mongodb.com/v2/6282ff0bc14e6e66f7e35b2b#clusters">https://cloud.mongodb.com/v2/6282ff0bc14e6e66f7e35b2b#clusters</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Qingyuan_Qu&gt; mongosh &quot;mongodb+srv://cluster0.0excx.mongodb.net/myFirstDatabase&quot; --apiVersion 1 --username quqingyuan</span><br><span class="line">Enter password: **********</span><br><span class="line">Current Mongosh Log ID: 6283008702ad5651115e0c21</span><br><span class="line">Connecting to:          mongodb+srv://cluster0.0excx.mongodb.net/myFirstDatabase?appName=mongosh+1.3.1</span><br><span class="line">Using MongoDB:          5.0.8 (API Version 1)</span><br><span class="line">Using Mongosh:          1.3.1</span><br><span class="line"></span><br><span class="line">For mongosh info see: https://docs.mongodb.com/mongodb-shell/</span><br><span class="line"></span><br><span class="line">Atlas atlas-wighfk-shard-0 [primary] myFirstDatabase&gt; show dbs;</span><br><span class="line">admin   287 kB</span><br><span class="line">local  1.76 GB</span><br><span class="line">Atlas atlas-wighfk-shard-0 [primary] myFirstDatabase&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># MongoDB支持YUM、RPM、压缩包等方式进行安装。此文档通过YUM方式安装。</span><br><span class="line">https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-red-hat/</span><br></pre></td></tr></table></figure>
+
+<h4 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h4><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 下载Centos7, tgz</span><br><span class="line">https://www.mongodb.com/try/download/community</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bigdata]$ mkdir mongodb</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上传到安装目录</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">软连接</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">略</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="软件目录结构"><a href="#软件目录结构" class="headerlink" title="软件目录结构"></a>软件目录结构</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 bin]$ ll -h</span><br><span class="line">-rwxr-xr-x. 1 zhangsan zhangsan  15K Apr 22 05:15 install_compass </span><br><span class="line">-rwxr-xr-x. 1 zhangsan zhangsan  56M Apr 22 06:01 mongo  # Client</span><br><span class="line">-rwxr-xr-x. 1 zhangsan zhangsan 105M Apr 22 06:02 mongod  # Server</span><br><span class="line">-rwxr-xr-x. 1 zhangsan zhangsan  73M Apr 22 05:40 mongos  # Router</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><h5 id="mongod命令介绍"><a href="#mongod命令介绍" class="headerlink" title="mongod命令介绍"></a>mongod命令介绍</h5><p>查看<code>mongod</code>帮助：<code>mongod -h</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--logpath arg</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">(指定记录日志的文件，不要指定文件夹！)</span></span><br><span class="line"></span><br><span class="line">--dbpath arg                          </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Directory <span class="keyword">for</span> datafiles - defaults to /data/db</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">（指定文件夹存储数据。默认/data/db）</span></span><br><span class="line"></span><br><span class="line">--fork</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Fork server process</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">（fork一个服务（子）进程，fork成功后，本（父）进程退出。）</span></span><br><span class="line"></span><br><span class="line">--bind_ip_all</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许所有ip访问Server</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在<code>$MONGODB_HOME</code>中创建一个日志(<code>logs</code>)存放目录和数据(<code>data</code>)存放目录。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 default]$ mkdir data</span><br><span class="line">(python37) [zhangsan@node0 default]$ mkdir logs</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="服务端启动"><a href="#服务端启动" class="headerlink" title="服务端启动"></a>服务端启动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 default]$ bin/mongod --fork --dbpath data/ --logpath logs/log</span><br><span class="line">about to fork child process, waiting until server is ready for connections.</span><br><span class="line">forked process: 3415</span><br><span class="line">child process started successfully, parent exiting</span><br></pre></td></tr></table></figure>
+
+<h5 id="客户端连接"><a href="#客户端连接" class="headerlink" title="客户端连接"></a>客户端连接</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 default]$ bin/mongo</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="停止服务器"><a href="#停止服务器" class="headerlink" title="停止服务器"></a>停止服务器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use admin</span></span><br><span class="line">switched to db admin</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.shutdownServer()</span></span><br><span class="line">server should be down...</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="built_in">exit</span></span></span><br><span class="line">bye</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="副本集"><a href="#副本集" class="headerlink" title="副本集"></a>副本集</h1><p>相当于<code>HDFS</code>的<code>Replication</code></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.mongodb.com/docs/manual/tutorial/deploy-replica-set/</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h5><p>MongoDB <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/reference/configuration-options/">配置文件</a>使用<a target="_blank" rel="noopener" href="http://www.yaml.org/">YAML</a>格式 [<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/reference/configuration-options/#footnote-yaml-json"> 1 ]</a>。</p>
+<p><code>mongod.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">   <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">   <span class="attr">path:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/logs/mongod.log&quot;</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">   <span class="attr">dbPath:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/data/&quot;</span></span><br><span class="line"><span class="attr">processManagement:</span></span><br><span class="line">   <span class="attr">fork:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">net:</span></span><br><span class="line">   <span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">   <span class="attr">port:</span> <span class="number">27017</span></span><br><span class="line"><span class="attr">replication:</span></span><br><span class="line">   <span class="attr">replSetName:</span> <span class="string">&quot;rs0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果允许任意<code>IP</code>地址访问，请输入<code>0.0.0.0</code>。</p>
+<h5 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/mongod --config conf/mongod.yaml</span><br></pre></td></tr></table></figure>
+
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><p>进入客户端 <code>bin/mongo</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var init_config = &#123;</span><br><span class="line">   _id : &quot;rs0&quot;,</span><br><span class="line">   members: [</span><br><span class="line">      &#123; _id: 0, host: &quot;node1:27017&quot; &#125;,</span><br><span class="line">      &#123; _id: 1, host: &quot;node2:27017&quot; &#125;,</span><br><span class="line">      &#123; _id: 2, host: &quot;node3:27017&quot; &#125;</span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br><span class="line">rs.initiate(init_config)</span><br></pre></td></tr></table></figure>
+
+<h5 id="确定主从"><a href="#确定主从" class="headerlink" title="确定主从"></a>确定主从</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rs.<span class="title function_">status</span>()</span><br></pre></td></tr></table></figure>
+
+<h5 id="从节点访问"><a href="#从节点访问" class="headerlink" title="从节点访问"></a>从节点访问</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rs0</span>:<span class="variable constant_">SECONDARY</span>&gt; rs.<span class="title function_">secondaryOk</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="主节点离线"><a href="#主节点离线" class="headerlink" title="主节点离线"></a>主节点离线</h5><p><code>Kill</code>掉<code>Primary</code>，查看副本集集群状态。</p>
+<h1 id="分片集群"><a href="#分片集群" class="headerlink" title="分片集群"></a>分片集群</h1><p>分片介绍：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.mongodb.com/docs/manual/sharding/</span><br></pre></td></tr></table></figure>
+
+<p>部署分片集群</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/</span><br></pre></td></tr></table></figure>
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#overview">概述</a></h2><p>本教程涉及创建一个新的分片集群，该集群由三个 <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/reference/program/mongos/#mongodb-binary-bin.mongos"><code>mongos</code></a>配置服务器副本集和两个分片副本集组成。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#procedure">步骤</a></h2><h3 id="创建-Config-Server-Replica-Set"><a href="#创建-Config-Server-Replica-Set" class="headerlink" title="创建 Config Server Replica Set"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#create-the-config-server-replica-set">创建 Config Server Replica Set</a></h3><h4 id="1-启动config-server副本集中的每个成员"><a href="#1-启动config-server副本集中的每个成员" class="headerlink" title="1. 启动config server副本集中的每个成员"></a>1. <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#start-each-member-of-the-config-server-replica-set">启动config server副本集中的每个成员</a></h4><h5 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h5><p><code>vim conf/config-server.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">   <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">   <span class="attr">path:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/logs/config-server.log&quot;</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">   <span class="attr">dbPath:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/data/configdb&quot;</span></span><br><span class="line"><span class="attr">sharding:</span></span><br><span class="line">  <span class="attr">clusterRole:</span> <span class="string">configsvr</span></span><br><span class="line"><span class="attr">replication:</span></span><br><span class="line">  <span class="attr">replSetName:</span> <span class="string">myConfigReplSet</span></span><br><span class="line"><span class="attr">net:</span></span><br><span class="line">   <span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">   <span class="attr">port:</span> <span class="number">27019</span></span><br><span class="line"><span class="attr">processManagement:</span></span><br><span class="line">   <span class="attr">fork:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>创建文件夹<code>configdb</code>、<code>data/configdb</code>、<code>logs</code>。</p>
+<h5 id="启动-2"><a href="#启动-2" class="headerlink" title="启动"></a>启动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/mongod --config conf/config-server.yaml</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-连接其中一个-config-server"><a href="#2-连接其中一个-config-server" class="headerlink" title="2. 连接其中一个 config server"></a>2. <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#connect-to-one-of-the-config-servers">连接其中一个 config server</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">bin/mongo --host node1 --port 27019</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-初始化副本集"><a href="#3-初始化副本集" class="headerlink" title="3. 初始化副本集"></a>3.<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#initiate-the-replica-set"> 初始化副本集</a></h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var config_server = <span class="punctuation">&#123;</span></span><br><span class="line">    _id<span class="punctuation">:</span> <span class="string">&quot;myConfigReplSet&quot;</span><span class="punctuation">,</span></span><br><span class="line">    configsvr<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    members<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span> _id <span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> host <span class="punctuation">:</span> <span class="string">&quot;node1:27019&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span> _id <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> host <span class="punctuation">:</span> <span class="string">&quot;node2:27019&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span> _id <span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> host <span class="punctuation">:</span> <span class="string">&quot;node3:27019&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line">rs.initiate(config_server)</span><br></pre></td></tr></table></figure>
+
+<h5 id="确定主从-1"><a href="#确定主从-1" class="headerlink" title="确定主从"></a>确定主从</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myReplSet:PRIMARY&gt; rs.status()</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">&quot;configsvr&quot;</span> : <span class="literal">true</span>,</span></span><br></pre></td></tr></table></figure>
+
+<p>此时，配置服务器副本集中会创建三个数据库：<code>admin</code>，<code>config</code>，<code>local</code>。</p>
+<h3 id="创建Shard-Replica-Sets"><a href="#创建Shard-Replica-Sets" class="headerlink" title="创建Shard Replica Sets"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#create-the-shard-replica-sets">创建Shard Replica Sets</a></h3><h4 id="1-启动shard副本集中的每个成员"><a href="#1-启动shard副本集中的每个成员" class="headerlink" title="1. 启动shard副本集中的每个成员"></a>1. <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#start-each-member-of-the-shard-replica-set">启动shard副本集中的每个成员</a></h4><h5 id="配置文件-2"><a href="#配置文件-2" class="headerlink" title="配置文件"></a>配置文件</h5><p><code>shard-server.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">    <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/logs/shard-server.log&quot;</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">dbPath:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/data/sharddb&quot;</span></span><br><span class="line"><span class="attr">sharding:</span></span><br><span class="line">    <span class="attr">clusterRole:</span> <span class="string">shardsvr</span></span><br><span class="line"><span class="attr">replication:</span></span><br><span class="line">    <span class="attr">replSetName:</span> <span class="string">myShardReplSet</span></span><br><span class="line"><span class="attr">net:</span></span><br><span class="line">    <span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">27018</span></span><br><span class="line"><span class="attr">processManagement:</span></span><br><span class="line">    <span class="attr">fork:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>创建文件夹。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node1 default]$ mkdir data/sharddb</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="启动-3"><a href="#启动-3" class="headerlink" title="启动"></a>启动</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/mongod --config conf/shard-server.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-连接其中一台shard-replica-set"><a href="#2-连接其中一台shard-replica-set" class="headerlink" title="2. 连接其中一台shard replica set"></a>2. <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#connect-to-one-member-of-the-shard-replica-set">连接其中一台shard replica set</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/mongo --host node1 --port 27018</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-初始化副本集-1"><a href="#3-初始化副本集-1" class="headerlink" title="3. 初始化副本集"></a>3. <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#initiate-the-replica-set-1">初始化副本集</a></h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var shard_server = <span class="punctuation">&#123;</span></span><br><span class="line">    _id <span class="punctuation">:</span> <span class="string">&quot;myShardReplSet&quot;</span><span class="punctuation">,</span></span><br><span class="line">    members<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span> _id <span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> host <span class="punctuation">:</span> <span class="string">&quot;node1:27018&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span> _id <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> host <span class="punctuation">:</span> <span class="string">&quot;node2:27018&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span> _id <span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span> host <span class="punctuation">:</span> <span class="string">&quot;node3:27018&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line">rs.initiate(shard_server)</span><br></pre></td></tr></table></figure>
+
+<h5 id="确定主从-2"><a href="#确定主从-2" class="headerlink" title="确定主从"></a>确定主从</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myReplSet:SECONDARY&gt; rs.status()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="启动一个路由服务-mongos"><a href="#启动一个路由服务-mongos" class="headerlink" title="启动一个路由服务 mongos"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#start-a-mongos-for-the-sharded-cluster">启动一个路由服务 <code>mongos</code></a></h3><h5 id="配置文件-3"><a href="#配置文件-3" class="headerlink" title="配置文件"></a>配置文件</h5><p><code>vim conf/router-server.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">	<span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">	<span class="attr">path:</span> <span class="string">&quot;/opt/bigdata/mongodb/default/logs/router-server.log&quot;</span></span><br><span class="line"><span class="attr">sharding:</span></span><br><span class="line">	<span class="attr">configDB:</span> <span class="string">myConfigReplSet/node1:27019,node2:27019,node3:27019</span></span><br><span class="line"><span class="attr">net:</span> </span><br><span class="line">	<span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">	<span class="attr">port:</span> <span class="number">27017</span></span><br><span class="line"><span class="attr">processManagement:</span></span><br><span class="line">	<span class="attr">fork:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="启动mongos"><a href="#启动mongos" class="headerlink" title="启动mongos"></a>启动mongos</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/mongos --config conf/router-server.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="连接分片集群"><a href="#连接分片集群" class="headerlink" title="连接分片集群"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#connect-to-the-sharded-cluster">连接分片集群</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/mongo --host node1 --port 27017</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">mongos&gt; </span><span class="language-bash">show dbs;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="添加分片到集群"><a href="#添加分片到集群" class="headerlink" title="添加分片到集群"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#add-shards-to-the-cluster">添加分片到集群</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">mongos&gt; </span><span class="language-bash">sh.addShard( <span class="string">&quot;myShardReplSet/node1:27018,node2:27018,node3:27018&quot;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>重复这些步骤，直到集群包含所有所需的碎片。</p>
+<h3 id="为数据库启用分片"><a href="#为数据库启用分片" class="headerlink" title="为数据库启用分片"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#enable-sharding-for-a-database">为数据库启用分片</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">mongos&gt; </span><span class="language-bash">use mydb;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">mongos&gt; </span><span class="language-bash">sh.enableSharding(<span class="string">&quot;mydb&quot;</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	&quot;ok&quot; : 1,</span><br><span class="line">	&quot;$clusterTime&quot; : &#123;</span><br><span class="line">		&quot;clusterTime&quot; : Timestamp(1653368824, 4),</span><br><span class="line">		&quot;signature&quot; : &#123;</span><br><span class="line">			&quot;hash&quot; : BinData(0,&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAA=&quot;),</span><br><span class="line">			&quot;keyId&quot; : NumberLong(0)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;operationTime&quot; : Timestamp(1653368824, 2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一旦为一个数据库启用了分片，MongoDB就会为该数据库分配一个<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/reference/glossary/#std-term-primary-shard">主分片</a>，MongoDB将所有数据存储在该数据库中。</p>
+<h3 id="对集合分片"><a href="#对集合分片" class="headerlink" title="对集合分片"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#shard-a-collection">对集合分片</a></h3><blockquote>
+<p>在对<code>Collection</code>进行分片之前，必须首先为<code>Collection</code> 所在的<code>Database</code>启用分片。</p>
+</blockquote>
+<p>要对<code>Collection</code> 进行分片，请将<code>mongosh</code>连接到<code>mongos</code>，使用<code>sh.shardCollection()</code>方法操作。</p>
+<p><code>MongoDB</code>提供了两种策略对<code>Collection</code> 进行分片。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/core/hashed-sharding/#std-label-sharding-hashed">Hashed sharding</a></li>
+</ul>
+<p>散列分片使用单个字段的散列索引作为分片键，跨分片集群对数据进行分区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">sh.shardCollection(<span class="string">&quot;&lt;database&gt;.&lt;collection&gt;&quot;</span>, &#123; &lt;shard key field&gt; : <span class="string">&quot;hashed&quot;</span> &#125; )</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.<span class="title function_">shardCollection</span>(<span class="string">&quot;mydb.hashedShardColl&quot;</span>, &#123; code : <span class="string">&quot;hashed&quot;</span> &#125;)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;db.<span class="property">hashedShardColl</span>.<span class="title function_">insertOne</span>(&#123;<span class="attr">code</span>:i&#125;)&#125;</span><br><span class="line">db.<span class="property">hashedShardColl</span>.<span class="title function_">getShardDistribution</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/core/ranged-sharding/#std-label-sharding-ranged">Range-based sharding</a></li>
+</ul>
+<p>基于范围的分片可以使用多个字段作为shard key，根据shard key的值将数据划分为连续的范围。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.shardCollection(&quot;&lt;database&gt;.&lt;collection&gt;&quot;, &#123; &lt;shard key field&gt; : 1, ... &#125; )</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.<span class="title function_">shardCollection</span>(<span class="string">&quot;mydb.rangeBasedShardColl&quot;</span>, &#123; code : <span class="number">1</span> &#125;)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)&#123;db.<span class="property">rangeBasedShardColl</span>.<span class="title function_">insertOne</span>(&#123;<span class="attr">code</span>:i&#125;)&#125;</span><br><span class="line">db.<span class="property">rangeBasedShardColl</span>.<span class="title function_">getShardDistribution</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="分片集群状态"><a href="#分片集群状态" class="headerlink" title="分片集群状态"></a>分片集群状态</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">use config;</span><br><span class="line">db.<span class="property">databases</span>.<span class="title function_">find</span>()</span><br><span class="line">db.<span class="property">shards</span>.<span class="title function_">find</span>()</span><br><span class="line">db.<span class="property">chunks</span>.<span class="title function_">find</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sh.<span class="title function_">status</span>()</span><br><span class="line">db.<span class="property">hashedShardColl</span>.<span class="title function_">getShardDistribution</span>()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="新增Shard-Replica-Sets"><a href="#新增Shard-Replica-Sets" class="headerlink" title="新增Shard Replica Sets"></a><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/#create-the-shard-replica-sets">新增Shard Replica Sets</a></h3><p>略。</p>
+<h1 id="可视化管理"><a href="#可视化管理" class="headerlink" title="可视化管理"></a>可视化管理</h1><h3 id="compass"><a href="#compass" class="headerlink" title="compass"></a>compass</h3><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.mongodb.com/try/download/compass?tck=docs_compass</span><br></pre></td></tr></table></figure>
+
+<h1 id="WSL-MongoDB"><a href="#WSL-MongoDB" class="headerlink" title="WSL-MongoDB"></a>WSL-MongoDB</h1><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://docs.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database#install-mongodb</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/03/23/MongoDB/MongoDB_Deployment/" data-id="cuidOPglOrLhDAOc4RBJUeGmU" data-title="MongoDB部署" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/23/MongoDB/MongoDB_Python/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MongoDB Python API
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/23/Spark/Spark_Env_Windows_Dev/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spark环境搭建（四）Spark开发环境搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Flume/">Flume</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HBase/">HBase</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hive/">Hive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaEE/">JavaEE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kettle/">Kettle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LayUI/">LayUI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PySpark/">PySpark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/QA/">QA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Quartz/">Quartz</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Requests/">Requests</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQLite/">SQLite</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sqoop/">Sqoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/anaconda/">anaconda</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bigdata-edu/">bigdata-edu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/">工信部职业技术认证资格考试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Combiner/" rel="tag">Combiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FQA/" rel="tag">FQA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/" rel="tag">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GroupBy/" rel="tag">GroupBy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/" rel="tag">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" rel="tag">HBase Region管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Shell/" rel="tag">HBase Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase-Thrift/" rel="tag">HBase Thrift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase伪分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">HBase完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="tag">HBase数据读写</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E6%9E%B6%E6%9E%84/" rel="tag">HBase架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">HBase环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" rel="tag">HBase集群管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" rel="tag">HDFS综合操作实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-DataInput-DataOutput/" rel="tag">Java DataInput&#x2F;DataOutput</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Server-Page/" rel="tag">Java Server Page</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE/" rel="tag">JavaEE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" rel="tag">JavaEE开发相关软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jpyuter-Notebook/" rel="tag">Jpyuter Notebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Kafka环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LayUI/" rel="tag">LayUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" rel="tag">Linux RPM软件包安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-YUM/" rel="tag">Linux YUM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">Linux基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" rel="tag">Linux打包解压</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" rel="tag">Linux文件权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">Linux文件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" rel="tag">Linux查看文本文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="tag">Linux系统配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" rel="tag">Linux网络管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">Linux进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/" rel="tag">MapReduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Python/" rel="tag">MongoDB Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" rel="tag">MongoDB使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">MongoDB环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" rel="tag">MyEclipse激活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partitioner/" rel="tag">Partitioner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pom/" rel="tag">Pom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" rel="tag">Python在线编程环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Requests/" rel="tag">Requests</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/" rel="tag">Serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serialize/" rel="tag">Serialize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-DataFrame/" rel="tag">Spark DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-GraphFrames/" rel="tag">Spark GraphFrames</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-SQL/" rel="tag">Spark SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">Spark环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">VIM文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Framework/" rel="tag">Web Framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-Dev-Env/" rel="tag">Windows Dev Env</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YARN/" rel="tag">YARN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anaconda/" rel="tag">anaconda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/urllib/" rel="tag">urllib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%B1%E7%A0%81/" rel="tag">乱码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" rel="tag">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于JSP的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">基于Spring-MyBatis的学生信息管理系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" rel="tag">大数据项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">完全分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" rel="tag">工信部职业技术认证资格考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" rel="tag">源码安装Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" rel="tag">源码安装Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" rel="tag">相关Jar包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">网络序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" rel="tag">防火墙设置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" rel="tag">限定符</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Combiner/" style="font-size: 10px;">Combiner</a> <a href="/tags/FQA/" style="font-size: 10px;">FQA</a> <a href="/tags/Flume/" style="font-size: 10px;">Flume</a> <a href="/tags/GroupBy/" style="font-size: 10px;">GroupBy</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/HBase-Region%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase Region管理</a> <a href="/tags/HBase-Shell/" style="font-size: 11.67px;">HBase Shell</a> <a href="/tags/HBase-Thrift/" style="font-size: 10px;">HBase Thrift</a> <a href="/tags/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase伪分布式</a> <a href="/tags/HBase%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">HBase完全分布式</a> <a href="/tags/HBase%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" style="font-size: 10px;">HBase数据读写</a> <a href="/tags/HBase%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">HBase架构</a> <a href="/tags/HBase%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">HBase环境搭建</a> <a href="/tags/HBase%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" style="font-size: 10px;">HBase集群管理</a> <a href="/tags/HDFS%E7%BB%BC%E5%90%88%E6%93%8D%E4%BD%9C%E5%AE%9E%E9%AA%8C/" style="font-size: 11.67px;">HDFS综合操作实验</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/Java-DataInput-DataOutput/" style="font-size: 10px;">Java DataInput/DataOutput</a> <a href="/tags/Java-Server-Page/" style="font-size: 10px;">Java Server Page</a> <a href="/tags/JavaEE/" style="font-size: 18.33px;">JavaEE</a> <a href="/tags/JavaEE%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">JavaEE开发相关软件</a> <a href="/tags/Jpyuter-Notebook/" style="font-size: 10px;">Jpyuter Notebook</a> <a href="/tags/Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">Kafka环境搭建</a> <a href="/tags/LayUI/" style="font-size: 10px;">LayUI</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/Linux-RPM%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85/" style="font-size: 10px;">Linux RPM软件包安装</a> <a href="/tags/Linux-YUM/" style="font-size: 10px;">Linux YUM</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">Linux基础知识</a> <a href="/tags/Linux%E6%89%93%E5%8C%85%E8%A7%A3%E5%8E%8B/" style="font-size: 10px;">Linux打包解压</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" style="font-size: 10px;">Linux文件权限</a> <a href="/tags/Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux文件管理</a> <a href="/tags/Linux%E6%9F%A5%E7%9C%8B%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6/" style="font-size: 10px;">Linux查看文本文件</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 13.33px;">Linux系统配置</a> <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux网络管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux进程管理</a> <a href="/tags/MapReduce/" style="font-size: 11.67px;">MapReduce</a> <a href="/tags/MongoDB-Python/" style="font-size: 10px;">MongoDB Python</a> <a href="/tags/MongoDB%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">MongoDB使用</a> <a href="/tags/MongoDB%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">MongoDB环境部署</a> <a href="/tags/MyEclipse%E6%BF%80%E6%B4%BB/" style="font-size: 10px;">MyEclipse激活</a> <a href="/tags/Partitioner/" style="font-size: 10px;">Partitioner</a> <a href="/tags/Pom/" style="font-size: 10px;">Pom</a> <a href="/tags/PySpark/" style="font-size: 13.33px;">PySpark</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Python%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">Python在线编程环境</a> <a href="/tags/Quartz/" style="font-size: 11.67px;">Quartz</a> <a href="/tags/Requests/" style="font-size: 10px;">Requests</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/Serialize/" style="font-size: 10px;">Serialize</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Spark-DataFrame/" style="font-size: 10px;">Spark DataFrame</a> <a href="/tags/Spark-GraphFrames/" style="font-size: 10px;">Spark GraphFrames</a> <a href="/tags/Spark-SQL/" style="font-size: 10px;">Spark SQL</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 15px;">Spark环境搭建</a> <a href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">Spark环境部署</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/VIM%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">VIM文本编辑器</a> <a href="/tags/Web-Framework/" style="font-size: 10px;">Web Framework</a> <a href="/tags/Windows-Dev-Env/" style="font-size: 10px;">Windows Dev Env</a> <a href="/tags/YARN/" style="font-size: 10px;">YARN</a> <a href="/tags/anaconda/" style="font-size: 10px;">anaconda</a> <a href="/tags/urllib/" style="font-size: 10px;">urllib</a> <a href="/tags/%E4%B9%B1%E7%A0%81/" style="font-size: 10px;">乱码</a> <a href="/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" style="font-size: 10px;">免密登录</a> <a href="/tags/%E5%9F%BA%E4%BA%8EJSP%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于JSP的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8EMyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于MyBatis的学生信息管理系统</a> <a href="/tags/%E5%9F%BA%E4%BA%8ESpring-MyBatis%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">基于Spring-MyBatis的学生信息管理系统</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9B%AE/" style="font-size: 11.67px;">大数据项目</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/tags/%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">完全分布式</a> <a href="/tags/%E5%B7%A5%E4%BF%A1%E9%83%A8%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81%E8%B5%84%E6%A0%BC%E8%80%83%E8%AF%95/" style="font-size: 10px;">工信部职业技术认证资格考试</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx/" style="font-size: 10px;">源码安装Nginx</a> <a href="/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Redis/" style="font-size: 10px;">源码安装Redis</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">环境搭建</a> <a href="/tags/%E7%9B%B8%E5%85%B3Jar%E5%8C%85/" style="font-size: 10px;">相关Jar包</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 10px;">网络序列化</a> <a href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 11.67px;">过滤器</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE/" style="font-size: 10px;">防火墙设置</a> <a href="/tags/%E9%99%90%E5%AE%9A%E7%AC%A6/" style="font-size: 11.67px;">限定符</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/09/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/Kafka/">Kafka</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/08/Linux/Linux_SSH_Passwordless_login/">SSH无密登录配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 QuZheng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
