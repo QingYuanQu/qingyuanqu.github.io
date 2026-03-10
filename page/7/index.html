@@ -75,6 +75,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Spark/PySpark/Spark_Python_RDD_Case" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/" class="article-date">
+  <time class="dt-published" datetime="2023-01-14T07:55:26.000Z" itemprop="datePublished">2023-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PySpark/">PySpark</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/">PySpark RDD综合案例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="RDD-综合案例"><a href="#RDD-综合案例" class="headerlink" title="RDD 综合案例"></a>RDD 综合案例</h1><h2 id="基于物品的协同过滤"><a href="#基于物品的协同过滤" class="headerlink" title="基于物品的协同过滤"></a>基于物品的协同过滤</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext, SparkConf</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"></span><br><span class="line">file_path = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_spark_context</span>(<span class="params">env</span>):</span><br><span class="line">    <span class="keyword">global</span> file_path</span><br><span class="line">    sparkConf = SparkConf()</span><br><span class="line">    sparkConf.setAppName(<span class="string">&quot;movie_recommend&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> env == <span class="string">&#x27;local&#x27;</span>:</span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_HOME&quot;</span>] = <span class="string">&quot;D:\green-soft\hadoop-2.7.3&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;SPARK_HOME&quot;</span>] = <span class="string">&quot;D:\green-soft\spark-2.4.8-bin-hadoop2.7&quot;</span></span><br><span class="line">        file_path = <span class="string">r&quot;file:///C:\Users\Qingyuan_Qu\PycharmProjects\pythonProject\data\\&quot;</span></span><br><span class="line">        sparkConf.setMaster(<span class="string">&quot;local&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> env == <span class="string">&#x27;local_python_remote_spark&#x27;</span>:</span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_HOME&quot;</span>] = <span class="string">&quot;D:\green-soft\hadoop-2.7.3&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_CONF_DIR&quot;</span>] = <span class="string">&quot;D:\green-soft\etc\hadoop&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;YARN_CONF_DIR&quot;</span>] = <span class="string">&quot;D:\green-soft\etc\hadoop&quot;</span></span><br><span class="line">        sparkConf.setMaster(<span class="string">&quot;yarn&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.submit.deployMode&quot;</span>, <span class="string">&quot;client&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.enabled&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.dir&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-logs&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.yarn.archive&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-archive&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> env == <span class="string">&#x27;yarn&#x27;</span>:</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.ui.showConsoleProgress&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line">        <span class="comment"># 使用服务器Python</span></span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_CONF_DIR&quot;</span>] = <span class="string">&quot;/opt/bigdata/hadoop/default/etc/hadoop&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;YARN_CONF_DIR&quot;</span>] = <span class="string">&quot;/opt/bigdata/hadoop/default/etc/hadoop&quot;</span></span><br><span class="line">        file_path = <span class="string">&quot;hdfs://node0:9000/data/&quot;</span></span><br><span class="line">        sparkConf.setMaster(<span class="string">&quot;yarn&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.submit.deployMode&quot;</span>, <span class="string">&quot;client&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.enabled&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.dir&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-logs&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.yarn.archive&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-archive&quot;</span>)</span><br><span class="line"></span><br><span class="line">    sc = SparkContext(conf=sparkConf)</span><br><span class="line">    sc.setLogLevel(<span class="string">&quot;INFO&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> sc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sim</span>(<span class="params">ur_ur</span>):</span><br><span class="line">    u_r_1 = pd.DataFrame(ur_ur[<span class="number">1</span>][<span class="number">0</span>], columns=[<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;rating_a&#x27;</span>])</span><br><span class="line">    u_r_2 = pd.DataFrame(ur_ur[<span class="number">1</span>][<span class="number">1</span>], columns=[<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;rating_b&#x27;</span>])</span><br><span class="line">    u_r_1.set_index(<span class="string">&#x27;user&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    u_r_2.set_index(<span class="string">&#x27;user&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    u_r_r = u_r_1.join(u_r_2, how=<span class="string">&#x27;inner&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(u_r_r)</span><br><span class="line">    pearson_value, P_value = stats.pearsonr(u_r_r[<span class="string">&#x27;rating_a&#x27;</span>].astype(<span class="built_in">float</span>), u_r_r[<span class="string">&#x27;rating_b&#x27;</span>].astype(<span class="built_in">float</span>))</span><br><span class="line">    <span class="built_in">print</span>(ur_ur[<span class="number">0</span>], pearson_value)</span><br><span class="line">    <span class="keyword">return</span> [ur_ur[<span class="number">0</span>], pearson_value]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recommend</span>(<span class="params">bc, m_sim</span>):</span><br><span class="line">    bc_df = pd.DataFrame(bc.value, columns=[<span class="string">&#x27;movie&#x27;</span>, <span class="string">&#x27;value&#x27;</span>])</span><br><span class="line">    bc_df.set_index(<span class="string">&#x27;movie&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    m_sim_df = pd.DataFrame(m_sim, columns=[<span class="string">&#x27;movie&#x27;</span>, <span class="string">&#x27;value&#x27;</span>])</span><br><span class="line">    m_sim_df.set_index(<span class="string">&#x27;movie&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    m_sim_sub_df = m_sim_df.loc[bc_df.index.values]</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(m_sim_sub_df)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 评分，（矩阵相乘）</span></span><br><span class="line">    score = m_sim_sub_df.T.astype(<span class="built_in">float</span>).dot(bc_df.astype(<span class="built_in">float</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;dot: \n &quot;</span>, score)</span><br><span class="line">    <span class="keyword">return</span> score.loc[<span class="string">&#x27;value&#x27;</span>][<span class="string">&#x27;value&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    《数据挖掘与机器学习》122页，基于物品的协同过滤</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    env = <span class="string">&#x27;local&#x27;</span></span><br><span class="line">    sc = set_spark_context(env)</span><br><span class="line">    raw_umr_rdd = sc.textFile(file_path + <span class="string">&quot;movies.csv&quot;</span>)   <span class="comment"># &#x27;A	老炮儿	3.5&#x27;</span></span><br><span class="line">    u_m_r_rdd = raw_umr_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot;\t&quot;</span>)[:<span class="number">3</span>]) <span class="comment"># [&#x27;A&#x27;, &#x27;老炮儿&#x27;, &#x27;3.5&#x27;]</span></span><br><span class="line">    m_ur_rdd = u_m_r_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: (line[<span class="number">1</span>], [line[<span class="number">0</span>], line[<span class="number">2</span>]]))</span><br><span class="line">    m_urs_rdd = m_ur_rdd.groupByKey().mapValues(<span class="built_in">list</span>)</span><br><span class="line">    m_urs_cartesian_rdd = m_urs_rdd.cartesian(m_urs_rdd)</span><br><span class="line">    m_urs_cartesian_unique_rdd = m_urs_cartesian_rdd.<span class="built_in">filter</span>(<span class="keyword">lambda</span> m_urs: m_urs[<span class="number">0</span>][<span class="number">0</span>] != m_urs[<span class="number">1</span>][<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    m__m_rrs_rdd = m_urs_cartesian_unique_rdd.<span class="built_in">map</span>(</span><br><span class="line">        <span class="keyword">lambda</span> m_urs_2: (m_urs_2[<span class="number">0</span>][<span class="number">0</span>], (m_urs_2[<span class="number">1</span>][<span class="number">0</span>], [m_urs_2[<span class="number">0</span>][<span class="number">1</span>], m_urs_2[<span class="number">1</span>][<span class="number">1</span>]])))</span><br><span class="line">    m__m_sim_rdd = m__m_rrs_rdd.mapValues(sim)</span><br><span class="line">    m__m_sim_s_rdd = m__m_sim_rdd.groupByKey().mapValues(<span class="built_in">list</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 用户已看过的电影</span></span><br><span class="line">    u_mr_rdd = u_m_r_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: (line[<span class="number">0</span>], [line[<span class="number">1</span>], line[<span class="number">2</span>]]))</span><br><span class="line">    u_mrs_rdd = u_mr_rdd.groupByKey().mapValues(<span class="built_in">list</span>)  <span class="comment"># (u, [ [m,r],[m,r],[m,r]] )</span></span><br><span class="line"></span><br><span class="line">    m_r_d = u_mrs_rdd.<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x[<span class="number">0</span>] == <span class="string">&#x27;A&#x27;</span>).values()  <span class="comment"># [ [m,r],[m,r] ]</span></span><br><span class="line">    m_r_d_rdd = sc.parallelize(m_r_d.first())</span><br><span class="line">    bc = sc.broadcast(m_r_d.first())</span><br><span class="line">    sub_sim_rdd = m__m_sim_s_rdd.subtractByKey(m_r_d_rdd)  <span class="comment"># (m,[[m,s],[m,s]])</span></span><br><span class="line">    m_score_rdd = sub_sim_rdd.mapValues(<span class="keyword">lambda</span> x: recommend(bc, x))</span><br><span class="line">    m_score_sorted_rdd = m_score_rdd.sortBy(<span class="keyword">lambda</span> x: x[<span class="number">1</span>], <span class="literal">False</span>)</span><br><span class="line">    <span class="built_in">print</span>(m_score_sorted_rdd.collect())</span><br><span class="line">    <span class="built_in">print</span>(m_score_sorted_rdd.take(<span class="number">3</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/" data-id="cuid_yLTIkHjs8nckCb946NZO" data-title="PySpark RDD综合案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Spark/PySpark/Spark" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/01/14/Spark/PySpark/Spark/" class="article-date">
@@ -507,58 +553,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2023/01/14/Spark/PySpark/Spark/" data-id="cuidJHmr6ylq56JmLURNcDGyN" data-title="Spark" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2023/01/14/Spark/PySpark/Spark/" data-id="cuidwPpjTtKBy0tfWjzXe9UZn" data-title="Spark" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PySpark/" rel="tag">PySpark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" rel="tag">Spark环境部署</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Spark/PySpark/Spark_Python_RDD_Case" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/" class="article-date">
-  <time class="dt-published" datetime="2023-01-14T07:55:26.000Z" itemprop="datePublished">2023-01-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PySpark/">PySpark</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/">PySpark RDD综合案例</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="RDD-综合案例"><a href="#RDD-综合案例" class="headerlink" title="RDD 综合案例"></a>RDD 综合案例</h1><h2 id="基于物品的协同过滤"><a href="#基于物品的协同过滤" class="headerlink" title="基于物品的协同过滤"></a>基于物品的协同过滤</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext, SparkConf</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"></span><br><span class="line">file_path = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_spark_context</span>(<span class="params">env</span>):</span><br><span class="line">    <span class="keyword">global</span> file_path</span><br><span class="line">    sparkConf = SparkConf()</span><br><span class="line">    sparkConf.setAppName(<span class="string">&quot;movie_recommend&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> env == <span class="string">&#x27;local&#x27;</span>:</span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_HOME&quot;</span>] = <span class="string">&quot;D:\green-soft\hadoop-2.7.3&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;SPARK_HOME&quot;</span>] = <span class="string">&quot;D:\green-soft\spark-2.4.8-bin-hadoop2.7&quot;</span></span><br><span class="line">        file_path = <span class="string">r&quot;file:///C:\Users\Qingyuan_Qu\PycharmProjects\pythonProject\data\\&quot;</span></span><br><span class="line">        sparkConf.setMaster(<span class="string">&quot;local&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> env == <span class="string">&#x27;local_python_remote_spark&#x27;</span>:</span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_HOME&quot;</span>] = <span class="string">&quot;D:\green-soft\hadoop-2.7.3&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_CONF_DIR&quot;</span>] = <span class="string">&quot;D:\green-soft\etc\hadoop&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;YARN_CONF_DIR&quot;</span>] = <span class="string">&quot;D:\green-soft\etc\hadoop&quot;</span></span><br><span class="line">        sparkConf.setMaster(<span class="string">&quot;yarn&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.submit.deployMode&quot;</span>, <span class="string">&quot;client&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.enabled&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.dir&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-logs&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.yarn.archive&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-archive&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> env == <span class="string">&#x27;yarn&#x27;</span>:</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.ui.showConsoleProgress&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line">        <span class="comment"># 使用服务器Python</span></span><br><span class="line">        os.environ[<span class="string">&quot;HADOOP_CONF_DIR&quot;</span>] = <span class="string">&quot;/opt/bigdata/hadoop/default/etc/hadoop&quot;</span></span><br><span class="line">        os.environ[<span class="string">&quot;YARN_CONF_DIR&quot;</span>] = <span class="string">&quot;/opt/bigdata/hadoop/default/etc/hadoop&quot;</span></span><br><span class="line">        file_path = <span class="string">&quot;hdfs://node0:9000/data/&quot;</span></span><br><span class="line">        sparkConf.setMaster(<span class="string">&quot;yarn&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.submit.deployMode&quot;</span>, <span class="string">&quot;client&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.enabled&quot;</span>, <span class="string">&quot;true&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.eventLog.dir&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-logs&quot;</span>)</span><br><span class="line">        sparkConf.<span class="built_in">set</span>(<span class="string">&quot;spark.yarn.archive&quot;</span>, <span class="string">&quot;hdfs://node0:9000/shared/spark-archive&quot;</span>)</span><br><span class="line"></span><br><span class="line">    sc = SparkContext(conf=sparkConf)</span><br><span class="line">    sc.setLogLevel(<span class="string">&quot;INFO&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> sc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sim</span>(<span class="params">ur_ur</span>):</span><br><span class="line">    u_r_1 = pd.DataFrame(ur_ur[<span class="number">1</span>][<span class="number">0</span>], columns=[<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;rating_a&#x27;</span>])</span><br><span class="line">    u_r_2 = pd.DataFrame(ur_ur[<span class="number">1</span>][<span class="number">1</span>], columns=[<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;rating_b&#x27;</span>])</span><br><span class="line">    u_r_1.set_index(<span class="string">&#x27;user&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    u_r_2.set_index(<span class="string">&#x27;user&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    u_r_r = u_r_1.join(u_r_2, how=<span class="string">&#x27;inner&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(u_r_r)</span><br><span class="line">    pearson_value, P_value = stats.pearsonr(u_r_r[<span class="string">&#x27;rating_a&#x27;</span>].astype(<span class="built_in">float</span>), u_r_r[<span class="string">&#x27;rating_b&#x27;</span>].astype(<span class="built_in">float</span>))</span><br><span class="line">    <span class="built_in">print</span>(ur_ur[<span class="number">0</span>], pearson_value)</span><br><span class="line">    <span class="keyword">return</span> [ur_ur[<span class="number">0</span>], pearson_value]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recommend</span>(<span class="params">bc, m_sim</span>):</span><br><span class="line">    bc_df = pd.DataFrame(bc.value, columns=[<span class="string">&#x27;movie&#x27;</span>, <span class="string">&#x27;value&#x27;</span>])</span><br><span class="line">    bc_df.set_index(<span class="string">&#x27;movie&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    m_sim_df = pd.DataFrame(m_sim, columns=[<span class="string">&#x27;movie&#x27;</span>, <span class="string">&#x27;value&#x27;</span>])</span><br><span class="line">    m_sim_df.set_index(<span class="string">&#x27;movie&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    m_sim_sub_df = m_sim_df.loc[bc_df.index.values]</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(m_sim_sub_df)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 评分，（矩阵相乘）</span></span><br><span class="line">    score = m_sim_sub_df.T.astype(<span class="built_in">float</span>).dot(bc_df.astype(<span class="built_in">float</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;dot: \n &quot;</span>, score)</span><br><span class="line">    <span class="keyword">return</span> score.loc[<span class="string">&#x27;value&#x27;</span>][<span class="string">&#x27;value&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    《数据挖掘与机器学习》122页，基于物品的协同过滤</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    env = <span class="string">&#x27;local&#x27;</span></span><br><span class="line">    sc = set_spark_context(env)</span><br><span class="line">    raw_umr_rdd = sc.textFile(file_path + <span class="string">&quot;movies.csv&quot;</span>)   <span class="comment"># &#x27;A	老炮儿	3.5&#x27;</span></span><br><span class="line">    u_m_r_rdd = raw_umr_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot;\t&quot;</span>)[:<span class="number">3</span>]) <span class="comment"># [&#x27;A&#x27;, &#x27;老炮儿&#x27;, &#x27;3.5&#x27;]</span></span><br><span class="line">    m_ur_rdd = u_m_r_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: (line[<span class="number">1</span>], [line[<span class="number">0</span>], line[<span class="number">2</span>]]))</span><br><span class="line">    m_urs_rdd = m_ur_rdd.groupByKey().mapValues(<span class="built_in">list</span>)</span><br><span class="line">    m_urs_cartesian_rdd = m_urs_rdd.cartesian(m_urs_rdd)</span><br><span class="line">    m_urs_cartesian_unique_rdd = m_urs_cartesian_rdd.<span class="built_in">filter</span>(<span class="keyword">lambda</span> m_urs: m_urs[<span class="number">0</span>][<span class="number">0</span>] != m_urs[<span class="number">1</span>][<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    m__m_rrs_rdd = m_urs_cartesian_unique_rdd.<span class="built_in">map</span>(</span><br><span class="line">        <span class="keyword">lambda</span> m_urs_2: (m_urs_2[<span class="number">0</span>][<span class="number">0</span>], (m_urs_2[<span class="number">1</span>][<span class="number">0</span>], [m_urs_2[<span class="number">0</span>][<span class="number">1</span>], m_urs_2[<span class="number">1</span>][<span class="number">1</span>]])))</span><br><span class="line">    m__m_sim_rdd = m__m_rrs_rdd.mapValues(sim)</span><br><span class="line">    m__m_sim_s_rdd = m__m_sim_rdd.groupByKey().mapValues(<span class="built_in">list</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 用户已看过的电影</span></span><br><span class="line">    u_mr_rdd = u_m_r_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: (line[<span class="number">0</span>], [line[<span class="number">1</span>], line[<span class="number">2</span>]]))</span><br><span class="line">    u_mrs_rdd = u_mr_rdd.groupByKey().mapValues(<span class="built_in">list</span>)  <span class="comment"># (u, [ [m,r],[m,r],[m,r]] )</span></span><br><span class="line"></span><br><span class="line">    m_r_d = u_mrs_rdd.<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x[<span class="number">0</span>] == <span class="string">&#x27;A&#x27;</span>).values()  <span class="comment"># [ [m,r],[m,r] ]</span></span><br><span class="line">    m_r_d_rdd = sc.parallelize(m_r_d.first())</span><br><span class="line">    bc = sc.broadcast(m_r_d.first())</span><br><span class="line">    sub_sim_rdd = m__m_sim_s_rdd.subtractByKey(m_r_d_rdd)  <span class="comment"># (m,[[m,s],[m,s]])</span></span><br><span class="line">    m_score_rdd = sub_sim_rdd.mapValues(<span class="keyword">lambda</span> x: recommend(bc, x))</span><br><span class="line">    m_score_sorted_rdd = m_score_rdd.sortBy(<span class="keyword">lambda</span> x: x[<span class="number">1</span>], <span class="literal">False</span>)</span><br><span class="line">    <span class="built_in">print</span>(m_score_sorted_rdd.collect())</span><br><span class="line">    <span class="built_in">print</span>(m_score_sorted_rdd.take(<span class="number">3</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2023/01/14/Spark/PySpark/Spark_Python_RDD_Case/" data-id="cuidxOZ3ZBRIoYwBxYZCOCT58" data-title="PySpark RDD综合案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
     </footer>
   </div>
   
@@ -641,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2023/01/13/Sqoop/" data-id="cuidGWAXkIZ_w_k2WQ0OyBNdO" data-title="Sqoop" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2023/01/13/Sqoop/" data-id="cuid9wanVnMqYozX_QHlhU_Ne" data-title="Sqoop" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -701,7 +701,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/12/01/Spark/Spark_ML/" data-id="cuidQBrsxsMqZqVSOTnj9eOk-" data-title="Spark ML" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/12/01/Spark/Spark_ML/" data-id="cuidWd3tLbckXH2kxN3jLEePo" data-title="Spark ML" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1065,7 +1065,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/11/18/Kettle/Kettle_Job/" data-id="cuidZbfg1_aDewQni-0IVSekT" data-title="kettle - Kettle作业设计" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/11/18/Kettle/Kettle_Job/" data-id="cuidkAkt9ylVO79VBOXeXyZrD" data-title="kettle - Kettle作业设计" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1159,91 +1159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/11/06/Scala/Scala_Object_Oriented_Programming/" data-id="cuidusqEcwzZ-9pcNl7kTkdWY" data-title="Scala面向对象编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Kettle/Kettle_Clean_Code_Formulate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/11/03/Kettle/Kettle_Clean_Code_Formulate/" class="article-date">
-  <time class="dt-published" datetime="2022-11-02T22:34:26.000Z" itemprop="datePublished">2022-11-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Kettle/">Kettle</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/11/03/Kettle/Kettle_Clean_Code_Formulate/">kettle - 数据清理之公式清理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Kettle-数据清理之公式清理"><a href="#Kettle-数据清理之公式清理" class="headerlink" title="Kettle - 数据清理之公式清理"></a>Kettle - 数据清理之公式清理</h1><h2 id="实验数据"><a href="#实验数据" class="headerlink" title="实验数据"></a>实验数据</h2><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><h2 id="转换设计"><a href="#转换设计" class="headerlink" title="转换设计"></a>转换设计</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_Formulate/" data-id="cuid5FoCo5lsuueBNySVvMuqL" data-title="kettle - 数据清理之公式清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Kettle/Kettle_Clean_Code_Java" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/11/03/Kettle/Kettle_Clean_Code_Java/" class="article-date">
-  <time class="dt-published" datetime="2022-11-02T22:34:26.000Z" itemprop="datePublished">2022-11-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Kettle/">Kettle</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/11/03/Kettle/Kettle_Clean_Code_Java/">kettle - 数据清理之使用Java代码清理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Kettle-数据清理之使用Java代码清理"><a href="#Kettle-数据清理之使用Java代码清理" class="headerlink" title="Kettle - 数据清理之使用Java代码清理"></a>Kettle - 数据清理之使用Java代码清理</h1><h2 id="实验数据"><a href="#实验数据" class="headerlink" title="实验数据"></a>实验数据</h2><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><h2 id="转换设计"><a href="#转换设计" class="headerlink" title="转换设计"></a>转换设计</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_Java/" data-id="cuidpCEs5wCnv8zop2JOlS61H" data-title="kettle - 数据清理之使用Java代码清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/11/06/Scala/Scala_Object_Oriented_Programming/" data-id="cuidprwpvddcXvmRePwrfqcgR" data-title="Scala面向对象编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1296,7 +1212,91 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_JavaScript/" data-id="cuidIG6VWdPfTFkkRuLLHtlwH" data-title="kettle - 数据清理之使用JavaScript脚本清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_JavaScript/" data-id="cuidQNsP08zfW_YR4ra9I8QFk" data-title="kettle - 数据清理之使用JavaScript脚本清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Kettle/Kettle_Clean_Code_Java" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/03/Kettle/Kettle_Clean_Code_Java/" class="article-date">
+  <time class="dt-published" datetime="2022-11-02T22:34:26.000Z" itemprop="datePublished">2022-11-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Kettle/">Kettle</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/03/Kettle/Kettle_Clean_Code_Java/">kettle - 数据清理之使用Java代码清理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Kettle-数据清理之使用Java代码清理"><a href="#Kettle-数据清理之使用Java代码清理" class="headerlink" title="Kettle - 数据清理之使用Java代码清理"></a>Kettle - 数据清理之使用Java代码清理</h1><h2 id="实验数据"><a href="#实验数据" class="headerlink" title="实验数据"></a>实验数据</h2><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><h2 id="转换设计"><a href="#转换设计" class="headerlink" title="转换设计"></a>转换设计</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_Java/" data-id="cuidCCfBNsrO3MKUulmcvW_vv" data-title="kettle - 数据清理之使用Java代码清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Kettle/Kettle_Clean_Code_Formulate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/03/Kettle/Kettle_Clean_Code_Formulate/" class="article-date">
+  <time class="dt-published" datetime="2022-11-02T22:34:26.000Z" itemprop="datePublished">2022-11-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Kettle/">Kettle</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/03/Kettle/Kettle_Clean_Code_Formulate/">kettle - 数据清理之公式清理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Kettle-数据清理之公式清理"><a href="#Kettle-数据清理之公式清理" class="headerlink" title="Kettle - 数据清理之公式清理"></a>Kettle - 数据清理之公式清理</h1><h2 id="实验数据"><a href="#实验数据" class="headerlink" title="实验数据"></a>实验数据</h2><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><h2 id="转换设计"><a href="#转换设计" class="headerlink" title="转换设计"></a>转换设计</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_Formulate/" data-id="cuidYpUnYd60JIiuOnBdhAxs9" data-title="kettle - 数据清理之公式清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1338,7 +1338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_RegularExpression/" data-id="cuid43-rs4Cikz0Xi4Ri_98fb" data-title="kettle - 数据清理之使用正则表达式清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/11/03/Kettle/Kettle_Clean_Code_RegularExpression/" data-id="cuidCFNjdQWVuJR8ggJcvWX_H" data-title="kettle - 数据清理之使用正则表达式清理" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1411,11 +1411,11 @@
           </li>
         
           <li>
-            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
           </li>
         
           <li>
-            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
           </li>
         
           <li>

@@ -75,402 +75,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Spark/PySpark/Spark_Python_MachineLearning" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/23/Spark/PySpark/Spark_Python_MachineLearning/" class="article-date">
-  <time class="dt-published" datetime="2022-03-23T07:55:26.000Z" itemprop="datePublished">2022-03-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/PySpark/">PySpark</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/23/Spark/PySpark/Spark_Python_MachineLearning/">PySpark Machine Learning</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="PySpark-Machine-Lerning"><a href="#PySpark-Machine-Lerning" class="headerlink" title="PySpark Machine Lerning"></a>PySpark Machine Lerning</h1><h2 id="初始化SparkSession"><a href="#初始化SparkSession" class="headerlink" title="初始化SparkSession"></a>初始化SparkSession</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"></span><br><span class="line">spark = SparkSession \</span><br><span class="line">    .builder \</span><br><span class="line">    .appName(<span class="string">&quot;Python Spark  Machine Lerning basic example&quot;</span>) \</span><br><span class="line">    .config(<span class="string">&quot;spark.some.config.option&quot;</span>, <span class="string">&quot;some-value&quot;</span>).master(<span class="string">&quot;local[*]&quot;</span>) \</span><br><span class="line">    .getOrCreate()</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p><img src="https://spark.apache.org/docs/latest/img/ml-Pipeline.png" alt="ML Pipeline Example"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.classification <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> HashingTF, Tokenizer</span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare training documents from a list of (id, text, label) tuples.</span></span><br><span class="line">training = spark.createDataFrame([</span><br><span class="line">    (<span class="number">0</span>, <span class="string">&quot;a b c d e spark&quot;</span>, <span class="number">1.0</span>),</span><br><span class="line">    (<span class="number">1</span>, <span class="string">&quot;b d&quot;</span>, <span class="number">0.0</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="string">&quot;spark f g h&quot;</span>, <span class="number">1.0</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">&quot;hadoop mapreduce&quot;</span>, <span class="number">0.0</span>)</span><br><span class="line">], [<span class="string">&quot;id&quot;</span>, <span class="string">&quot;text&quot;</span>, <span class="string">&quot;label&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure an ML pipeline, which consists of three stages: tokenizer, hashingTF, and lr.</span></span><br><span class="line">tokenizer = Tokenizer(inputCol=<span class="string">&quot;text&quot;</span>, outputCol=<span class="string">&quot;words&quot;</span>)</span><br><span class="line">hashingTF = HashingTF(inputCol=tokenizer.getOutputCol(), outputCol=<span class="string">&quot;features&quot;</span>)</span><br><span class="line">lr = LogisticRegression(maxIter=<span class="number">10</span>, regParam=<span class="number">0.001</span>)</span><br><span class="line">pipeline = Pipeline(stages=[tokenizer, hashingTF, lr])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fit the pipeline to training documents.</span></span><br><span class="line">model = pipeline.fit(training)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare test documents, which are unlabeled (id, text) tuples.</span></span><br><span class="line">test = spark.createDataFrame([</span><br><span class="line">    (<span class="number">4</span>, <span class="string">&quot;spark i j k&quot;</span>),</span><br><span class="line">    (<span class="number">5</span>, <span class="string">&quot;l m n&quot;</span>),</span><br><span class="line">    (<span class="number">6</span>, <span class="string">&quot;spark hadoop spark&quot;</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="string">&quot;apache hadoop&quot;</span>)</span><br><span class="line">], [<span class="string">&quot;id&quot;</span>, <span class="string">&quot;text&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make predictions on test documents and print columns of interest.</span></span><br><span class="line">prediction = model.transform(test)</span><br><span class="line">selected = prediction.select(<span class="string">&quot;id&quot;</span>, <span class="string">&quot;text&quot;</span>, <span class="string">&quot;probability&quot;</span>, <span class="string">&quot;prediction&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> selected.collect():</span><br><span class="line">    rid, text, prob, prediction = row</span><br><span class="line">    <span class="built_in">print</span>(</span><br><span class="line">        <span class="string">&quot;(%d, %s) --&gt; prob=%s, prediction=%f&quot;</span> % (</span><br><span class="line">            rid, text, <span class="built_in">str</span>(prob), prediction   <span class="comment"># type: ignore</span></span><br><span class="line">        )</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://spark.apache.org/docs/latest/ml-pipeline.html">https://spark.apache.org/docs/latest/ml-pipeline.html</a></p>
-</blockquote>
-<h2 id="数据降维"><a href="#数据降维" class="headerlink" title="数据降维"></a>数据降维</h2><h5 id="导入相关类"><a href="#导入相关类" class="headerlink" title="导入相关类"></a>导入相关类</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vector, Vectors</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span>  PCA</span><br></pre></td></tr></table></figure>
-
-<h5 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = [(Vectors.sparse(<span class="number">5</span>, &#123;<span class="number">1</span>: <span class="number">1.0</span>, <span class="number">3</span>: <span class="number">7.0</span>&#125;),),</span><br><span class="line">        (Vectors.dense([<span class="number">2.0</span>, <span class="number">0.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>]),),</span><br><span class="line">        (Vectors.dense([<span class="number">4.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>]),)]</span><br><span class="line">df = spark.createDataFrame(data,[<span class="string">&quot;features&quot;</span>])</span><br><span class="line">df.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+</span><br><span class="line">|            features|</span><br><span class="line">+--------------------+</span><br><span class="line">| (<span class="number">5</span>,[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">1.0</span>,<span class="number">7.0</span>])|</span><br><span class="line">|[<span class="number">2.0</span>,<span class="number">0.0</span>,<span class="number">3.0</span>,<span class="number">4.0</span>,...|</span><br><span class="line">|[<span class="number">4.0</span>,<span class="number">0.0</span>,<span class="number">0.0</span>,<span class="number">6.0</span>,...|</span><br><span class="line">+--------------------+</span><br></pre></td></tr></table></figure>
-
-<h5 id="fit"><a href="#fit" class="headerlink" title="fit"></a>fit</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pca = PCA(k=<span class="number">2</span>, inputCol=<span class="string">&quot;features&quot;</span>,outputCol=<span class="string">&quot;pca_features&quot;</span>)</span><br><span class="line">model = pca.fit(df)</span><br></pre></td></tr></table></figure>
-
-<h5 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result_df = model.transform(df)</span><br><span class="line">result_df.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+--------------------+</span><br><span class="line">|            features|        pca_features|</span><br><span class="line">+--------------------+--------------------+</span><br><span class="line">| (<span class="number">5</span>,[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">1.0</span>,<span class="number">7.0</span>])|[<span class="number">1.64857282308838</span>...|</span><br><span class="line">|[<span class="number">2.0</span>,<span class="number">0.0</span>,<span class="number">3.0</span>,<span class="number">4.0</span>,...|[-<span class="number">4.6451043317815</span>...|</span><br><span class="line">|[<span class="number">4.0</span>,<span class="number">0.0</span>,<span class="number">0.0</span>,<span class="number">6.0</span>,...|[-<span class="number">6.4288805356764</span>...|</span><br><span class="line">+--------------------+--------------------+</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result_df.select(<span class="string">&quot;*&quot;</span>).collect()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Row(features=SparseVector(<span class="number">5</span>, &#123;<span class="number">1</span>: <span class="number">1.0</span>, <span class="number">3</span>: <span class="number">7.0</span>&#125;), pca_features=DenseVector([<span class="number">1.6486</span>, -<span class="number">4.0133</span>])),</span><br><span class="line"> Row(features=DenseVector([<span class="number">2.0</span>, <span class="number">0.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>]), pca_features=DenseVector([-<span class="number">4.6451</span>, -<span class="number">1.1168</span>])),</span><br><span class="line"> Row(features=DenseVector([<span class="number">4.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>]), pca_features=DenseVector([-<span class="number">6.4289</span>, -<span class="number">5.338</span>]))]</span><br></pre></td></tr></table></figure>
-
-<h2 id="规范化"><a href="#规范化" class="headerlink" title="规范化"></a>规范化</h2><h3 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h3><h5 id="导入相关类-1"><a href="#导入相关类-1" class="headerlink" title="导入相关类"></a>导入相关类</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span>  Normalizer</span><br></pre></td></tr></table></figure>
-
-<h5 id="准备数据-1"><a href="#准备数据-1" class="headerlink" title="准备数据"></a>准备数据</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># [0, 4, 0, 3]</span></span><br><span class="line"><span class="comment"># [3.0, -4.0]</span></span><br><span class="line">svec = Vectors.sparse(<span class="number">4</span>, &#123;<span class="number">1</span>: <span class="number">4.0</span>, <span class="number">3</span>: <span class="number">3.0</span>&#125;) </span><br><span class="line">df = spark.createDataFrame([(Vectors.dense([<span class="number">3.0</span>, -<span class="number">4.0</span>]), svec)], [<span class="string">&quot;dense&quot;</span>, <span class="string">&quot;sparse&quot;</span>])</span><br><span class="line">df.show()</span><br></pre></td></tr></table></figure>
-
-<h5 id="transform-1"><a href="#transform-1" class="headerlink" title="transform"></a>transform</h5><p>转换第一列</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">normalizer = Normalizer(p=<span class="number">2.0</span>, inputCol=<span class="string">&quot;dense&quot;</span>, outputCol=<span class="string">&quot;features&quot;</span>)</span><br><span class="line">normalizer.transform(df).show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----------+-------------------+----------+</span><br><span class="line">|     dense|             sparse|  features|</span><br><span class="line">+----------+-------------------+----------+</span><br><span class="line">|[<span class="number">3.0</span>,-<span class="number">4.0</span>]|(<span class="number">4</span>,[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">4.0</span>,<span class="number">3.0</span>])|[<span class="number">0.6</span>,-<span class="number">0.8</span>]|</span><br><span class="line">+----------+-------------------+----------+</span><br></pre></td></tr></table></figure>
-
-<p>转换第二列</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">normalizer.setParams(inputCol=<span class="string">&quot;sparse&quot;</span>, outputCol=<span class="string">&quot;freqs&quot;</span>).transform(df).show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----------+-------------------+-------------------+</span><br><span class="line">|     dense|             sparse|              freqs|</span><br><span class="line">+----------+-------------------+-------------------+</span><br><span class="line">|[<span class="number">3.0</span>,-<span class="number">4.0</span>]|(<span class="number">4</span>,[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">4.0</span>,<span class="number">3.0</span>])|(<span class="number">4</span>,[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">0.8</span>,<span class="number">0.6</span>])|</span><br><span class="line">+----------+-------------------+-------------------+</span><br></pre></td></tr></table></figure>
-
-<h3 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h3><h5 id="导入相关类-2"><a href="#导入相关类-2" class="headerlink" title="导入相关类"></a>导入相关类</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span>  StandardScaler</span><br></pre></td></tr></table></figure>
-
-<h5 id="准备数据-2"><a href="#准备数据-2" class="headerlink" title="准备数据"></a>准备数据</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vectors</span><br><span class="line">df = spark.createDataFrame([(Vectors.dense([<span class="number">0.0</span>]),),</span><br><span class="line">                            (Vectors.dense([<span class="number">2.0</span>]),)],</span><br><span class="line">                           [<span class="string">&quot;a&quot;</span>])</span><br><span class="line">df.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+-----+</span><br><span class="line">|    a|</span><br><span class="line">+-----+</span><br><span class="line">|[0.0]|</span><br><span class="line">|[2.0]|</span><br><span class="line">+-----+</span><br></pre></td></tr></table></figure>
-
-<h5 id="fit-1"><a href="#fit-1" class="headerlink" title="fit"></a>fit</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">standardScaler = StandardScaler(inputCol=&quot;a&quot;, outputCol=&quot;scaled&quot;)</span><br><span class="line">model = standardScaler.fit(df)</span><br></pre></td></tr></table></figure>
-
-<h5 id="transform-2"><a href="#transform-2" class="headerlink" title="transform"></a>transform</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.transform(df).show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+-----+-------------------+</span><br><span class="line">|    a|             scaled|</span><br><span class="line">+-----+-------------------+</span><br><span class="line">|[<span class="number">0.0</span>]|              [<span class="number">0.0</span>]|</span><br><span class="line">|[<span class="number">2.0</span>]|[<span class="number">1.414213562373095</span>]|</span><br><span class="line">+-----+-------------------+</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(model.mean) <span class="comment"># DenseVector([1.0])</span></span><br><span class="line"><span class="built_in">print</span>(model.std) <span class="comment"># DenseVector([1.4142])</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h2><p>在机器学习处理过程中，为了方便相关算法的实现，经常需要把标签数据（一般是字符串）转化成<strong>整数索引</strong>，或是在计算结束后将整数索引还原为相应的标签。</p>
-<p>Spark ML包中提供了几个相关的转换器，例如：</p>
-<ul>
-<li>StringIndexer</li>
-<li>IndexToString</li>
-<li>OneHotEncoder</li>
-<li>VectorIndexer</li>
-</ul>
-<p>它们提供了十分方便的特征转换功能，这些转换器类都位于org.apache.spark.ml.feature包下，值得注意的是，用于特征转换的转换器和其他的机器学习算法一样，也属于ML Pipeline模型的一部分，可以用来构成机器学习流水线，以StringIndexer为例，其存储着进行标签数值化过程的相关超参数，是一个<strong>Estimator</strong>，对其调用fit(..)方法即可生成相应的模型StringIndexerModel类，很显然，它存储了用于DataFrame进行相关处理的 参数，是一个Transformer（其他转换器也是同一原理）。</p>
-<h5 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h5><p>字符串 映射为 索引</p>
-<ul>
-<li><p>对特征或标签数值化，索引值从0开始；</p>
-</li>
-<li><p>索引值与频率成反比，频率越大，索引值越小；</p>
-</li>
-<li><p>对于数值型特征，会首先把它转化成字符型，然后再对其进行编码</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> StringIndexer</span><br><span class="line">df = spark.createDataFrame([(<span class="number">0</span>, <span class="string">&quot;a&quot;</span>), (<span class="number">1</span>, <span class="string">&quot;b&quot;</span>), (<span class="number">2</span>, <span class="string">&quot;c&quot;</span>), (<span class="number">3</span>, <span class="string">&quot;a&quot;</span>), (<span class="number">4</span>, <span class="string">&quot;a&quot;</span>), (<span class="number">5</span>, <span class="string">&quot;c&quot;</span>)],</span><br><span class="line">                           [<span class="string">&quot;id&quot;</span>, <span class="string">&quot;category&quot;</span>])</span><br><span class="line">indexer = StringIndexer(inputCol=<span class="string">&quot;category&quot;</span>, outputCol=<span class="string">&quot;categoryIndex&quot;</span>)</span><br><span class="line">model = indexer.fit(df)</span><br><span class="line">indexed = model.transform(df)</span><br><span class="line">indexed.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+---+--------+-------------+</span><br><span class="line">| <span class="built_in">id</span>|category|categoryIndex|</span><br><span class="line">+---+--------+-------------+</span><br><span class="line">|  <span class="number">0</span>|       a|          <span class="number">0.0</span>|</span><br><span class="line">|  <span class="number">1</span>|       b|          <span class="number">2.0</span>|</span><br><span class="line">|  <span class="number">2</span>|       c|          <span class="number">1.0</span>|</span><br><span class="line">|  <span class="number">3</span>|       a|          <span class="number">0.0</span>|</span><br><span class="line">|  <span class="number">4</span>|       a|          <span class="number">0.0</span>|</span><br><span class="line">|  <span class="number">5</span>|       c|          <span class="number">1.0</span>|</span><br><span class="line">+---+--------+-------------+</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="IndexToString"><a href="#IndexToString" class="headerlink" title="IndexToString"></a>IndexToString</h5><p>索引映射为字符串。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> IndexToString, StringIndexer</span><br><span class="line">toString = IndexToString(inputCol=<span class="string">&quot;categoryIndex&quot;</span>, outputCol=<span class="string">&quot;originalCategory&quot;</span>)</span><br><span class="line">indexString = toString.transform(indexed)</span><br><span class="line">indexString.select(<span class="string">&quot;id&quot;</span>, <span class="string">&quot;originalCategory&quot;</span>).show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+---+----------------+</span><br><span class="line">| <span class="built_in">id</span>|originalCategory|</span><br><span class="line">+---+----------------+</span><br><span class="line">|  <span class="number">0</span>|               a|</span><br><span class="line">|  <span class="number">1</span>|               b|</span><br><span class="line">|  <span class="number">2</span>|               c|</span><br><span class="line">|  <span class="number">3</span>|               a|</span><br><span class="line">|  <span class="number">4</span>|               a|</span><br><span class="line">|  <span class="number">5</span>|               c|</span><br><span class="line">+---+----------------+</span><br></pre></td></tr></table></figure>
-
-<h5 id="VectorIndexer"><a href="#VectorIndexer" class="headerlink" title="VectorIndexer"></a>VectorIndexer</h5><p>倘若所有特征都已经被组织在一个向量中，又想对其中某些单个分量进行处理时，Spark ML提供了VectorIndexer类来解决向量数据集中的类别型特征转换。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> VectorIndexer</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vector, Vectors</span><br><span class="line">df = spark.createDataFrame([</span><br><span class="line">    (Vectors.dense(-<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>),),</span><br><span class="line">    (Vectors.dense(-<span class="number">1.0</span>, <span class="number">3.0</span>, <span class="number">1.0</span>),),</span><br><span class="line">    (Vectors.dense(<span class="number">0.0</span>, <span class="number">5.0</span>, <span class="number">1.0</span>), )],</span><br><span class="line">    [<span class="string">&quot;features&quot;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>通过为其提供maxCategories超参数，它可以<strong>自动识别</strong>哪些特征是类别型的，并且将原始值转换为类别索引。它基于不同特征值的数量来识别哪些特征需要被类别化，那些取值可能性最多不超过maxCategories的特征需要会被认为是类别型的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">indexer = VectorIndexer(inputCol=<span class="string">&quot;features&quot;</span>, outputCol=<span class="string">&quot;indexed&quot;</span>, maxCategories=<span class="number">2</span>)</span><br><span class="line">indexerModel = indexer.fit(df)</span><br><span class="line">indexed = indexerModel.transform(df)</span><br><span class="line">indexed.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+--------------+-------------+</span><br><span class="line">|      features|      indexed|</span><br><span class="line">+--------------+-------------+</span><br><span class="line">|[-<span class="number">1.0</span>,<span class="number">1.0</span>,<span class="number">1.0</span>]|[<span class="number">1.0</span>,<span class="number">1.0</span>,<span class="number">0.0</span>]|</span><br><span class="line">|[-<span class="number">1.0</span>,<span class="number">3.0</span>,<span class="number">1.0</span>]|[<span class="number">1.0</span>,<span class="number">3.0</span>,<span class="number">0.0</span>]|</span><br><span class="line">| [<span class="number">0.0</span>,<span class="number">5.0</span>,<span class="number">1.0</span>]|[<span class="number">0.0</span>,<span class="number">5.0</span>,<span class="number">0.0</span>]|</span><br><span class="line">+--------------+-------------+</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categoricalFeatures = indexerModel.categoryMaps.keys()</span><br><span class="line"><span class="built_in">str</span>(categoricalFeatures)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="分类（逻辑回归）"><a href="#分类（逻辑回归）" class="headerlink" title="分类（逻辑回归）"></a>分类（逻辑回归）</h2><p><a target="_blank" rel="noopener" href="https://www.studybigdata.cn/file/data/iris.csv">https://www.studybigdata.cn/file/data/iris.csv</a></p>
-<h3 id="导入相关类-3"><a href="#导入相关类-3" class="headerlink" title="导入相关类"></a>导入相关类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vector,Vectors</span><br><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> Row,functions</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.evaluation <span class="keyword">import</span> MulticlassClassificationEvaluator</span><br><span class="line"><span class="keyword">from</span> pyspark.ml <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> IndexToString, StringIndexer,VectorIndexer</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.classification <span class="keyword">import</span> LogisticRegression</span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x</span>):</span><br><span class="line">    rel = &#123;&#125;</span><br><span class="line">    rel[<span class="string">&#x27;features&#x27;</span>]=Vectors.dense(<span class="built_in">float</span>(x[<span class="number">1</span>]),<span class="built_in">float</span>(x[<span class="number">2</span>]),<span class="built_in">float</span>(x[<span class="number">3</span>]),<span class="built_in">float</span>(x[<span class="number">4</span>]))</span><br><span class="line">    rel[<span class="string">&#x27;label&#x27;</span>] = <span class="built_in">str</span>(x[<span class="number">5</span>])</span><br><span class="line">    <span class="keyword">return</span> rel</span><br></pre></td></tr></table></figure>
-
-<h3 id="读取数据构造DataFrame"><a href="#读取数据构造DataFrame" class="headerlink" title="读取数据构造DataFrame"></a>读取数据构造DataFrame</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># f函数返回一个字典</span></span><br><span class="line"><span class="comment"># 实参中的 **f(p) 用于将字典解包为关键字参数</span></span><br><span class="line">data = spark.sparkContext.textFile(<span class="string">&quot;file:///home/zhangsan/iris.csv&quot;</span>). <span class="built_in">map</span>(<span class="keyword">lambda</span> line: line.split(<span class="string">&#x27;,&#x27;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> p: Row(**f(p))).toDF()</span><br><span class="line">data.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>+-----------------+--------+
-|         features|   label|
-+-----------------+--------+
-|[5.1,3.5,1.4,0.2]|&quot;setosa&quot;|
-|[4.9,3.0,1.4,0.2]|&quot;setosa&quot;|
-|[4.7,3.2,1.3,0.2]|&quot;setosa&quot;|
-|[4.6,3.1,1.5,0.2]|&quot;setosa&quot;|
-|[5.0,3.6,1.4,0.2]|&quot;setosa&quot;|
-|[5.4,3.9,1.7,0.4]|&quot;setosa&quot;|
-|[4.6,3.4,1.4,0.3]|&quot;setosa&quot;|
-|[5.0,3.4,1.5,0.2]|&quot;setosa&quot;|
-|[4.4,2.9,1.4,0.2]|&quot;setosa&quot;|
-|[4.9,3.1,1.5,0.1]|&quot;setosa&quot;|
-|[5.4,3.7,1.5,0.2]|&quot;setosa&quot;|
-|[4.8,3.4,1.6,0.2]|&quot;setosa&quot;|
-|[4.8,3.0,1.4,0.1]|&quot;setosa&quot;|
-|[4.3,3.0,1.1,0.1]|&quot;setosa&quot;|
-|[5.8,4.0,1.2,0.2]|&quot;setosa&quot;|
-|[5.7,4.4,1.5,0.4]|&quot;setosa&quot;|
-|[5.4,3.9,1.3,0.4]|&quot;setosa&quot;|
-|[5.1,3.5,1.4,0.3]|&quot;setosa&quot;|
-|[5.7,3.8,1.7,0.3]|&quot;setosa&quot;|
-|[5.1,3.8,1.5,0.3]|&quot;setosa&quot;|
-+-----------------+--------+
-only showing top 20 rows
-</code></pre>
-<h3 id="构造pipeline-stage"><a href="#构造pipeline-stage" class="headerlink" title="构造pipeline stage"></a>构造pipeline stage</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签索引器(transformer)</span></span><br><span class="line">labelIndexer = StringIndexer().setInputCol(<span class="string">&quot;label&quot;</span>).setOutputCol(<span class="string">&quot;indexedLabel&quot;</span>).fit(data) </span><br><span class="line"><span class="comment"># 特征索引器(transformer)</span></span><br><span class="line">featureIndexer = VectorIndexer().setInputCol(<span class="string">&quot;features&quot;</span>).setOutputCol(<span class="string">&quot;indexedFeatures&quot;</span>).fit(data) <span class="comment"># transform</span></span><br><span class="line"><span class="comment"># 模型（estimate）</span></span><br><span class="line">lr = LogisticRegression().setLabelCol(<span class="string">&quot;indexedLabel&quot;</span>).setFeaturesCol(<span class="string">&quot;indexedFeatures&quot;</span>).setMaxIter(<span class="number">100</span>).setRegParam(<span class="number">0.3</span>).setElasticNetParam(<span class="number">0.8</span>)</span><br><span class="line"><span class="comment"># 预测索引转预测标签</span></span><br><span class="line">labelConverter = IndexToString().setInputCol(<span class="string">&quot;prediction&quot;</span>).setOutputCol(<span class="string">&quot;predictedLabel&quot;</span>).setLabels(labelIndexer.labels)</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过stage组合Pipeline"><a href="#通过stage组合Pipeline" class="headerlink" title="通过stage组合Pipeline"></a>通过stage组合Pipeline</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrPipeline = Pipeline().setStages([labelIndexer, featureIndexer, lr, labelConverter])</span><br></pre></td></tr></table></figure>
-
-<h3 id="数据集拆分"><a href="#数据集拆分" class="headerlink" title="数据集拆分"></a>数据集拆分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据集拆分为训练集和测试集</span></span><br><span class="line">trainingData, testData = data.randomSplit([<span class="number">0.7</span>, <span class="number">0.3</span>])</span><br></pre></td></tr></table></figure>
-
-<h3 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrPipelineModel = lrPipeline.fit(trainingData)</span><br></pre></td></tr></table></figure>
-
-<h3 id="模型预测"><a href="#模型预测" class="headerlink" title="模型预测"></a>模型预测</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lrPredictions = lrPipelineModel.transform(testData)</span><br><span class="line">lrPredictions.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>+-----------------+------------+------------+-----------------+--------------------+--------------------+----------+--------------+
-|         features|       label|indexedLabel|  indexedFeatures|       rawPrediction|         probability|prediction|predictedLabel|
-+-----------------+------------+------------+-----------------+--------------------+--------------------+----------+--------------+
-|[4.3,3.0,1.1,0.1]|    &quot;setosa&quot;|         2.0|[4.3,3.0,1.1,0.1]|[-0.3638103172660...|[0.21930751773900...|       2.0|      &quot;setosa&quot;|
-|[4.5,2.3,1.3,0.3]|    &quot;setosa&quot;|         2.0|[4.5,2.3,1.3,0.3]|[-0.3638103172660...|[0.23399201738128...|       2.0|      &quot;setosa&quot;|
-|[4.6,3.1,1.5,0.2]|    &quot;setosa&quot;|         2.0|[4.6,3.1,1.5,0.2]|[-0.3638103172660...|[0.23770839623638...|       2.0|      &quot;setosa&quot;|
-|[4.6,3.4,1.4,0.3]|    &quot;setosa&quot;|         2.0|[4.6,3.4,1.4,0.3]|[-0.3638103172660...|[0.23766596409899...|       2.0|      &quot;setosa&quot;|
-|[4.7,3.2,1.6,0.2]|    &quot;setosa&quot;|         2.0|[4.7,3.2,1.6,0.2]|[-0.3638103172660...|[0.24142033441701...|       2.0|      &quot;setosa&quot;|
-|[4.8,3.1,1.6,0.2]|    &quot;setosa&quot;|         2.0|[4.8,3.1,1.6,0.2]|[-0.3638103172660...|[0.24142033441701...|       2.0|      &quot;setosa&quot;|
-|[4.9,3.0,1.4,0.2]|    &quot;setosa&quot;|         2.0|[4.9,3.0,1.4,0.2]|[-0.3638103172660...|[0.23401105307022...|       2.0|      &quot;setosa&quot;|
-|[4.9,3.1,1.5,0.1]|    &quot;setosa&quot;|         2.0|[4.9,3.1,1.5,0.1]|[-0.3638103172660...|[0.23400919440230...|       2.0|      &quot;setosa&quot;|
-|[5.1,3.3,1.7,0.5]|    &quot;setosa&quot;|         2.0|[5.1,3.3,1.7,0.5]|[-0.3638103172660...|[0.25580031250338...|       2.0|      &quot;setosa&quot;|
-|[5.1,3.4,1.5,0.2]|    &quot;setosa&quot;|         2.0|[5.1,3.4,1.5,0.2]|[-0.3638103172660...|[0.23770839623638...|       2.0|      &quot;setosa&quot;|
-|[5.1,3.7,1.5,0.4]|    &quot;setosa&quot;|         2.0|[5.1,3.7,1.5,0.4]|[-0.3638103172660...|[0.24493955940896...|       2.0|      &quot;setosa&quot;|
-|[5.1,3.8,1.5,0.3]|    &quot;setosa&quot;|         2.0|[5.1,3.8,1.5,0.3]|[-0.3638103172660...|[0.24135369533464...|       2.0|      &quot;setosa&quot;|
-|[5.1,3.8,1.9,0.4]|    &quot;setosa&quot;|         2.0|[5.1,3.8,1.9,0.4]|[-0.3638103172660...|[0.25972865311180...|       2.0|      &quot;setosa&quot;|
-|[5.4,3.7,1.5,0.2]|    &quot;setosa&quot;|         2.0|[5.4,3.7,1.5,0.2]|[-0.3638103172660...|[0.23770839623638...|       2.0|      &quot;setosa&quot;|
-|[5.5,2.3,4.0,1.3]|&quot;versicolor&quot;|         0.0|[5.5,2.3,4.0,1.3]|[-0.3638103172660...|[0.35333595293756...|       0.0|  &quot;versicolor&quot;|
-|[5.6,2.5,3.9,1.1]|&quot;versicolor&quot;|         0.0|[5.6,2.5,3.9,1.1]|[-0.3638103172660...|[0.34764623363635...|       0.0|  &quot;versicolor&quot;|
-|[5.6,2.9,3.6,1.3]|&quot;versicolor&quot;|         0.0|[5.6,2.9,3.6,1.3]|[-0.3638103172660...|[0.34160108178156...|       0.0|  &quot;versicolor&quot;|
-|[5.7,2.8,4.5,1.3]|&quot;versicolor&quot;|         0.0|[5.7,2.8,4.5,1.3]|[-0.3638103172660...|[0.36729265550581...|       0.0|  &quot;versicolor&quot;|
-|[5.9,3.0,4.2,1.5]|&quot;versicolor&quot;|         0.0|[5.9,3.0,4.2,1.5]|[-0.3638103172660...|[0.36074181826526...|       1.0|   &quot;virginica&quot;|
-|[6.0,2.2,4.0,1.0]|&quot;versicolor&quot;|         0.0|[6.0,2.2,4.0,1.0]|[-0.3638103172660...|[0.34913030042637...|       0.0|  &quot;versicolor&quot;|
-+-----------------+------------+------------+-----------------+--------------------+--------------------+----------+--------------+
-only showing top 20 rows
-</code></pre>
-<h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 评估器</span></span><br><span class="line">evaluator = MulticlassClassificationEvaluator().setLabelCol(<span class="string">&quot;indexedLabel&quot;</span>). setPredictionCol(<span class="string">&quot;prediction&quot;</span>)</span><br><span class="line"><span class="comment"># 准确率</span></span><br><span class="line">lrAccuracy = evaluator.evaluate(lrPredictions)</span><br><span class="line">lrAccuracy</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>0.8622341635834889
-</code></pre>
-<h2 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h2><h3 id="从scikit-learn中获取数据集"><a href="#从scikit-learn中获取数据集" class="headerlink" title="从scikit-learn中获取数据集"></a>从scikit-learn中获取数据集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!pip3 install -U scikit-learn -i https://pypi.tuna.tsinghua.edu.cn/simple </span><br></pre></td></tr></table></figure>
-
-<pre><code>Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
-Requirement already satisfied: scikit-learn in /opt/bigdata/anaconda3/envs/python37/lib/python3.7/site-packages (1.0.2)
-Requirement already satisfied: scipy&gt;=1.1.0 in /opt/bigdata/anaconda3/envs/python37/lib/python3.7/site-packages (from scikit-learn) (1.7.3)
-Requirement already satisfied: numpy&gt;=1.14.6 in /opt/bigdata/anaconda3/envs/python37/lib/python3.7/site-packages (from scikit-learn) (1.21.6)
-Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /opt/bigdata/anaconda3/envs/python37/lib/python3.7/site-packages (from scikit-learn) (3.1.0)
-Requirement already satisfied: joblib&gt;=0.11 in /opt/bigdata/anaconda3/envs/python37/lib/python3.7/site-packages (from scikit-learn) (1.2.0)
-</code></pre>
-<h3 id="导入相关模块或类"><a href="#导入相关模块或类" class="headerlink" title="导入相关模块或类"></a>导入相关模块或类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.feature <span class="keyword">import</span> VectorAssembler</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.regression <span class="keyword">import</span> LinearRegression</span><br></pre></td></tr></table></figure>
-
-<h3 id="加载数据集构造PandasDF"><a href="#加载数据集构造PandasDF" class="headerlink" title="加载数据集构造PandasDF"></a>加载数据集构造PandasDF</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取波士顿房价的数据</span></span><br><span class="line">data = datasets.load_boston().get(<span class="string">&#x27;data&#x27;</span>)</span><br><span class="line">feature_names = datasets.load_boston().get(<span class="string">&#x27;feature_names&#x27;</span>)</span><br><span class="line"><span class="comment"># 创建 Pyspark DataFrame</span></span><br><span class="line">df = pd.DataFrame(data, columns=feature_names)</span><br><span class="line">target = datasets.load_boston().get(<span class="string">&#x27;target&#x27;</span>)</span><br><span class="line">df[<span class="string">&#x27;target&#x27;</span>] = target</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="通过PandasDF构造Spark-DF"><a href="#通过PandasDF构造Spark-DF" class="headerlink" title="通过PandasDF构造Spark DF"></a>通过PandasDF构造Spark DF</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = spark.createDataFrame(df)</span><br><span class="line">df.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>+-------+----+-----+----+-----+-----+-----+------+---+-----+-------+------+-----+------+
-|   CRIM|  ZN|INDUS|CHAS|  NOX|   RM|  AGE|   DIS|RAD|  TAX|PTRATIO|     B|LSTAT|target|
-+-------+----+-----+----+-----+-----+-----+------+---+-----+-------+------+-----+------+
-|0.00632|18.0| 2.31| 0.0|0.538|6.575| 65.2|  4.09|1.0|296.0|   15.3| 396.9| 4.98|  24.0|
-|0.02731| 0.0| 7.07| 0.0|0.469|6.421| 78.9|4.9671|2.0|242.0|   17.8| 396.9| 9.14|  21.6|
-|0.02729| 0.0| 7.07| 0.0|0.469|7.185| 61.1|4.9671|2.0|242.0|   17.8|392.83| 4.03|  34.7|
-|0.03237| 0.0| 2.18| 0.0|0.458|6.998| 45.8|6.0622|3.0|222.0|   18.7|394.63| 2.94|  33.4|
-|0.06905| 0.0| 2.18| 0.0|0.458|7.147| 54.2|6.0622|3.0|222.0|   18.7| 396.9| 5.33|  36.2|
-|0.02985| 0.0| 2.18| 0.0|0.458| 6.43| 58.7|6.0622|3.0|222.0|   18.7|394.12| 5.21|  28.7|
-|0.08829|12.5| 7.87| 0.0|0.524|6.012| 66.6|5.5605|5.0|311.0|   15.2| 395.6|12.43|  22.9|
-|0.14455|12.5| 7.87| 0.0|0.524|6.172| 96.1|5.9505|5.0|311.0|   15.2| 396.9|19.15|  27.1|
-|0.21124|12.5| 7.87| 0.0|0.524|5.631|100.0|6.0821|5.0|311.0|   15.2|386.63|29.93|  16.5|
-|0.17004|12.5| 7.87| 0.0|0.524|6.004| 85.9|6.5921|5.0|311.0|   15.2|386.71| 17.1|  18.9|
-|0.22489|12.5| 7.87| 0.0|0.524|6.377| 94.3|6.3467|5.0|311.0|   15.2|392.52|20.45|  15.0|
-|0.11747|12.5| 7.87| 0.0|0.524|6.009| 82.9|6.2267|5.0|311.0|   15.2| 396.9|13.27|  18.9|
-|0.09378|12.5| 7.87| 0.0|0.524|5.889| 39.0|5.4509|5.0|311.0|   15.2| 390.5|15.71|  21.7|
-|0.62976| 0.0| 8.14| 0.0|0.538|5.949| 61.8|4.7075|4.0|307.0|   21.0| 396.9| 8.26|  20.4|
-|0.63796| 0.0| 8.14| 0.0|0.538|6.096| 84.5|4.4619|4.0|307.0|   21.0|380.02|10.26|  18.2|
-|0.62739| 0.0| 8.14| 0.0|0.538|5.834| 56.5|4.4986|4.0|307.0|   21.0|395.62| 8.47|  19.9|
-|1.05393| 0.0| 8.14| 0.0|0.538|5.935| 29.3|4.4986|4.0|307.0|   21.0|386.85| 6.58|  23.1|
-| 0.7842| 0.0| 8.14| 0.0|0.538| 5.99| 81.7|4.2579|4.0|307.0|   21.0|386.75|14.67|  17.5|
-|0.80271| 0.0| 8.14| 0.0|0.538|5.456| 36.6|3.7965|4.0|307.0|   21.0|288.99|11.69|  20.2|
-| 0.7258| 0.0| 8.14| 0.0|0.538|5.727| 69.5|3.7965|4.0|307.0|   21.0|390.95|11.28|  18.2|
-+-------+----+-----+----+-----+-----+-----+------+---+-----+-------+------+-----+------+
-only showing top 20 rows
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 某些列转换为特征向量</span></span><br><span class="line">vec_assmebler = VectorAssembler(inputCols=feature_names.tolist(), outputCol=<span class="string">&#x27;features&#x27;</span>)</span><br><span class="line">df_features = vec_assmebler.transform(df)</span><br></pre></td></tr></table></figure>
-
-<h4 id="数据集拆分-1"><a href="#数据集拆分-1" class="headerlink" title="数据集拆分"></a>数据集拆分</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data_df = df_features.select(<span class="string">&#x27;features&#x27;</span>, <span class="string">&#x27;target&#x27;</span>)</span><br><span class="line">df_train, df_test = data_df.randomSplit([<span class="number">0.7</span>, <span class="number">0.3</span>], seed=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="模型实例化"><a href="#模型实例化" class="headerlink" title="模型实例化"></a>模型实例化</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lin_Reg = LinearRegression(labelCol=<span class="string">&#x27;target&#x27;</span>) </span><br></pre></td></tr></table></figure>
-
-<h4 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 线性回归模型</span></span><br><span class="line">lr_model = lin_Reg.fit(df_train) </span><br></pre></td></tr></table></figure>
-
-<pre><code>23/05/31 22:10:21 WARN Utils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting &#39;spark.debug.maxToStringFields&#39; in SparkEnv.conf.
-23/05/31 22:10:21 WARN Instrumentation: [3254cd38] regParam is zero, which might cause numerical instability and overfitting.
-23/05/31 22:10:21 WARN LAPACK: Failed to load implementation from: com.github.fommil.netlib.NativeSystemLAPACK
-23/05/31 22:10:21 WARN LAPACK: Failed to load implementation from: com.github.fommil.netlib.NativeRefLAPACK
-</code></pre>
-<h4 id="模型预测-1"><a href="#模型预测-1" class="headerlink" title="模型预测"></a>模型预测</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 训练得到转换器</span></span><br><span class="line">lr_model.transform(df_test).show() <span class="comment"># 转换器对测试数据预测</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>+--------------------+------+------------------+
-|            features|target|        prediction|
-+--------------------+------+------------------+
-|[0.00632,18.0,2.3...|  24.0|30.562301503374965|
-|[0.01432,100.0,1....|  31.6|32.901605881081416|
-|[0.02055,85.0,0.7...|  24.7| 24.93009442109225|
-|[0.02729,0.0,7.07...|  34.7| 31.41843302139152|
-|[0.02763,75.0,2.9...|  30.8|30.886457093877198|
-|[0.08873,21.0,5.6...|  19.7|  21.1065167240288|
-|[0.11027,25.0,5.1...|  22.2|24.340805161860416|
-|[0.11747,12.5,7.8...|  18.9|21.722378242995234|
-|[0.1415,0.0,6.91,...|  25.3|25.456599149582598|
-|[0.14455,12.5,7.8...|  27.1|19.578424952267934|
-|[0.17004,12.5,7.8...|  18.9|19.047293094321034|
-|[0.22489,12.5,7.8...|  15.0|19.232587912137078|
-|[0.25387,0.0,6.91...|  14.4| 8.280067172593021|
-|[0.62739,0.0,8.14...|  19.9|19.469471164463627|
-|[0.75026,0.0,8.14...|  15.6| 15.68021975221394|
-|[0.77299,0.0,8.14...|  18.4|19.997150216761582|
-|[0.95577,0.0,8.14...|  14.8|14.777382058720269|
-|[1.00245,0.0,8.14...|  21.0| 21.41788103155085|
-|[1.23247,0.0,8.14...|  15.2|15.834419267194669|
-|[1.38799,0.0,8.14...|  13.2| 8.501050531481507|
-+--------------------+------+------------------+
-only showing top 20 rows
-</code></pre>
-<h2 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h2><h4 id="导入相关类-4"><a href="#导入相关类-4" class="headerlink" title="导入相关类"></a>导入相关类</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.ml.clustering <span class="keyword">import</span> KMeans</span><br></pre></td></tr></table></figure>
-
-<h4 id="准备数据-3"><a href="#准备数据-3" class="headerlink" title="准备数据"></a>准备数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data = [(Vectors.dense([<span class="number">0.0</span>, <span class="number">0.0</span>]),),</span><br><span class="line">        (Vectors.dense([<span class="number">1.0</span>, <span class="number">1.0</span>]),), </span><br><span class="line">        (Vectors.dense([<span class="number">9.0</span>, <span class="number">8.0</span>]),),</span><br><span class="line">        (Vectors.dense([<span class="number">8.0</span>, <span class="number">9.0</span>]),)</span><br><span class="line">       ]</span><br><span class="line">df = spark.createDataFrame(data, [<span class="string">&quot;features&quot;</span>])</span><br></pre></td></tr></table></figure>
-
-<h4 id="算法实例化"><a href="#算法实例化" class="headerlink" title="算法实例化"></a>算法实例化</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kmeans = KMeans(k=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="模型构建"><a href="#模型构建" class="headerlink" title="模型构建"></a>模型构建</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = kmeans.fit(df)</span><br></pre></td></tr></table></figure>
-
-<h4 id="查看聚类中心点"><a href="#查看聚类中心点" class="headerlink" title="查看聚类中心点"></a>查看聚类中心点</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.clusterCenters()</span><br></pre></td></tr></table></figure>
-
-<p>结果</p>
-<pre><code>[array([8.5, 8.5]), array([0.5, 0.5])]
-</code></pre>
-<h4 id="聚类-1"><a href="#聚类-1" class="headerlink" title="聚类"></a>聚类</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transformed = model.transform(df).select(<span class="string">&quot;features&quot;</span>, <span class="string">&quot;prediction&quot;</span>)</span><br><span class="line">transformed.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>+---------+----------+
-| features|prediction|
-+---------+----------+
-|[0.0,0.0]|         1|
-|[1.0,1.0]|         1|
-|[9.0,8.0]|         0|
-|[8.0,9.0]|         0|
-+---------+----------+
-</code></pre>
-<h2 id="聚类（出租车数据）"><a href="#聚类（出租车数据）" class="headerlink" title="聚类（出租车数据）"></a>聚类（出租车数据）</h2><p><a target="_blank" rel="noopener" href="https://www.studybigdata.cn/file/data/taxi.csv">https://www.studybigdata.cn/file/data/taxi.csv</a></p>
-<h4 id="导入相关模块"><a href="#导入相关模块" class="headerlink" title="导入相关模块"></a>导入相关模块</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.conf <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark.context <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.ml.linalg <span class="keyword">import</span> Vector, Vectors</span><br></pre></td></tr></table></figure>
-
-<h4 id="初始化SparkContext"><a href="#初始化SparkContext" class="headerlink" title="初始化SparkContext"></a>初始化SparkContext</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sparkConf = SparkConf()</span><br><span class="line">sparkConf.setAppName(<span class="string">&quot;taxi&quot;</span>)</span><br><span class="line">sparkConf.setMaster(<span class="string">&quot;local[*]&quot;</span>)</span><br><span class="line">sc = SparkContext.getOrCreate(conf=sparkConf)</span><br></pre></td></tr></table></figure>
-
-<h4 id="加载数据为RDD"><a href="#加载数据为RDD" class="headerlink" title="加载数据为RDD"></a>加载数据为RDD</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">line_rdd = sc.textFile(<span class="string">r&quot;file:///home/zhangsan/taxi.csv&quot;</span>)</span><br><span class="line">list_rdd = line_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot;,&quot;</span>))</span><br><span class="line">point_rdd = list_rdd.<span class="built_in">map</span>(<span class="keyword">lambda</span> x: (Vectors.dense(x[<span class="number">1</span>], x[<span class="number">2</span>]),))</span><br></pre></td></tr></table></figure>
-
-<h4 id="RDD转DataFrame"><a href="#RDD转DataFrame" class="headerlink" title="RDD转DataFrame"></a>RDD转DataFrame</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">point_df = spark.createDataFrame(point_rdd, [<span class="string">&quot;features&quot;</span>])</span><br><span class="line">point_df.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>+--------------------+
-|            features|
-+--------------------+
-|[30.624806,104.13...|
-|[30.624809,104.13...|
-|[30.624811,104.13...|
-|[30.624811,104.13...|
-|[30.624811,104.13...|
-|[30.624813,104.13...|
-|[30.624815,104.13...|
-|[30.624815,104.13...|
-|[30.624815,104.13...|
-|[30.624816,104.13...|
-|[30.624816,104.13...|
-|[30.624816,104.13...|
-|[30.624818,104.13...|
-|[30.624818,104.13...|
-|[30.62482,104.136...|
-|[30.62482,104.136...|
-|[30.624823,104.13...|
-|[30.624826,104.13...|
-|[30.624828,104.13...|
-|[30.624828,104.13...|
-+--------------------+
-only showing top 20 rows
-</code></pre>
-<h4 id="模型构建-1"><a href="#模型构建-1" class="headerlink" title="模型构建"></a>模型构建</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model = KMeans(k=<span class="number">3</span>).fit(point_df)</span><br><span class="line">centers = model.clusterCenters()</span><br></pre></td></tr></table></figure>
-
-<p>​                                                                                    </p>
-<h4 id="聚类-2"><a href="#聚类-2" class="headerlink" title="聚类"></a>聚类</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transformed = model.transform(point_df).select(<span class="string">&quot;features&quot;</span>, <span class="string">&quot;prediction&quot;</span>)</span><br><span class="line">transformed.show()</span><br><span class="line"><span class="built_in">print</span>(centers)</span><br></pre></td></tr></table></figure>
-
-<pre><code>+--------------------+----------+
-|            features|prediction|
-+--------------------+----------+
-|[30.624806,104.13...|         0|
-|[30.624809,104.13...|         0|
-|[30.624811,104.13...|         0|
-|[30.624811,104.13...|         0|
-|[30.624811,104.13...|         0|
-|[30.624813,104.13...|         0|
-|[30.624815,104.13...|         0|
-|[30.624815,104.13...|         0|
-|[30.624815,104.13...|         0|
-|[30.624816,104.13...|         0|
-|[30.624816,104.13...|         0|
-|[30.624816,104.13...|         0|
-|[30.624818,104.13...|         0|
-|[30.624818,104.13...|         0|
-|[30.62482,104.136...|         0|
-|[30.62482,104.136...|         0|
-|[30.624823,104.13...|         0|
-|[30.624826,104.13...|         0|
-|[30.624828,104.13...|         0|
-|[30.624828,104.13...|         0|
-+--------------------+----------+
-only showing top 20 rows
-
-[array([ 30.64588554, 104.0899449 ]), array([ 30.65495302, 104.02291449]), array([ 30.8019326 , 103.76910232])]
-</code></pre>
-<h4 id="聚类中心可视化"><a href="#聚类中心可视化" class="headerlink" title="聚类中心可视化"></a>聚类中心可视化</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;initial-scale=1.0, user-scalable=no&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>kmeans聚类可视化<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-tag">html</span>&#123;<span class="attribute">height</span>:<span class="number">100%</span>&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">body</span>&#123;<span class="attribute">height</span>:<span class="number">100%</span>;<span class="attribute">margin</span>:<span class="number">0px</span>;<span class="attribute">padding</span>:<span class="number">0px</span>&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-id">#container</span>&#123;<span class="attribute">height</span>:<span class="number">100%</span>&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://api.map.baidu.com/api?v=2.0&amp;ak=Z7q0WBomr1GbD6HVGSD6GyBIrkqeoFhi&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">//v2.0版本的引用方式：src=&quot;http://api.map.baidu.com/api?v=2.0&amp;ak=您的密钥&quot;</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Map</span>(<span class="string">&quot;container&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 创建地图实例</span></span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">enableScrollWheelZoom</span>();           <span class="comment">//允许滑轮进行放大缩小</span></span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">addControl</span>(<span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">NavigationControl</span>());<span class="comment">// 添加平移缩放控件</span></span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">addControl</span>(<span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">ScaleControl</span>());<span class="comment">// 添加比例尺控件</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> myP1 = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Point</span>(<span class="number">104.00196991099213</span>,<span class="number">30.66303060965564</span>);  <span class="comment">//声明点对象</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> myP2 = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Point</span>(<span class="number">104.08361395495325</span>,<span class="number">30.668530635551743</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> myP3 = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Point</span>(<span class="number">104.07724026537839</span>,<span class="number">30.606050194579222</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 创建点坐标</span></span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">centerAndZoom</span>(myP1 , <span class="number">15</span>);</span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 初始化地图，设置中心点坐标和地图级别</span></span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">clearOverlays</span>();    <span class="comment">//清空地图中的对象</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> marker1 = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Marker</span>(myP1);   <span class="comment">//定义点样式，默认为红色水滴形状</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> marker2 = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Marker</span>(myP2);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> marker3 = <span class="keyword">new</span> <span class="title class_">BMap</span>.<span class="title class_">Marker</span>(myP3);</span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">addOverlay</span>(marker1);   <span class="comment">//添加点到地图</span></span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">addOverlay</span>(marker2);</span></span><br><span class="line"><span class="language-javascript">map.<span class="title function_">addOverlay</span>(marker3);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/03/23/Spark/PySpark/Spark_Python_MachineLearning/" data-id="cuidH-c4emqBvBoXLUV8Ka6eB" data-title="PySpark Machine Learning" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-Spark/PySpark/Spark_Python_Rdd" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/03/23/Spark/PySpark/Spark_Python_Rdd/" class="article-date">
@@ -742,7 +346,120 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/03/23/Spark/PySpark/Spark_Python_Rdd/" data-id="cuidtFBx04RyOVWD_sxcsafyk" data-title="PySpark RDD" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/03/23/Spark/PySpark/Spark_Python_Rdd/" data-id="cuidf4Rc1Koq-y42dM0LsKh6C" data-title="PySpark RDD" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Spark/PySpark/Spark_Python_Streaming" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/23/Spark/PySpark/Spark_Python_Streaming/" class="article-date">
+  <time class="dt-published" datetime="2022-03-23T07:55:26.000Z" itemprop="datePublished">2022-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PySpark/">PySpark</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/23/Spark/PySpark/Spark_Python_Streaming/">PySpark Streaming</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.streaming <span class="keyword">import</span> StreamingContext</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;spark://node0:7077&quot;</span>).setAppName(<span class="string">&quot;HelloWorld&quot;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    ssc = StreamingContext(sc, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    stream = ssc.socketTextStream(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>)</span><br><span class="line">    stream.pprint()</span><br><span class="line">    ssc.start()</span><br><span class="line">    ssc.awaitTermination()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.studybigdata.java.socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StreamingHelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">9999</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;等待链接... ...&quot;</span>);</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">accept</span> <span class="operator">=</span> sc.accept();</span><br><span class="line">        System.out.println(<span class="string">&quot;客户端链接成功：&quot;</span>+accept.getLocalAddress());</span><br><span class="line"></span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> accept.getOutputStream();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">            String [] items = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;e&quot;</span>, <span class="string">&quot;f&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (String item : items) &#123;</span><br><span class="line"></span><br><span class="line">                item = item + <span class="string">&quot;\n&quot;</span>; <span class="comment">// 输出数据最后一定要有换行符！！！，不然spark收不到数据。</span></span><br><span class="line">                System.out.println(<span class="string">&quot;输出字符： &quot;</span>+ item);</span><br><span class="line"></span><br><span class="line">                outputStream.write(item.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">                Thread.sleep(<span class="number">500</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="NetCat"><a href="#NetCat" class="headerlink" title="NetCat"></a>NetCat</h3><h5 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 netcat-0.7.1]# yum install gcc</span><br></pre></td></tr></table></figure>
+
+<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 zhangsan]# curl -O -L http://sourceforge.net/projects/netcat/files/netcat/0.7.1/netcat-0.7.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h5 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 zhangsan]# tar -zxf netcat-0.7.1.tar.gz </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 zhangsan]# cd netcat-0.7.1</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 netcat-0.7.1]# ./configure </span><br></pre></td></tr></table></figure>
+
+<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 netcat-0.7.1]# make</span><br></pre></td></tr></table></figure>
+
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 netcat-0.7.1]# make install</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node0 netcat-0.7.1]# netcat -lp 9999</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(python37) [zhangsan@node0 ~]$ vim Streaming.py </span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.streaming <span class="keyword">import</span> StreamingContext</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    uncivilized_words = [<span class="string">&quot;愤怒&quot;</span>,<span class="string">&quot;生气&quot;</span>,<span class="string">&quot;辣鸡&quot;</span>]</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;spark://node0:7077&quot;</span>).setAppName(<span class="string">&quot;HelloWorld&quot;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    ssc = StreamingContext(sc, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    stream = ssc.socketTextStream(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>)</span><br><span class="line">    stream.<span class="built_in">filter</span>(<span class="keyword">lambda</span> word:word <span class="keyword">not</span> <span class="keyword">in</span> uncivilized_words).pprint()</span><br><span class="line">    ssc.start()</span><br><span class="line">    ssc.awaitTermination()</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="WordCount"><a href="#WordCount" class="headerlink" title="WordCount"></a>WordCount</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">record_list = stream.flatMap(<span class="keyword">lambda</span> line:line.split(<span class="string">&quot; &quot;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a, b: a + b)</span><br><span class="line">record_list.pprint()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="滚动窗口"><a href="#滚动窗口" class="headerlink" title="滚动窗口"></a>滚动窗口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data duration: 1s</span><br><span class="line">batch interval: 2s</span><br><span class="line">window Duration: 2s</span><br><span class="line">slide Duration: 2s</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data duration: 1s</span><br><span class="line">batch interval: 1s</span><br><span class="line">window Duration: 2s</span><br><span class="line">slide Duration: 1s</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="countByKey"><a href="#countByKey" class="headerlink" title="countByKey"></a>countByKey</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.streaming <span class="keyword">import</span> StreamingContext</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">count_fun</span>(<span class="params">new,old</span>):</span><br><span class="line">    <span class="keyword">if</span> old <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        old = <span class="number">0</span></span><br><span class="line">    count = <span class="built_in">sum</span>(new,old)</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;local[*]&quot;</span>).setAppName(<span class="string">&quot;HelloWorld&quot;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    ssc = StreamingContext(sc, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    ssc.checkpoint(<span class="string">&quot;file:///home/zhangsan/checkpoint&quot;</span>)</span><br><span class="line">    stream = ssc.socketTextStream(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>)</span><br><span class="line">    stream.flatMap(<span class="keyword">lambda</span> line:line.split(<span class="string">&quot; &quot;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a, b: a + b).saveAsTextFiles(<span class="string">&quot;file:///home/zhangsan/out&quot;</span>)</span><br><span class="line">    ssc.start()</span><br><span class="line">    ssc.awaitTermination()</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="UpdateStateByKey"><a href="#UpdateStateByKey" class="headerlink" title="UpdateStateByKey"></a>UpdateStateByKey</h3><p>需要先设置检查点checkpoint。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.streaming <span class="keyword">import</span> StreamingContext</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">count_fun</span>(<span class="params">new,old</span>):</span><br><span class="line">    <span class="keyword">if</span> old <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        old = <span class="number">0</span></span><br><span class="line">    count = <span class="built_in">sum</span>(new,old)</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    conf = SparkConf().setMaster(<span class="string">&quot;local[*]&quot;</span>).setAppName(<span class="string">&quot;HelloWorld&quot;</span>)</span><br><span class="line">    sc = SparkContext(conf=conf)</span><br><span class="line">    ssc = StreamingContext(sc, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    ssc.checkpoint(<span class="string">&quot;file:///home/zhangsan/checkpoint&quot;</span>)</span><br><span class="line">    stream = ssc.socketTextStream(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>)</span><br><span class="line">    stream.flatMap(<span class="keyword">lambda</span> line:line.split(<span class="string">&quot; &quot;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a, b: a + b).updateStateByKey(count_fun).pprint()</span><br><span class="line">    ssc.start()</span><br><span class="line">    ssc.awaitTermination()</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出与持久化"><a href="#输出与持久化" class="headerlink" title="输出与持久化"></a>输出与持久化</h3><h4 id="pprint"><a href="#pprint" class="headerlink" title="pprint"></a>pprint</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">pprint</span>(<span class="params">self, num=<span class="number">10</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Print the first num elements of each RDD generated in this DStream.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    @param num: the number of elements from the first will be printed.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>Print函数，打印dstream中每批数据的前十个元素，这对于开发和调试很有用。</p>
+<h4 id="foreachRDD"><a href="#foreachRDD" class="headerlink" title="foreachRDD"></a>foreachRDD</h4><p>DStream中的foreachRDD是一个非常强大函数，它允许你把数据发送给外部系统。写数据到外部系统需要创建一个  connection object，开发者需要创建一个connection  object用于连接。</p>
+<blockquote>
+<p>根据TCP协议连接到远程的服务器，我们连接外部数据库需要自己的句柄。</p>
+</blockquote>
+<h5 id="在Driver中创建一个连接对象"><a href="#在Driver中创建一个连接对象" class="headerlink" title="在Driver中创建一个连接对象"></a>在Driver中创建一个连接对象</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dstream.foreachRDD &#123; rdd =&gt;</span><br><span class="line">  <span class="keyword">val</span> connection = createNewConnection()  <span class="comment">// executed at the driver</span></span><br><span class="line">  rdd.foreach &#123; record =&gt;</span><br><span class="line">    connection.send(record) <span class="comment">// executed at the worker</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是不正确的，因为这需要先序列化连接对象，然后将它从driver发送到worker中。这样的连接对象在机器之间不能传送。它可能表现为序列化错误（连接对象不可序列化）或者初始化错误（连接对象应该 在worker中初始化）等等。</p>
+<h5 id="在Worker中创建连接对象"><a href="#在Worker中创建连接对象" class="headerlink" title="在Worker中创建连接对象"></a>在Worker中创建连接对象</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dstream.foreachRDD &#123; rdd =&gt;</span><br><span class="line">  rdd.foreach &#123; record =&gt;</span><br><span class="line">    <span class="keyword">val</span> connection = createNewConnection()</span><br><span class="line">    connection.send(record)</span><br><span class="line">    connection.close()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这会造成另外一个常见的错误，为每一个记录创建了一个连接对象。创建一个连接对象有资源和时间的开支。因此，为每个记录创建和销毁连接对象会导致非常高的开支，明显的减少系统的整体吞吐量。</p>
+<h5 id="为RDD的partition创建一个连接对象"><a href="#为RDD的partition创建一个连接对象" class="headerlink" title="为RDD的partition创建一个连接对象"></a>为RDD的partition创建一个连接对象</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dstream.foreachRDD &#123; rdd =&gt;</span><br><span class="line">  rdd.foreachPartition &#123; partitionOfRecords =&gt;</span><br><span class="line">    <span class="keyword">val</span> connection = createNewConnection()</span><br><span class="line">    partitionOfRecords.foreach(record =&gt; connection.send(record))</span><br><span class="line">    connection.close()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个更好的解决办法是利用rdd.foreachPartition方法。 为RDD的partition创建一个连接对象。</p>
+<h5 id="静态的连接对象池"><a href="#静态的连接对象池" class="headerlink" title="静态的连接对象池"></a>静态的连接对象池</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dstream.foreachRDD &#123; rdd =&gt;</span><br><span class="line">  rdd.foreachPartition &#123; partitionOfRecords =&gt;</span><br><span class="line">    <span class="comment">// ConnectionPool is a static, lazily initialized pool of connections</span></span><br><span class="line">    <span class="keyword">val</span> connection = <span class="type">ConnectionPool</span>.getConnection()</span><br><span class="line">    partitionOfRecords.foreach(record =&gt; connection.send(record))</span><br><span class="line">    <span class="type">ConnectionPool</span>.returnConnection(connection)  <span class="comment">// return to the pool for future reuse</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，可以通过在多个RDD或者批数据间<strong>重用连接对象</strong>做更进一步的优化。开发者可以保有一个静态的连接对象池，重复使用池中的对象将多批次的RDD推送到外部系统，以进一步节省开支。</p>
+<h4 id="saveAsTextFiles"><a href="#saveAsTextFiles" class="headerlink" title="saveAsTextFiles"></a>saveAsTextFiles</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.conf <span class="keyword">import</span> SparkConf</span><br><span class="line"><span class="keyword">from</span> pyspark.context <span class="keyword">import</span> SparkContext</span><br><span class="line"><span class="keyword">from</span> pyspark.streaming <span class="keyword">import</span> StreamingContext</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">conf = SparkConf().setAppName(<span class="string">&quot;helloworld&quot;</span>).setMaster(<span class="string">&quot;local[*]&quot;</span>)</span><br><span class="line">sc = SparkContext(conf=conf)</span><br><span class="line">ssc = StreamingContext(sc,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a DStream that reads data from a TCP socket</span></span><br><span class="line">lines = ssc.socketTextStream(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># split the lines into words and count the occurrence of each word</span></span><br><span class="line">words_counts = lines.flatMap(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot; &quot;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a, b: a + b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># save the counts of each word as text files</span></span><br><span class="line"></span><br><span class="line">words_counts.saveAsTextFiles(<span class="string">&quot;out1&quot;</span>)</span><br><span class="line"></span><br><span class="line">ssc.start()</span><br><span class="line">ssc.awaitTermination()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.studybigdata.com/2022/03/23/Spark/PySpark/Spark_Python_Streaming/" data-id="cuidm_wvvjBD5mUYA8FGq8Gj_" data-title="PySpark Streaming" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -973,7 +690,7 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/01/15/Hadoop/Hadoop_DataNode/" data-id="cuidCIcJpUrFHzeSGzzp1tR3O" data-title="DataNode工作机制与实操案例演示" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/01/15/Hadoop/Hadoop_DataNode/" data-id="cuidxtfwETudrGlgfbv59cMW6" data-title="DataNode工作机制与实操案例演示" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1851,7 +1568,7 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2022/01/15/Hadoop/Hadoop_HDFS/" data-id="cuidhzH3Id_qjCEab3Pc8EPgV" data-title="Hadoop HDFS" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2022/01/15/Hadoop/Hadoop_HDFS/" data-id="cuidfnAla53PjCpatr_Vu4XAx" data-title="Hadoop HDFS" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1966,7 +1683,7 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/HDFS_Snap/" data-id="cuid960qJqSotej0D-9Q_GZbe" data-title="HDFS 快照管理实训实验" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/HDFS_Snap/" data-id="cuid2IevhhUkJcUhLHpef8Q4i" data-title="HDFS 快照管理实训实验" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2096,7 +1813,7 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/HDFS_dfsadmin/" data-id="cuidgrDS8khI6N2nlO5S9PPbR" data-title="HDFS综合操作实验：安全模式管理与集群监控" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/HDFS_dfsadmin/" data-id="cuid-sV4fAt0wCynnnOZalDjA" data-title="HDFS综合操作实验：安全模式管理与集群监控" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2270,7 +1987,7 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/Hadoop_YARN/" data-id="cuidwags4LFwn1E6B8wP4RMXz" data-title="Hadoop_YARN" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/Hadoop_YARN/" data-id="cuid162v4Q35YbxkEtASR_5b6" data-title="Hadoop_YARN" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2456,7 +2173,7 @@ only showing top 20 rows
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/Java_DataInputDataOutput/" data-id="cuidjTXsWdwKEuUv4raYW9Qsg" data-title="Java DataInput/DataOutput入门实训" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://www.studybigdata.com/2021/01/15/Hadoop/Java_DataInputDataOutput/" data-id="cuidGZnAmQqx7dd-YCksez98y" data-title="Java DataInput/DataOutput入门实训" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2531,11 +2248,11 @@ only showing top 20 rows
           </li>
         
           <li>
-            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
+            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
           </li>
         
           <li>
-            <a href="/2026/03/09/edu-bigdata/chapter-01-introduction/">第1章 教育大数据分析项目介绍</a>
+            <a href="/2026/03/09/edu-bigdata/chapter-02-environment/">第2章 数仓基础环境搭建</a>
           </li>
         
           <li>
