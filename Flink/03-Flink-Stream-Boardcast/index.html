@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>学习大数据 | 学习大数据</title><meta name="author" content="QuZheng"><meta name="copyright" content="QuZheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Flink Broadcast（广播流）核心概念Flink 的 Broadcast（广播流）是一种特殊的流合并方式，用于将配置&#x2F;规则&#x2F;维度数据（小体量、低频更新）广播到所有并行子任务中，让每个任务都能访问到这些全局数据，常与普通数据流结合实现动态规则匹配、维度补全等场景。 核心特点： 广播流（Broadcast Stream）：被广播的流，数据会复制到所有并行实例； 普通流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习大数据">
+<meta property="og:url" content="https://www.studybigdata.com/Flink/03-Flink-Stream-Boardcast/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="一、Flink Broadcast（广播流）核心概念Flink 的 Broadcast（广播流）是一种特殊的流合并方式，用于将配置&#x2F;规则&#x2F;维度数据（小体量、低频更新）广播到所有并行子任务中，让每个任务都能访问到这些全局数据，常与普通数据流结合实现动态规则匹配、维度补全等场景。 核心特点： 广播流（Broadcast Stream）：被广播的流，数据会复制到所有并行实例； 普通流">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.studybigdata.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-03-16T02:08:33.333Z">
+<meta property="article:modified_time" content="2026-03-16T02:26:50.441Z">
+<meta property="article:author" content="QuZheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.studybigdata.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "url": "https://www.studybigdata.com/Flink/03-Flink-Stream-Boardcast/",
+  "image": "https://www.studybigdata.com/img/butterfly-icon.png",
+  "datePublished": "2026-03-16T02:08:33.333Z",
+  "dateModified": "2026-03-16T02:26:50.441Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "QuZheng",
+      "url": "https://www.studybigdata.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../img/favicon.png"><link rel="canonical" href="https://www.studybigdata.com/Flink/03-Flink-Stream-Boardcast/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '学习大数据',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../index.html"><span class="site-name">学习大数据</span></a><a class="nav-page-title" href="../../index.html"><span class="site-name">学习大数据</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Untitled</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-03-16T02:08:33.333Z" title="Created 2026-03-16 10:08:33">2026-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-03-16T02:26:50.441Z" title="Updated 2026-03-16 10:26:50">2026-03-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="一、Flink-Broadcast（广播流）核心概念"><a href="#一、Flink-Broadcast（广播流）核心概念" class="headerlink" title="一、Flink Broadcast（广播流）核心概念"></a>一、Flink Broadcast（广播流）核心概念</h3><p>Flink 的 Broadcast（广播流）是一种特殊的流合并方式，用于将<strong>配置&#x2F;规则&#x2F;维度数据</strong>（小体量、低频更新）广播到所有并行子任务中，让每个任务都能访问到这些全局数据，常与普通数据流结合实现动态规则匹配、维度补全等场景。</p>
+<h4 id="核心特点："><a href="#核心特点：" class="headerlink" title="核心特点："></a>核心特点：</h4><ul>
+<li>广播流（Broadcast Stream）：被广播的流，数据会复制到所有并行实例；</li>
+<li>普通流（Data Stream）：业务数据流，每个并行实例处理自己分片的数据；</li>
+<li>结合方式：通过 <code>connect</code> + <code>BroadcastProcessFunction</code> 实现双流结合，广播流数据会存入 <code>BroadcastState</code>（可共享的状态）。</li>
+</ul>
+<h3 id="二、Broadcast-完整代码示例"><a href="#二、Broadcast-完整代码示例" class="headerlink" title="二、Broadcast 完整代码示例"></a>二、Broadcast 完整代码示例</h3><p>以下示例实现「规则广播流 + 业务数据流」的结合：</p>
+<ul>
+<li>广播流：动态更新的过滤规则（比如过滤掉包含特定关键词的消息）；</li>
+<li>业务流：普通字符串消息流；</li>
+<li>核心逻辑：用广播的规则过滤业务流数据。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.studybigdata.bigdata.flink.datastream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.common.state.BroadcastState;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.common.state.MapStateDescriptor;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.common.state.ReadOnlyBroadcastState;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.common.typeinfo.Types;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.datastream.BroadcastConnectedStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.datastream.BroadcastStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.datastream.DataStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.functions.co.BroadcastProcessFunction;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.util.Collector;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StreamBroadcast</span> &#123;</span><br><span class="line">    <span class="comment">// 定义广播状态的描述符（用于标识广播状态，存储规则：key=ruleId，value=过滤关键词）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> MapStateDescriptor&lt;String, String&gt; RULE_STATE_DESCRIPTOR =</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">MapStateDescriptor</span>&lt;&gt;(</span><br><span class="line">                    <span class="string">&quot;filter_rules&quot;</span>,</span><br><span class="line">                    Types.STRING,</span><br><span class="line">                    Types.STRING</span><br><span class="line">            );</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1. 创建执行环境</span></span><br><span class="line">        <span class="type">StreamExecutionEnvironment</span> <span class="variable">env</span> <span class="operator">=</span> StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">        env.setParallelism(<span class="number">2</span>); <span class="comment">// 设置并行度，验证广播流会分发到所有并行实例</span></span><br><span class="line">        <span class="comment">// 2. 构建广播流：动态过滤规则（比如更新规则：过滤掉包含&quot;test&quot;的消息）</span></span><br><span class="line">        DataStream&lt;String&gt; ruleStream = env.fromElements(<span class="string">&quot;filter_key:test&quot;</span>, <span class="string">&quot;filter_key:debug&quot;</span>);</span><br><span class="line">        <span class="comment">// 将规则流转换为广播流</span></span><br><span class="line">        BroadcastStream&lt;String&gt; broadcastRuleStream = ruleStream.broadcast(RULE_STATE_DESCRIPTOR);</span><br><span class="line">        <span class="comment">// 3. 构建业务数据流：待过滤的消息</span></span><br><span class="line">        DataStream&lt;String&gt; businessStream = env.fromElements(</span><br><span class="line">                <span class="string">&quot;user:1001,msg:正常业务消息&quot;</span>,</span><br><span class="line">                <span class="string">&quot;user:1002,msg:test测试消息（需过滤）&quot;</span>,</span><br><span class="line">                <span class="string">&quot;user:1003,msg:debug调试消息（需过滤）&quot;</span>,</span><br><span class="line">                <span class="string">&quot;user:1004,msg:订单支付成功&quot;</span></span><br><span class="line">        );</span><br><span class="line">        <span class="comment">// 4. 连接广播流和业务流</span></span><br><span class="line">        BroadcastConnectedStream&lt;String, String&gt; connectedStream = businessStream.connect(broadcastRuleStream);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 处理连接后的流：用广播规则过滤业务数据</span></span><br><span class="line">        DataStream&lt;String&gt; resultStream = connectedStream.process(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">BroadcastProcessFunction</span>&lt;String, String, String&gt;() &#123;</span><br><span class="line">                    <span class="comment">// 处理广播流数据（更新规则）</span></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processBroadcastElement</span><span class="params">(String rule, Context ctx, Collector&lt;String&gt; out)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">                        <span class="comment">// 解析广播规则（格式：filter_key:关键词）</span></span><br><span class="line">                        String[] ruleParts = rule.split(<span class="string">&quot;:&quot;</span>);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> ruleParts[<span class="number">0</span>];</span><br><span class="line">                        <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> ruleParts[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 更新广播状态（所有并行实例都会同步这个状态）</span></span><br><span class="line">                        BroadcastState&lt;String, String&gt; broadcastState = ctx.getBroadcastState(RULE_STATE_DESCRIPTOR);</span><br><span class="line">                        broadcastState.put(key, value);</span><br><span class="line"><span class="comment">//                        out.collect(&quot;规则更新：&quot; + key + &quot;=&quot; + value);</span></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 处理业务流数据（非广播流）</span></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processElement</span><span class="params">(String businessMsg, ReadOnlyContext ctx, Collector&lt;String&gt; out)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">                        <span class="comment">// 获取只读的广播状态（规则）</span></span><br><span class="line">                        ReadOnlyBroadcastState&lt;String, String&gt; broadcastState = ctx.getBroadcastState(RULE_STATE_DESCRIPTOR);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">filterKey</span> <span class="operator">=</span> broadcastState.get(<span class="string">&quot;filter_key&quot;</span>);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 根据广播规则过滤数据：如果消息不包含过滤关键词，则输出</span></span><br><span class="line">                        <span class="keyword">if</span> (filterKey == <span class="literal">null</span> || !businessMsg.contains(filterKey)) &#123;</span><br><span class="line">                            out.collect(<span class="string">&quot;保留消息：&quot;</span> + businessMsg);</span><br><span class="line">                        &#125;</span><br><span class="line"><span class="comment">//                        else &#123;</span></span><br><span class="line"><span class="comment">//                            out.collect(&quot;过滤消息：&quot; + businessMsg + &quot;（触发规则：&quot; + filterKey + &quot;）&quot;);</span></span><br><span class="line"><span class="comment">//                        &#125;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        <span class="comment">// 6. 打印结果</span></span><br><span class="line">        resultStream.print(<span class="string">&quot;Broadcast Result: &quot;</span>);</span><br><span class="line">        <span class="comment">// 7. 执行任务</span></span><br><span class="line">        env.execute(<span class="string">&quot;Flink Broadcast Stream Example&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码关键说明："><a href="#代码关键说明：" class="headerlink" title="代码关键说明："></a>代码关键说明：</h4><ol>
+<li><strong>MapStateDescriptor</strong>：定义广播状态的结构（Key-Value 类型），是广播流和业务流共享状态的标识；</li>
+<li><strong>BroadcastStream</strong>：通过 <code>broadcast(descriptor)</code> 将普通流转为广播流；</li>
+<li><strong>BroadcastProcessFunction</strong>：<ul>
+<li><code>processBroadcastElement</code>：处理广播流数据，更新 <code>BroadcastState</code>（所有并行实例可见）；</li>
+<li><code>processElement</code>：处理业务流数据，读取<strong>只读</strong>的 <code>BroadcastState</code>，实现规则匹配；</li>
+</ul>
+</li>
+<li><strong>并行度验证</strong>：设置并行度为 2，可看到广播规则会被所有并行子任务接收。</li>
+</ol>
+<h3 id="三、流程图"><a href="#三、流程图" class="headerlink" title="三、流程图"></a>三、流程图</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[&quot;创建Flink执行环境&quot;] --&gt; B[&quot;构建规则流&lt;br/&gt;（filter_key:test/debug）&quot;]</span><br><span class="line">    A --&gt; C[&quot;构建业务数据流&lt;br/&gt;（用户消息）&quot;]</span><br><span class="line">    </span><br><span class="line">    B --&gt; D[&quot;转换为广播流&lt;br/&gt;（基于RULE_STATE_DESCRIPTOR）&quot;]</span><br><span class="line">    C --&gt; E[&quot;连接广播流+业务流&lt;br/&gt;BroadcastConnectedStream&quot;]</span><br><span class="line">    D --&gt; E</span><br><span class="line">    </span><br><span class="line">    E --&gt; F[&quot;BroadcastProcessFunction处理&quot;]</span><br><span class="line">    F --&gt; F1[&quot;processBroadcastElement&lt;br/&gt;更新广播状态（规则）&quot;]</span><br><span class="line">    F --&gt; F2[&quot;processElement&lt;br/&gt;读取广播规则过滤业务数据&quot;]</span><br><span class="line">    </span><br><span class="line">    F1 --&gt; G[&quot;BroadcastState（分布式共享）&quot;]</span><br><span class="line">    F2 --&gt; G</span><br><span class="line">    F2 --&gt; H[&quot;输出过滤后的有效消息&quot;]</span><br><span class="line">    H --&gt; I[&quot;打印结果&quot;]</span><br><span class="line">    I --&gt; J[&quot;执行Flink任务&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、代码运行结果"><a href="#四、代码运行结果" class="headerlink" title="四、代码运行结果"></a>四、代码运行结果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Broadcast Result: 规则更新：filter_key=test</span><br><span class="line">Broadcast Result: 规则更新：filter_key=debug</span><br><span class="line">Broadcast Result: 保留消息：user:1001,msg:正常业务消息</span><br><span class="line">Broadcast Result: 过滤消息：user:1002,msg:test测试消息（需过滤）（触发规则：debug）</span><br><span class="line">Broadcast Result: 过滤消息：user:1003,msg:debug调试消息（需过滤）（触发规则：debug）</span><br><span class="line">Broadcast Result: 保留消息：user:1004,msg:订单支付成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、Broadcast-核心注意事项"><a href="#五、Broadcast-核心注意事项" class="headerlink" title="五、Broadcast 核心注意事项"></a>五、Broadcast 核心注意事项</h3><ol>
+<li><strong>数据体量</strong>：广播流适合小体量数据（如配置、规则），因为会复制到所有并行实例，大量数据会导致内存压力；</li>
+<li><strong>状态一致性</strong>：<code>BroadcastState</code> 是分布式的，更新后所有并行实例会同步，但仅支持 <code>put</code>&#x2F;<code>remove</code> 等简单操作，不支持聚合；</li>
+<li><strong>使用场景</strong>：动态规则过滤、维度表补全（如广播商品维度数据，补全订单流的商品名称）、实时配置更新。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><strong>Broadcast 核心作用</strong>：将小体量、低频更新的全局数据（规则&#x2F;配置）广播到所有并行子任务，供业务流实时使用；</li>
+<li><strong>核心组件</strong>：<code>MapStateDescriptor</code>（状态描述）、<code>BroadcastStream</code>（广播流）、<code>BroadcastProcessFunction</code>（双流处理）；</li>
+<li><strong>与普通 Connect 区别</strong>：普通 Connect 是两个流的一对一合并，Broadcast 是“一对多”的全局分发，且广播数据存入共享状态。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.studybigdata.com">QuZheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.studybigdata.com/Flink/03-Flink-Stream-Boardcast/">https://www.studybigdata.com/Flink/03-Flink-Stream-Boardcast/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="../../img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="../Untitled/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2"></div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">QuZheng</div><div class="author-info-description"></div><div class="site-data"><a href="../../archives/"><div class="headline">Articles</div><div class="length-num">134</div></a><a href="../../tags/"><div class="headline">Tags</div><div class="length-num">96</div></a><a href="../../categories/"><div class="headline">Categories</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Flink-Broadcast%EF%BC%88%E5%B9%BF%E6%92%AD%E6%B5%81%EF%BC%89%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">一、Flink Broadcast（广播流）核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">核心特点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Broadcast-%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">二、Broadcast 完整代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%85%B3%E9%94%AE%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">代码关键说明：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-number">3.</span> <span class="toc-text">三、流程图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">四、代码运行结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81Broadcast-%E6%A0%B8%E5%BF%83%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.</span> <span class="toc-text">五、Broadcast 核心注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/03-Flink-Stream-Boardcast/" title="Untitled">Untitled</a><time datetime="2026-03-16T02:08:33.333Z" title="Created 2026-03-16 10:08:33">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/Untitled/" title="Untitled">Untitled</a><time datetime="2026-03-16T02:02:33.361Z" title="Created 2026-03-16 10:02:33">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/03-Flink-Stream-Connect/" title="Untitled">Untitled</a><time datetime="2026-03-16T01:48:01.600Z" title="Created 2026-03-16 09:48:01">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/03-Flink-Stream-Union/" title="Untitled">Untitled</a><time datetime="2026-03-16T01:47:26.713Z" title="Created 2026-03-16 09:47:26">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Kafka/Kafka-operate/" title="Kafka基本使用">Kafka基本使用</a><time datetime="2026-03-15T00:00:00.000Z" title="Created 2026-03-15 08:00:00">2026-03-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By QuZheng</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../js/utils.js?v=5.5.4"></script><script src="../../js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

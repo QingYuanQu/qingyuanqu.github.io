@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kafka基本使用 | 学习大数据</title><meta name="author" content="QuZheng"><meta name="copyright" content="QuZheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="查看操作主题命令参数1[zhangan@node1 kafka]$ bin&#x2F;kafka-topics.sh     参数 描述    –bootstrap-server &lt;String: server toconnect to&gt; 连接的Kafka Broker主机名称和端口号。   –topic &lt;String: topic&gt; 操作的topic名称。   –create">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka基本使用">
+<meta property="og:url" content="https://www.studybigdata.com/Kafka/Kafka-operate/index.html">
+<meta property="og:site_name" content="学习大数据">
+<meta property="og:description" content="查看操作主题命令参数1[zhangan@node1 kafka]$ bin&#x2F;kafka-topics.sh     参数 描述    –bootstrap-server &lt;String: server toconnect to&gt; 连接的Kafka Broker主机名称和端口号。   –topic &lt;String: topic&gt; 操作的topic名称。   –create">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.studybigdata.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-03-15T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-15T09:41:49.009Z">
+<meta property="article:author" content="QuZheng">
+<meta property="article:tag" content="Kafka基本使用">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.studybigdata.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kafka基本使用",
+  "url": "https://www.studybigdata.com/Kafka/Kafka-operate/",
+  "image": "https://www.studybigdata.com/img/butterfly-icon.png",
+  "datePublished": "2026-03-15T00:00:00.000Z",
+  "dateModified": "2026-03-15T09:41:49.009Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "QuZheng",
+      "url": "https://www.studybigdata.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="../../img/favicon.png"><link rel="canonical" href="https://www.studybigdata.com/Kafka/Kafka-operate/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="../../css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kafka基本使用',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="../../index.html"><span class="site-name">学习大数据</span></a><a class="nav-page-title" href="../../index.html"><span class="site-name">Kafka基本使用</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Kafka基本使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-03-15T00:00:00.000Z" title="Created 2026-03-15 08:00:00">2026-03-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-03-15T09:41:49.009Z" title="Updated 2026-03-15 17:41:49">2026-03-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="../../categories/kafka/">kafka</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><img src="./img/Kafka-operate/image-20260311175853524.png" alt="image-20260311175853524"></p>
+<h2 id="查看操作主题命令参数"><a href="#查看操作主题命令参数" class="headerlink" title="查看操作主题命令参数"></a>查看操作主题命令参数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ bin/kafka-topics.sh</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–bootstrap-server &lt;String: server toconnect to&gt;</td>
+<td>连接的Kafka Broker主机名称和端口号。</td>
+</tr>
+<tr>
+<td>–topic &lt;String: topic&gt;</td>
+<td>操作的topic名称。</td>
+</tr>
+<tr>
+<td>–create</td>
+<td>创建主题。</td>
+</tr>
+<tr>
+<td>–delete</td>
+<td>删除主题。</td>
+</tr>
+<tr>
+<td>–alter</td>
+<td>修改主题。</td>
+</tr>
+<tr>
+<td>–list</td>
+<td>查看所有主题。</td>
+</tr>
+<tr>
+<td>–describe</td>
+<td>查看主题详细描述。</td>
+</tr>
+<tr>
+<td>–partitions &lt;Integer: # of partitions&gt;</td>
+<td>设置分区数。</td>
+</tr>
+<tr>
+<td>–replication-factor&lt;Integer: replication factor&gt;</td>
+<td>设置分区副本。</td>
+</tr>
+<tr>
+<td>–config &lt;String: name&#x3D;value&gt;</td>
+<td>更新系统默认的配置。</td>
+</tr>
+</tbody></table>
+<h3 id="查看当前服务器中的所有topic"><a href="#查看当前服务器中的所有topic" class="headerlink" title="查看当前服务器中的所有topic"></a>查看当前服务器中的所有topic</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ bin/kafka-topics.sh --bootstrap-server node1:9092 --list</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Topic"><a href="#创建Topic" class="headerlink" title="创建Topic"></a>创建Topic</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangsan@node1 ~]$ kafka-topics.sh --create --bootstrap-server node1:9092 --topic hello-kafka --partitions 3 --replication-factor 2</span><br><span class="line">Created topic hello-kafka.</span><br></pre></td></tr></table></figure>
+<h3 id="查看Topic的详情"><a href="#查看Topic的详情" class="headerlink" title="查看Topic的详情"></a>查看Topic的详情</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(base) [zhangsan@node1 ~]$ kafka-topics.sh --describe hello-kafka --bootstrap-server node1:9092</span><br><span class="line">Topic: hello-kafka      TopicId: 8t37qHKIRVa8ASL6dyYYrQ PartitionCount: 3       ReplicationFactor: 2    Configs: segment.bytes=1073741824</span><br><span class="line">        Topic: hello-kafka      Partition: 0    Leader: 2       Replicas: 2,3   Isr: 2,3</span><br><span class="line">        Topic: hello-kafka      Partition: 1    Leader: 3       Replicas: 3,1   Isr: 3,1</span><br><span class="line">        Topic: hello-kafka      Partition: 2    Leader: 1       Replicas: 1,2   Isr: 1,2</span><br></pre></td></tr></table></figure>
+
+<p><img src="./img/Kafka-operate/image-20260315163512397.png" alt="image-20260315163512397"></p>
+<h3 id="基本信息解读"><a href="#基本信息解读" class="headerlink" title="基本信息解读"></a>基本信息解读</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Topic</strong></td>
+<td>hello-kafka</td>
+<td>Topic 名称</td>
+</tr>
+<tr>
+<td><strong>TopicId</strong></td>
+<td>8t37qHKIRVa8ASL6dyYYrQ</td>
+<td>Topic 的唯一标识符（Kafka 内部使用）</td>
+</tr>
+<tr>
+<td><strong>PartitionCount</strong></td>
+<td>3</td>
+<td>这个 Topic 有 3 个分区</td>
+</tr>
+<tr>
+<td><strong>ReplicationFactor</strong></td>
+<td>2</td>
+<td>每个分区有 2 个副本</td>
+</tr>
+<tr>
+<td><strong>Configs</strong></td>
+<td>segment.bytes&#x3D;1073741824</td>
+<td>自定义配置（日志分段文件大小为 1GB）</td>
+</tr>
+</tbody></table>
+<h3 id="分区详细信息"><a href="#分区详细信息" class="headerlink" title="分区详细信息"></a>分区详细信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Partition: 0    Leader: 2    Replicas: 2,3    Isr: 2,3</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>分区编号</strong>：0</li>
+<li><strong>Leader</strong>：broker 2 是这个分区的 Leader（负责读写）</li>
+<li><strong>Replicas</strong>：副本分布在 broker 2 和 broker 3</li>
+<li><strong>ISR (In-Sync Replicas)</strong>：broker 2 和 broker 3 都是同步副本</li>
+</ul>
+<hr>
+<h4 id="修改分区数（注意：分区数只能增加，不能减少）"><a href="#修改分区数（注意：分区数只能增加，不能减少）" class="headerlink" title="修改分区数（注意：分区数只能增加，不能减少）"></a>修改分区数（注意：分区数只能增加，不能减少）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(base) [zhangsan@node1 ~]$ kafka-topics.sh --bootstrap-server node1:9092 --alter --topic hello-kafka --partitions 1</span><br><span class="line">Error <span class="keyword">while</span> executing topic <span class="built_in">command</span> : Topic currently has 3 partitions, <span class="built_in">which</span> is higher than the requested 1.</span><br><span class="line">[2026-03-15 16:36:16,509] ERROR org.apache.kafka.common.errors.InvalidPartitionsException: Topic currently has 3 partitions, <span class="built_in">which</span> is higher than the requested 1.</span><br><span class="line"> (kafka.admin.TopicCommand$)</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除topic"><a href="#删除topic" class="headerlink" title="删除topic"></a>删除topic</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ kafka-topics.sh --bootstrap-server node1:9092 --delete --topic hello-kafka</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="生产者命令行操作"><a href="#生产者命令行操作" class="headerlink" title="生产者命令行操作"></a>生产者命令行操作</h2><h4 id="查看操作生产者命令参数"><a href="#查看操作生产者命令参数" class="headerlink" title="查看操作生产者命令参数"></a>查看操作生产者命令参数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ bin/kafka-console-producer.sh</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–bootstrap-server &lt;String: server to connect to&gt;</td>
+<td>连接的Kafka Broker主机名称和端口号。</td>
+</tr>
+<tr>
+<td>–topic &lt;String: topic&gt;</td>
+<td>操作的topic名称。</td>
+</tr>
+</tbody></table>
+<h4 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(base) [zhangsan@node1 ~]$ kafka-console-producer.sh --bootstrap-server node1:9092 --topic hello-kafka</span><br><span class="line">&gt;a</span><br><span class="line">&gt;b</span><br><span class="line">&gt;c</span><br><span class="line">&gt;d</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="./img/Kafka-operate/image-20260315163333874.png" alt="image-20260315163333874"></p>
+<hr>
+<h2 id="消费者命令行操作"><a href="#消费者命令行操作" class="headerlink" title="消费者命令行操作"></a>消费者命令行操作</h2><h4 id="查看操作消费者命令参数"><a href="#查看操作消费者命令参数" class="headerlink" title="查看操作消费者命令参数"></a>查看操作消费者命令参数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ bin/kafka-console-consumer.sh</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–bootstrap-server &lt;String: server to connect to&gt;</td>
+<td>连接的Kafka Broker主机名称和端口号。</td>
+</tr>
+<tr>
+<td>–topic &lt;String: topic&gt;</td>
+<td>操作的topic名称。</td>
+</tr>
+<tr>
+<td>–from-beginning</td>
+<td>从头开始消费。</td>
+</tr>
+<tr>
+<td>–group &lt;String: consumer group id&gt;</td>
+<td>指定消费者组名称。</td>
+</tr>
+</tbody></table>
+<h4 id="消费消息"><a href="#消费消息" class="headerlink" title="消费消息"></a>消费消息</h4><p>（1）消费first主题中的数据。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ kafka-console-consumer.sh --bootstrap-server node1:9092 --topic hello-kafka</span><br></pre></td></tr></table></figure>
+<p>（2）把主题中所有的数据都读取出来（包括历史数据）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zhangan@node1 kafka]$ kafka-console-consumer.sh --bootstrap-server node1:9092 --from-beginning --topic hello-kafka</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://www.studybigdata.com">QuZheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://www.studybigdata.com/Kafka/Kafka-operate/">https://www.studybigdata.com/Kafka/Kafka-operate/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="../../tags/Kafka%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">Kafka基本使用</a></div><div class="post-share"><div class="social-share" data-image="../../img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="../../Flink/03-Flink-Stream-Union/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2"></div></div><div class="info-2"><div class="info-item-1">  一、流程图1234567flowchart LR    A[数据源1] --&gt; B[stream1&lt;br/&gt;数据类型：String]    C[数据源2] --&gt; D[stream2&lt;br/&gt;数据类型：String]    B --&gt; E[union 操作&lt;br/&gt;合并同类型流]    D --&gt; E    E --&gt; F[unionStream&lt;br/&gt;合并后的数据流]    F --&gt; G[打印/下游处理]  二、Flink Union 操作实现代码首先为你提供可直接运行的 Flink 代码示例，实现两个流（stream1、stream2）的 Union 操作，代码基于 Flink 1.16+ 版本： 12345678910111213141516171819202122232425262728import org.apache.flink.api.common.typeinfo.Types;import org.apache.flink.streaming.api.datastream....</div></div></div></a><a class="pagination-related" href="../../Flink/08-Flink-ClickHouse/" title="Flink ClickHouse"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Flink ClickHouse</div></div><div class="info-2"><div class="info-item-1">pom123456789101112131415&lt;dependency&gt;    &lt;groupId&gt;ru.yandex.clickhouse&lt;/groupId&gt;    &lt;artifactId&gt;clickhouse-jdbc&lt;/artifactId&gt;    &lt;version&gt;0.3.2&lt;/version&gt;    &lt;exclusions&gt;        &lt;exclusion&gt;            &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;            &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;        &lt;/exclusion&gt;        &lt;exclusion&gt;            &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;   ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="../../img/butterfly-icon.png" onerror="this.onerror=null;this.src='../../img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">QuZheng</div><div class="author-info-description"></div><div class="site-data"><a href="../../archives/"><div class="headline">Articles</div><div class="length-num">134</div></a><a href="../../tags/"><div class="headline">Tags</div><div class="length-num">96</div></a><a href="../../categories/"><div class="headline">Categories</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E4%B8%BB%E9%A2%98%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">查看操作主题命令参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89topic"><span class="toc-number">1.1.</span> <span class="toc-text">查看当前服务器中的所有topic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BATopic"><span class="toc-number">1.2.</span> <span class="toc-text">创建Topic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BTopic%E7%9A%84%E8%AF%A6%E6%83%85"><span class="toc-number">1.3.</span> <span class="toc-text">查看Topic的详情</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E8%A7%A3%E8%AF%BB"><span class="toc-number">1.4.</span> <span class="toc-text">基本信息解读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="toc-number">1.5.</span> <span class="toc-text">分区详细信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%88%86%E5%8C%BA%E6%95%B0%EF%BC%88%E6%B3%A8%E6%84%8F%EF%BC%9A%E5%88%86%E5%8C%BA%E6%95%B0%E5%8F%AA%E8%83%BD%E5%A2%9E%E5%8A%A0%EF%BC%8C%E4%B8%8D%E8%83%BD%E5%87%8F%E5%B0%91%EF%BC%89"><span class="toc-number">1.5.1.</span> <span class="toc-text">修改分区数（注意：分区数只能增加，不能减少）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4topic"><span class="toc-number">1.5.2.</span> <span class="toc-text">删除topic</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">生产者命令行操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E7%94%9F%E4%BA%A7%E8%80%85%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">查看操作生产者命令参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="toc-number">2.2.</span> <span class="toc-text">发送消息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">消费者命令行操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E6%B6%88%E8%B4%B9%E8%80%85%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.</span> <span class="toc-text">查看操作消费者命令参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF"><span class="toc-number">3.2.</span> <span class="toc-text">消费消息</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/03-Flink-Stream-Boardcast/" title="Untitled">Untitled</a><time datetime="2026-03-16T02:08:33.333Z" title="Created 2026-03-16 10:08:33">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/Untitled/" title="Untitled">Untitled</a><time datetime="2026-03-16T02:02:33.361Z" title="Created 2026-03-16 10:02:33">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/03-Flink-Stream-Connect/" title="Untitled">Untitled</a><time datetime="2026-03-16T01:48:01.600Z" title="Created 2026-03-16 09:48:01">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Flink/03-Flink-Stream-Union/" title="Untitled">Untitled</a><time datetime="2026-03-16T01:47:26.713Z" title="Created 2026-03-16 09:47:26">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="../../Kafka/Kafka-operate/" title="Kafka基本使用">Kafka基本使用</a><time datetime="2026-03-15T00:00:00.000Z" title="Created 2026-03-15 08:00:00">2026-03-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By QuZheng</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="../../js/utils.js?v=5.5.4"></script><script src="../../js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
